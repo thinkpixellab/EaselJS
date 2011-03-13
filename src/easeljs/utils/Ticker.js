@@ -258,6 +258,7 @@ goog.provide('Ticker');
 	* @protected
 	**/
 	Ticker._tick = function() {
+		Ticker.requestAnimFrame(Ticker._tick);
 		Ticker._ticks++;
 		
 		var time = Ticker.getTime(false);
@@ -283,7 +284,6 @@ goog.provide('Ticker');
 		
 		Ticker._times.unshift(time);
 		if (Ticker._times.length > 100) { Ticker._times.pop(); }
-		Ticker.requestAnimFrame(Ticker._tick);
 	}
 	
 	/**
