@@ -57,7 +57,7 @@ Container = function() {
 	this.children = [];
 }
 goog.inherits(Container, DisplayObject);
-p = Container.prototype;
+var p = Container.prototype;
 
 // public properties:
 	/**

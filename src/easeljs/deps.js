@@ -2,10 +2,10 @@
 goog.addDependency("display/Bitmap.js", ['Bitmap'], ['DisplayObject']);
 goog.addDependency("display/BitmapSequence.js", ['BitmapSequence'], []);
 goog.addDependency("display/Container.js", ['Container'], ['DisplayObject']);
-goog.addDependency("display/DisplayObject.js", ['DisplayObject'], ['Matrix2D', 'UID', 'EaselMouseEvent']);
+goog.addDependency("display/DisplayObject.js", ['DisplayObject'], ['Matrix2D', 'UID', 'EaselMouseEvent', 'Point', 'Rectangle', 'Shadow']);
 goog.addDependency("display/DisplayText.js", ['DisplayText'], ['DisplayObject']);
 goog.addDependency("display/Graphics.js", ['Graphics'], []);
-goog.addDependency("display/Shadow.js", [], []);
+goog.addDependency("display/Shadow.js", ['Shadow'], []);
 goog.addDependency("display/Shape.js", ['Shape'], ['DisplayObject', 'Graphics']);
 goog.addDependency("display/SpriteSheet.js", ['SpriteSheet'], []);
 goog.addDependency("display/Stage.js", ['Stage'], ['Container']);
