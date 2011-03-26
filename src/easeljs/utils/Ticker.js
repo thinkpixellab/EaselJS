@@ -38,7 +38,6 @@ goog.provide('Ticker');
 
 (function(window) {
 
-
 // constructor:
 	/**
 	* The Ticker class uses a static interface (ex. Ticker.getPaused()) and should not be instantiated.
@@ -272,8 +271,7 @@ goog.provide('Ticker');
 		Ticker._lastTime = time;
 		
 		var pauseable = Ticker._pauseable;
-		var listeners = Ticker._listeners;
-		
+		var listeners = Ticker._listeners.slice();
 		var l = listeners ? listeners.length : 0;
 		for (var i=0; i<l; i++) {
 			var p = pauseable[i];
@@ -293,9 +291,6 @@ goog.provide('Ticker');
 	Ticker._getTime = function() {
 		return new Date().getTime();
 	}
-	
-	//docced above
-	Ticker._startTime = Ticker._getTime();
 
   Ticker.requestAnimFrame = function(callback){
     var func = window['requestAnimationFrame']       ||

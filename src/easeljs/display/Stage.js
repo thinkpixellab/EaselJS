@@ -47,23 +47,32 @@ goog.require('Container');
 * @extends Container
 * @constructor
 * @param {HTMLCanvasElement} canvas The canvas the stage will render to.
+* @param {Boolean} useTouch Whether the interaction model should leverage touch support. If touch support is enabled, Stage will listen for TouchEvents, and not
+* MouseEvents for its interaction model. Default value is false..
 **/
-Stage = function(canvas) {
+Stage = function(canvas, useTouch) {
   Container.call(this, canvas);
 	this.canvas = canvas;
 	this.mouseChildren = true;
-
+	
 	var o = this;
-	if (window.addEventListener) {
-		window.addEventListener("mouseup", function(e) { o._handleMouseUp(e); }, false);
-		window.addEventListener("mousemove", function(e) { o._handleMouseMove(e); }, false);
-		window.addEventListener("dblclick", function(e) { o._handleDoubleClick(e); }, false);
-	} else if (document.addEventListener) {
-		document.addEventListener("mouseup", function(e) { o._handleMouseUp(e); }, false);
-		document.addEventListener("mousemove", function(e) { o._handleMouseMove(e); }, false);
-		document.addEventListener("dblclick", function(e) { o._handleDoubleClick(e); }, false);
+	if(!useTouch)
+	{
+		if (window.addEventListener) {
+			window.addEventListener("mouseup", function(e) { o._handleMouseUp(e); }, false);
+			window.addEventListener("mousemove", function(e) { o._handleMouseMove(e); }, false);
+			window.addEventListener("dblclick", function(e) { o._handleDoubleClick(e); }, false);
+		} else if (document.addEventListener) {
+			document.addEventListener("mouseup", function(e) { o._handleMouseUp(e); }, false);
+			document.addEventListener("mousemove", function(e) { o._handleMouseMove(e); }, false);
+			document.addEventListener("dblclick", function(e) { o._handleDoubleClick(e); }, false);
+		}
+		canvas.addEventListener("mousedown", function(e) { o._handleMouseDown(e); }, false);
 	}
-	canvas.addEventListener("mousedown", function(e) { o._handleMouseDown(e); }, false);
+	else {
+		canvas.addEventListener("touchstart", function(e) { o._handleTouchStart(e); }, false);
+		document.addEventListener("touchend", function(e) { o._handleTouchEnd(e); }, false);
+	}
 }
 goog.inherits(Stage, Container);
 var p = Stage.prototype;
@@ -333,13 +342,116 @@ var p = Stage.prototype;
 		return "[Stage (name="+  this.name +")]";
 	}
 	
-// private methods:
+	// private methods:
+	
+	/**
+	* @property _primaryTouchId
+	* @protected
+	* @type Number
+	* @default -1
+	**/
+	p._primaryTouchId = -1;
+	
+	/**
+	* @property _handleTouchMoveListener
+	* @protected
+	* @type Function
+	* @default null
+	**/
+	p._handleTouchMoveListener = null;
+	
+	/**
+	* @method _handleTouchStart
+	* @protected
+	* @param {TouchEvent} e
+	**/
+	p._handleTouchStart = function(e) {
+		
+		e.preventDefault();
+		var changedTouches = e.changedTouches;
+		
+		if(this._primaryTouchId != -1) {
+			//we are already tracking an id
+			//so we dont care about new ones
+			return;
+		}
+		
+		if(!this._handleTouchMoveListener){
+			var o = this;
+			
+			//have to dynamically define so we can get the closure and save
+			//the reference to this
+			this._handleTouchMoveListener = function(e){
+				o._handleTouchMove(e);
+			}
+		}
+		
+		//for touch we only need to listen to move events once a touch has started
+		//on the canvas
+		document.addEventListener("touchmove", this._handleTouchMoveListener, false);
+		
+		var touch = changedTouches[0];
+		this._primaryTouchId = touch.identifier;
+		this._updateMousePosition(touch.pageX, touch.pageY);
+		this._handleMouseDown(touch);
+	}	
+	
+	/**
+	* @method _handleTouchMove
+	* @protected
+	* @param {TouchEvent} e
+	**/
+	p._handleTouchMove = function(e) {
+		var touch = this._findPrimaryTouch(e.changedTouches);
+		if(touch) {
+			this._handleMouseMove(touch);
+		}		
+	}	
+	
+	/**
+	* @method _handleTouchEnd
+	* @protected
+	* @param {TouchEvent} e
+	**/
+	p._handleTouchEnd = function(e) {
+		var touch = this._findPrimaryTouch(e.changedTouches);	
+		if(touch) {
+			this._handleMouseUp(touch);
+			this._primaryTouchId = -1;
+			
+			//stop listening for move events, until another new touch starts on the
+			//canvas
+			document.removeEventListener("touchmove", this._handleTouchMoveListener);
+		}
+	}
+	
+	/**
+	* @method _findPrimaryTouch
+	* @protected
+	* @param {Array[Touch]} touches
+	**/	
+	p._findPrimaryTouch = function(touches) {		
+		var len = touches.length;
+		var touch;
+		for(var i = 0; i < len; i++){
+			touch = touches[i];
+			
+			//find the primary touchPoint by id
+			if(touch.identifier == this._primaryTouchId) {
+				return touch;
+			}
+		}
+		
+		return null;
+	}
+	
 	/**
 	* @method _handleMouseMove
 	* @protected
 	* @param {EaselMouseEvent} e
 	**/
 	p._handleMouseMove = function(e) {
+				
 		if (!this.canvas) {
 			this.mouseX = this.mouseY = null;
 			return;
@@ -364,6 +476,7 @@ var p = Stage.prototype;
 	* @param {Number} pageY
 	**/
 	p._updateMousePosition = function(pageX, pageY) {
+				
 		var o = this.canvas;
 		do {
 			pageX -= o.offsetLeft;
