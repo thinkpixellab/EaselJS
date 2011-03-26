@@ -40,8 +40,8 @@ goog.require('Matrix2D');
 goog.require('UID');
 goog.require('EaselMouseEvent');
 goog.require('Point');
-goog.require('Rectangle')
-goog.require('Shadow')
+goog.require('Rectangle');
+goog.require('Shadow');
 
 (function(window) {
 
