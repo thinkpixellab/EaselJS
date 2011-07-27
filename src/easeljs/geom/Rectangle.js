@@ -36,8 +36,6 @@
 
 goog.provide('Rectangle');
 
-(function(window) {
-
 /**
 * Represents a rectangle as defined by the points (x, y) and (x+width, y+height).
 * @class Rectangle
@@ -53,7 +51,6 @@ Rectangle = function(x, y, width, height) {
 	this.width = (width == null ? 0 : width);
 	this.height = (height == null ? 0 : height);
 }
-var p = Rectangle.prototype;
 	
 // public properties:
 	/** 
@@ -61,28 +58,28 @@ var p = Rectangle.prototype;
 	* @property x
 	* @type Number
 	**/
-	p.x = 0;
+	Rectangle.prototype.x = 0;
 	
 	/** 
 	* Y position. 
 	* @property y
 	* @type Number
 	**/
-	p.y = 0;
+	Rectangle.prototype.y = 0;
 	
 	/** 
 	* Width.
 	* @property width
 	* @type Number
 	**/
-	p.width = 0;
+	Rectangle.prototype.width = 0;
 	
 	/** 
 	* Height.
 	* @property height
 	* @type Number
 	**/
-	p.height = 0;
+	Rectangle.prototype.height = 0;
 	
 // public methods:
 	/**
@@ -90,7 +87,7 @@ var p = Rectangle.prototype;
 	* @method clone
 	* @return {Rectangle} a clone of the Rectangle instance.
 	**/
-	p.clone = function() {
+	Rectangle.prototype.clone = function() {
 		return new Rectangle(this.x, this.y, this.width, this.height);
 	}
 
@@ -99,9 +96,6 @@ var p = Rectangle.prototype;
 	* @method toString
 	* @return {String} a string representation of the instance.
 	**/
-	p.toString = function() {
+	Rectangle.prototype.toString = function() {
 		return "[Rectangle (x="+this.x+" y="+this.y+" width="+this.width+" height="+this.height+")]";
 	}
-	
-window.Rectangle = Rectangle;
-}(window));

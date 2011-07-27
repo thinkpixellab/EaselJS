@@ -38,8 +38,6 @@ goog.provide('Bitmap');
 
 goog.require('DisplayObject');
 
-(function(window) {
-
 /**
 * A Bitmap represents an Image, Canvas, or Video in the display list.
 * @class Bitmap
@@ -160,6 +158,3 @@ var p = Bitmap.prototype;
 			return new Rectangle(0,0,0,0);
 		}
 	}
-
-window.Bitmap = Bitmap;
-}(window));

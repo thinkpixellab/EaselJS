@@ -36,8 +36,6 @@
 
 goog.provide('Ticker');
 
-(function(window) {
-
 // constructor:
 	/**
 	* The Ticker class uses a static interface (ex. Ticker.getPaused()) and should not be instantiated.
@@ -153,7 +151,7 @@ goog.provide('Ticker');
 			Ticker._inited = true;
   		Ticker.requestAnimFrame(Ticker._tick);
 		}
-		this.removeListener(o);
+		Ticker.removeListener(o);
 		Ticker._pauseable[Ticker._listeners.length] = (pauseable == null) ? true : pauseable;
 		Ticker._listeners.push(o);
 	}
@@ -303,6 +301,3 @@ goog.provide('Ticker');
                };
     func(callback);
   };
-
-window.Ticker = Ticker;
-}(window));

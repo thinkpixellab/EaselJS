@@ -43,8 +43,6 @@ goog.require('Point');
 goog.require('Rectangle');
 goog.require('Shadow');
 
-(function(window) {
-
 /**
 * DisplayObject is an abstract class that should not be constructed directly. Instead construct subclasses such as 
 * Sprite, Bitmap, and Shape. DisplayObject is the base class for all display classes in the CanvasDisplay library. 
@@ -56,7 +54,6 @@ DisplayObject = function() {
 	this.id = UID.get();
 	this.children = [];
 }
-var p = DisplayObject.prototype;
 
 /**
 * Suppresses errors generated when using features like hitTest, onPress/onClick, and getObjectsUnderPoint with cross 
@@ -100,7 +97,7 @@ DisplayObject._workingMatrix = new Matrix2D();
 	* @type Number
 	* @default 1
 	**/
-	p.alpha = 1;
+	DisplayObject.prototype.alpha = 1;
 	
 	/**
 	* If a cache is active, this returns the canvas that holds the cached version of this display object. See cache()
@@ -109,7 +106,7 @@ DisplayObject._workingMatrix = new Matrix2D();
 	* @type HTMLCanvasElement
 	* @default null
 	**/
-	p.cacheCanvas = null;
+	DisplayObject.prototype.cacheCanvas = null;
 	
 	/**
 	* Unique ID for this display object. Makes display objects easier for some uses.
@@ -117,7 +114,7 @@ DisplayObject._workingMatrix = new Matrix2D();
 	* @type Number
 	* @default -1
 	**/
-	p.id = -1;
+	DisplayObject.prototype.id = -1;
 	
 	/**
 	* Indicates whether to include this object when running Stage.getObjectsUnderPoint(). Setting this to true for 
@@ -127,7 +124,7 @@ DisplayObject._workingMatrix = new Matrix2D();
 	* @type Boolean
 	* @default true
 	**/
-	p.mouseEnabled = true;
+	DisplayObject.prototype.mouseEnabled = true;
 	
 	/**
 	* An optional name for this display object. Included in toString(). Useful for debugging.
@@ -135,7 +132,7 @@ DisplayObject._workingMatrix = new Matrix2D();
 	* @type String
 	* @default null
 	**/
-	p.name = null;
+	DisplayObject.prototype.name = null;
 	
 	/**
 	* A reference to the Sprite or Stage object that contains this display object, or null if it has not been added to 
@@ -145,7 +142,7 @@ DisplayObject._workingMatrix = new Matrix2D();
 	* @type DisplayObject
 	* @default null
 	**/
-	p.parent = null;
+	DisplayObject.prototype.parent = null;
 	
 	/**
 	* The x offset for this display object's registration point. For example, to make a 100x100px Bitmap rotate around
@@ -154,7 +151,7 @@ DisplayObject._workingMatrix = new Matrix2D();
 	* @type Number
 	* @default 0
 	**/
-	p.regX = 0;
+	DisplayObject.prototype.regX = 0;
 	
 	/**
 	* The y offset for this display object's registration point. For example, to make a 100x100px Bitmap rotate around
@@ -163,7 +160,7 @@ DisplayObject._workingMatrix = new Matrix2D();
 	* @type Number
 	* @default 0
 	**/
-	p.regY = 0;
+	DisplayObject.prototype.regY = 0;
 	
 	/**
 	* The rotation in degrees for this display object.
@@ -171,7 +168,7 @@ DisplayObject._workingMatrix = new Matrix2D();
 	* @type Number
 	* @default 0
 	**/
-	p.rotation = 0;
+	DisplayObject.prototype.rotation = 0;
 	
 	/**
 	* The factor to stretch this display object horizontally. For example, setting scaleX to 2 will stretch the display
@@ -180,7 +177,7 @@ DisplayObject._workingMatrix = new Matrix2D();
 	* @type Number
 	* @default 1
 	**/
-	p.scaleX = 1;
+	DisplayObject.prototype.scaleX = 1;
 	
 	/**
 	* The factor to stretch this display object vertically. For example, setting scaleY to 0.5 will stretch the display
@@ -189,7 +186,7 @@ DisplayObject._workingMatrix = new Matrix2D();
 	* @type Number
 	* @default 1
 	**/
-	p.scaleY = 1;
+	DisplayObject.prototype.scaleY = 1;
 	
 	/**
 	* The factor to skew this display object horizontally.
@@ -197,7 +194,7 @@ DisplayObject._workingMatrix = new Matrix2D();
 	* @type Number
 	* @default 0
 	**/
-	p.skewX = 0;
+	DisplayObject.prototype.skewX = 0;
 	
 	/**
 	* The factor to skew this display object vertically.
@@ -205,7 +202,7 @@ DisplayObject._workingMatrix = new Matrix2D();
 	* @type Number
 	* @default 0
 	**/
-	p.skewY = 0;
+	DisplayObject.prototype.skewY = 0;
 	
 	/**
 	* A shadow object that defines the shadow to render on this display object. Set to null to remove a shadow. If 
@@ -214,7 +211,7 @@ DisplayObject._workingMatrix = new Matrix2D();
 	* @type Shadow
 	* @default null
 	**/
-	p.shadow = null;
+	DisplayObject.prototype.shadow = null;
 	
 	/**
 	* Indicates whether this display object should be rendered to the canvas and included when running
@@ -223,7 +220,7 @@ DisplayObject._workingMatrix = new Matrix2D();
 	* @type Boolean
 	* @default true
 	**/
-	p.visible = true;
+	DisplayObject.prototype.visible = true;
 	
 	/**
 	* The x (horizontal) position of the display object, relative to its parent.
@@ -231,14 +228,14 @@ DisplayObject._workingMatrix = new Matrix2D();
 	* @type Number
 	* @default 0
 	**/
-	p.x = 0;
+	DisplayObject.prototype.x = 0;
 	
 	/** The y (vertical) position of the display object, relative to its parent.
 	* @property y
 	* @type Number
 	* @default 0
 	**/
-	p.y = 0;
+	DisplayObject.prototype.y = 0;
 	
 	/**
 	* The composite operation indicates how the pixels of this display object will be composited with the elements 
@@ -249,7 +246,7 @@ DisplayObject._workingMatrix = new Matrix2D();
 	* @type String
 	* @default null
 	**/
-	p.compositeOperation = null;
+	DisplayObject.prototype.compositeOperation = null;
 	
 	/**
 	* Indicates whether the display object should have it's x & y position rounded prior to drawing it to stage. 
@@ -260,7 +257,7 @@ DisplayObject._workingMatrix = new Matrix2D();
 	* @type Boolean
 	* @default false
 	**/
-	p.snapToPixel = false;
+	DisplayObject.prototype.snapToPixel = false;
 	
 	/**
 	* The onPress callback is called when the user presses down on their mouse over this display object. The handler 
@@ -270,7 +267,7 @@ DisplayObject._workingMatrix = new Matrix2D();
 	* @event onPress
 	* @param {EaselMouseEvent} event EaselMouseEvent with information about the event.
 	**/
-	p.onPress = null;
+	DisplayObject.prototype.onPress = null;
 	
 	/**
 	* The onClick callback is called when the user presses down on and then releases the mouse button over this 
@@ -279,7 +276,7 @@ DisplayObject._workingMatrix = new Matrix2D();
 	* @event onClick
 	* @param {EaselMouseEvent} event EaselMouseEvent with information about the event.
 	**/
-	p.onClick = null;
+	DisplayObject.prototype.onClick = null;
 
 	/**
 	* The onDoubleClick callback is called when the user double clicks over this display object. The handler is
@@ -288,7 +285,7 @@ DisplayObject._workingMatrix = new Matrix2D();
 	* @event onDoubleClick
 	* @param {MouseEvent} event MouseEvent with information about the event.
 	**/
-	p.onDoubleClick = null;
+	DisplayObject.prototype.onDoubleClick = null;
 	
 	/**
 	* The onMouseOver callback is called when the user rolls over the display object. You must enable this event using 
@@ -296,7 +293,7 @@ DisplayObject._workingMatrix = new Matrix2D();
 	* @event onMouseOver
 	* @param {EaselMouseEvent} event EaselMouseEvent with information about the event.
 	**/
-	p.onMouseOver = null;
+	DisplayObject.prototype.onMouseOver = null;
 	
 	/**
 	* The onMouseOut callback is called when the user rolls off of the display object. You must enable this event using
@@ -304,7 +301,7 @@ DisplayObject._workingMatrix = new Matrix2D();
 	* @event onMouseOut
 	* @param {EaselMouseEvent} event EaselMouseEvent with information about the event.
 	**/
-	p.onMouseOut = null;
+	DisplayObject.prototype.onMouseOut = null;
 
 	/**
 	* An array of Filter objects to apply to this display object. Filters are only applied / updated when cache() or
@@ -313,7 +310,7 @@ DisplayObject._workingMatrix = new Matrix2D();
 	* @type Array[Filter]
 	* @default null
 	**/
-	p.filters = null;
+	DisplayObject.prototype.filters = null;
 	
 // private properties:
 
@@ -323,7 +320,7 @@ DisplayObject._workingMatrix = new Matrix2D();
 	* @type Number
 	* @default 0
 	**/
-	p._cacheOffsetX = 0;
+	DisplayObject.prototype._cacheOffsetX = 0;
 	
 	/**
 	* @property _cacheOffsetY
@@ -331,7 +328,7 @@ DisplayObject._workingMatrix = new Matrix2D();
 	* @type Number
 	* @default 0
 	**/
-	p._cacheOffsetY = 0;
+	DisplayObject.prototype._cacheOffsetY = 0;
 	
 	/**
 	* @property _cacheDraw
@@ -339,7 +336,7 @@ DisplayObject._workingMatrix = new Matrix2D();
 	* @type Boolean
 	* @default false
 	**/
-	p._cacheDraw = false;
+	DisplayObject.prototype._cacheDraw = false;
 	
 	/**
 	* @property _activeContext
@@ -347,7 +344,7 @@ DisplayObject._workingMatrix = new Matrix2D();
 	* @type CanvasRenderingContext2D
 	* @default null
 	**/
-	p._activeContext = null;
+	DisplayObject.prototype._activeContext = null;
 	
 	/**
 	* @property _restoreContext
@@ -355,7 +352,7 @@ DisplayObject._workingMatrix = new Matrix2D();
 	* @type Boolean
 	* @default false
 	**/
-	p._restoreContext = false;
+	DisplayObject.prototype._restoreContext = false;
 	
 	/**
 	* @property _revertShadow
@@ -363,7 +360,7 @@ DisplayObject._workingMatrix = new Matrix2D();
 	* @type Boolean
 	* @default false
 	**/
-	p._revertShadow = false;
+	DisplayObject.prototype._revertShadow = false;
 	
 	/**
 	* @property _revertX
@@ -371,7 +368,7 @@ DisplayObject._workingMatrix = new Matrix2D();
 	* @type Number
 	* @default 0
 	**/
-	p._revertX = 0;
+	DisplayObject.prototype._revertX = 0;
 	
 	/**
 	* @property _revertY
@@ -379,7 +376,7 @@ DisplayObject._workingMatrix = new Matrix2D();
 	* @type Number
 	* @default 0
 	**/
-	p._revertY = 0;
+	DisplayObject.prototype._revertY = 0;
 	
 	/**
 	* @property _revertAlpha
@@ -387,13 +384,13 @@ DisplayObject._workingMatrix = new Matrix2D();
 	* @type Number
 	* @default 1
 	**/
-	p._revertAlpha = 1;
+	DisplayObject.prototype._revertAlpha = 1;
 
 	// TODO: Doc.
-	p._minX = NaN;
-	p._minY = NaN;
-	p._maxX = NaN;
-	p._maxY = NaN;
+	DisplayObject.prototype._minX = NaN;
+	DisplayObject.prototype._minY = NaN;
+	DisplayObject.prototype._maxX = NaN;
+	DisplayObject.prototype._maxY = NaN;
 	
 // constructor:
 	// separated so it can be easily addressed in subclasses:
@@ -406,7 +403,7 @@ DisplayObject._workingMatrix = new Matrix2D();
 	* @method isVisible
 	* @return {Boolean} Boolean indicating whether the display object would be visible if drawn to a canvas
 	**/
-	p.isVisible = function() {
+	DisplayObject.prototype.isVisible = function() {
 		return this.visible && this.alpha > 0 && this.scaleX != 0 && this.scaleY != 0;
 	}
 	
@@ -420,7 +417,7 @@ DisplayObject._workingMatrix = new Matrix2D();
 	* For example, used for drawing the cache (to prevent it from simply drawing an existing cache back
 	* into itself).
 	**/
-	p.draw = function(ctx, ignoreCache) {
+	DisplayObject.prototype.draw = function(ctx, ignoreCache) {
 		if (ignoreCache || !this.cacheCanvas) { return false; }
 		ctx.drawImage(this.cacheCanvas, this._cacheOffsetX, this._cacheOffsetY);
 		return true;
@@ -441,7 +438,7 @@ DisplayObject._workingMatrix = new Matrix2D();
 	* @param {Number} width The width of the cache region.
 	* @param {Number} height The height of the cache region.
 	**/
-	p.cache = function(x, y, width, height) {
+	DisplayObject.prototype.cache = function(x, y, width, height) {
 		// draw to canvas.
 		if (this.cacheCanvas == null) { this.cacheCanvas = document.createElement("canvas"); }
 		var ctx = this.cacheCanvas.getContext("2d");
@@ -464,7 +461,7 @@ DisplayObject._workingMatrix = new Matrix2D();
 	* <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#compositing">
 	* whatwg spec on compositing</a>.
 	**/
-	p.updateCache = function(compositeOperation) {
+	DisplayObject.prototype.updateCache = function(compositeOperation) {
 		if (this.cacheCanvas == null) { throw "cache() must be called before updateCache()"; }
 		var ctx = this.cacheCanvas.getContext("2d");
 		ctx.setTransform(1, 0, 0, 1, -this._cacheOffsetX, -this._cacheOffsetY);
@@ -479,7 +476,7 @@ DisplayObject._workingMatrix = new Matrix2D();
 	* Clears the current cache. See cache() for more information.
 	* @method uncache
 	**/
-	p.uncache = function() {
+	DisplayObject.prototype.uncache = function() {
 		this.cacheCanvas = null;
 		this._cacheOffsetX = this._cacheOffsetY = 0;
 	}
@@ -495,7 +492,7 @@ DisplayObject._workingMatrix = new Matrix2D();
 	* @return {Point} A Point instance with x and y properties correlating to the transformed coordinates 
 	* on the stage.
 	**/
-	p.localToGlobal = function(x, y) {
+	DisplayObject.prototype.localToGlobal = function(x, y) {
 		var mtx = this.getConcatenatedMatrix();
 		if (mtx == null) { return null; }
 		mtx.append(1, 0, 0, 1, x, y);
@@ -513,7 +510,7 @@ DisplayObject._workingMatrix = new Matrix2D();
 	* @return {Point} A Point instance with x and y properties correlating to the transformed position in the
 	* display object's coordinate space.
 	**/
-	p.globalToLocal = function(x, y) {
+	DisplayObject.prototype.globalToLocal = function(x, y) {
 		var mtx = this.getConcatenatedMatrix();
 		if (mtx == null) { return null; }
 		mtx.invert();
@@ -533,7 +530,7 @@ DisplayObject._workingMatrix = new Matrix2D();
 	* @return {Point} Returns a Point instance with x and y properties correlating to the transformed position 
 	* in the target's coordinate space.
 	**/
-	p.localToLocal = function(x, y, target) {
+	DisplayObject.prototype.localToLocal = function(x, y, target) {
 		var pt = this.localToGlobal(x, y);
 		return target.globalToLocal(pt.x, pt.y);
 	}
@@ -552,7 +549,7 @@ DisplayObject._workingMatrix = new Matrix2D();
 	* @param {Number} regX
 	* @param {Number} regY
 	*/
-	p.setTransform = function(x, y, scaleX, scaleY, rotation, skewX, skewY, regX, regY) {
+	DisplayObject.prototype.setTransform = function(x, y, scaleX, scaleY, rotation, skewX, skewY, regX, regY) {
 		this.x = x || 0;
 		this.y = y || 0;
 		this.scaleX = scaleX == null ? 1 : scaleX;
@@ -575,7 +572,7 @@ DisplayObject._workingMatrix = new Matrix2D();
 	* @return {Matrix2D} a concatenated Matrix2D object representing the combined transform of
 	* the display object and all of its parent Containers up to the highest level ancestor (usually the stage).
 	**/
-	p.getConcatenatedMatrix = function(mtx) {
+	DisplayObject.prototype.getConcatenatedMatrix = function(mtx) {
 		if (mtx) { mtx.identity(); }
 		else { mtx = new Matrix2D(); }
 		var target = this;
@@ -598,7 +595,7 @@ DisplayObject._workingMatrix = new Matrix2D();
 	* @return {Boolean} A Boolean indicting whether a visible portion of the DisplayObject intersect the specified 
 	* local Point.
 	*/
-	p.hitTest = function(x, y) {
+	DisplayObject.prototype.hitTest = function(x, y) {
 		var ctx = DisplayObject._hitTestContext;
 		var canvas = DisplayObject._hitTestCanvas;
 
@@ -613,7 +610,7 @@ DisplayObject._workingMatrix = new Matrix2D();
 	}
 
 	// TODO: Doc.
-	p.getBounds = function() {
+	DisplayObject.prototype.getBounds = function() {
 		if (this._cacheCanvas) {
 			return new Rectangle(-this._cacheOffsetX, -this._cacheOffsetY, this.cacheCanvas.width, this.cacheCanvas.height);
 		} else {
@@ -627,7 +624,7 @@ DisplayObject._workingMatrix = new Matrix2D();
 	* @method clone
 	 @return {DisplayObject} A clone of the current DisplayObject instance.
 	**/
-	p.clone = function() {
+	DisplayObject.prototype.clone = function() {
 		var o = new DisplayObject();
 		this.cloneProps(o);
 		return o;
@@ -638,7 +635,7 @@ DisplayObject._workingMatrix = new Matrix2D();
 	* @method toString
 	* @return {String} a string representation of the instance.
 	**/
-	p.toString = function() {
+	DisplayObject.prototype.toString = function() {
 		return "[DisplayObject (name="+  this.name +")]";
 	}
 	
@@ -651,7 +648,7 @@ DisplayObject._workingMatrix = new Matrix2D();
 	* @param {DisplayObject} o The DisplayObject instance which will have properties from the current DisplayObject
 	* instance copied into.
 	**/
-	p.cloneProps = function(o) {
+	DisplayObject.prototype.cloneProps = function(o) {
 		o.alpha = this.alpha;
 		o.name = this.name;
 		o.regX = this.regX;
@@ -675,7 +672,7 @@ DisplayObject._workingMatrix = new Matrix2D();
 	* @param {CanvasRenderingContext2D} ctx
 	* @param {Shadow} shadow
 	**/
-	p.applyShadow = function(ctx, shadow) {
+	DisplayObject.prototype.applyShadow = function(ctx, shadow) {
 		shadow = shadow || Shadow.identity;
 		ctx.shadowColor = shadow.color;
 		ctx.shadowOffsetX = shadow.offsetX;
@@ -689,7 +686,7 @@ DisplayObject._workingMatrix = new Matrix2D();
 	* @param {CanvasRenderingContext2D} ctx
 	* @return {Boolean}
 	**/
-	p._testHit = function(ctx) {
+	DisplayObject.prototype._testHit = function(ctx) {
 		try {
 			var hit = ctx.getImageData(0, 0, 1, 1).data[3] > 1;
 		} catch (e) {
@@ -705,7 +702,7 @@ DisplayObject._workingMatrix = new Matrix2D();
 	* @method _applyFilters
 	* @protected
 	**/
-	p._applyFilters = function() {
+	DisplayObject.prototype._applyFilters = function() {
 		if (!this.filters || this.filters.length == 0 || !this.cacheCanvas) { return; }
 		var l = this.filters.length;
 		var ctx = this.cacheCanvas.getContext("2d");
@@ -721,9 +718,6 @@ DisplayObject._workingMatrix = new Matrix2D();
 	* @protected
 	* @return {Rectangle}
 	**/
-	p._calculateBounds = function() {
+	DisplayObject.prototype._calculateBounds = function() {
 		return new Rectangle(0,0,0,0);
 	}
-
-window.DisplayObject = DisplayObject;
-}(window));

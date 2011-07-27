@@ -36,8 +36,6 @@
 
 goog.provide('Point');
 
-(function(window) {
-
 /**
 * Represents a point on a 2 dimensional x / y coordinate system.
 * @class Point
@@ -49,7 +47,6 @@ Point = function(x, y) {
 	this.x = (x == null ? 0 : x);
 	this.y = (y == null ? 0 : y);
 }
-var p = Point.prototype;
 	
 // public properties:
 
@@ -58,14 +55,14 @@ var p = Point.prototype;
 	* @property x
 	* @type Number
 	**/
-	p.x = 0;
+	Point.prototype.x = 0;
 	
 	/** 
 	* Y position. 
 	* @property y
 	* @type Number
 	**/
-	p.y = 0;
+	Point.prototype.y = 0;
 	
 // public methods:
 	/**
@@ -73,7 +70,7 @@ var p = Point.prototype;
 	* @method clone
 	* @return {Point} a clone of the Point instance.
 	**/
-	p.clone = function() {
+	Point.prototype.clone = function() {
 		return new Point(this.x, this.y);
 	}
 
@@ -82,9 +79,6 @@ var p = Point.prototype;
 	* @method toString
 	* @return {String} a string representation of the instance.
 	**/
-	p.toString = function() {
+	Point.prototype.toString = function() {
 		return "[Point (x="+this.x+" y="+this.y+")]";
 	}
-	
-window.Point = Point;
-}(window));

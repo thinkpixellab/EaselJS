@@ -36,8 +36,6 @@
 
 goog.provide('UID');
 
-(function(window) {
-	
 	/**
 	* Global utility for generating sequential unique ID numbers.
 	* The UID class uses a static interface (ex. UID.get()) and should not be instantiated.
@@ -64,6 +62,3 @@ goog.provide('UID');
 	UID.get = function() {
 		return UID._nextID++;
 	}
-
-window.UID = UID;
-}(window));

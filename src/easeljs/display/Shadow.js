@@ -36,8 +36,6 @@
 
 goog.provide('Shadow');
 
-(function(window) {
-
 /**
 * Encapsulates the properties required to define a shadow to apply to a DisplayObject via it's .shadow property.
 * @class Shadow
@@ -53,17 +51,8 @@ Shadow = function(color, offsetX, offsetY, blur) {
 	this.offsetY = offsetY;
 	this.blur = blur;
 }
-var p = Shadow.prototype;
 	
 // static public properties:
-	/**
-	* An identity shadow object (all properties are set to 0). Read-only.
-	* @property identity
-	* @type Shadow
-	* @static
-	* @final
-	**/
-	Shadow.identity = null; // set at bottom of class definition.
 	
 // public properties:
 	/** The color of the shadow.
@@ -71,28 +60,28 @@ var p = Shadow.prototype;
 	* @type String
 	* @default null
 	*/
-	p.color = null;
+	Shadow.prototype.color = null;
 	
 	/** The x offset of the shadow.
 	* property offsetX
 	* @type Number
 	* @default 0
 	*/
-	p.offsetX = 0;
+	Shadow.prototype.offsetX = 0;
 	
 	/** The y offset of the shadow.
 	* property offsetY
 	* @type Number
 	* @default 0
 	*/
-	p.offsetY = 0;
+	Shadow.prototype.offsetY = 0;
 	
 	/** The blur of the shadow.
 	* property blur
 	* @type Number
 	* @default 0
 	*/
-	p.blur = 0;
+	Shadow.prototype.blur = 0;
 	
 // public methods:
 	/**
@@ -100,7 +89,7 @@ var p = Shadow.prototype;
 	* @method toString
 	* @return {String} a string representation of the instance.
 	**/
-	p.toString = function() {
+	Shadow.prototype.toString = function() {
 		return "[Shadow]";
 	}
 	
@@ -110,12 +99,9 @@ var p = Shadow.prototype;
 	* @method clone
 	 @return {Shadow} A clone of the current Shadow instance.
 	**/
-	p.clone = function() {
+	Shadow.prototype.clone = function() {
 		return new Shadow(this.color, this.offsetX, this.offsetY, this.blur);
 	}
 	
 	// this has to be populated after the class is defined:
 	Shadow.identity = new Shadow(null, 0, 0, 0);
-	
-window.Shadow = Shadow;
-}(window));
