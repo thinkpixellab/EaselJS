@@ -483,21 +483,6 @@ DisplayObject._workingMatrix = new Matrix2D();
 		this.cacheCanvas = null;
 		this._cacheOffsetX = this._cacheOffsetY = 0;
 	}
-	
-	/**
-	* Returns the stage that this display object will be rendered on, or null if it has not been added to one.
-	* @method getStage
-	* @return {Stage} The Stage instance that the display object is a descendent of. null if the DisplayObject has not 
-	* been added to a Stage.
-	**/
-	p.getStage = function() {
-		var o = this;
-		while (o.parent) {
-			o = o.parent;
-		}
-		if (o instanceof Stage) { return o; }
-		return null;
-	}
 
 	/**
 	* Transforms the specified x and y position from the coordinate space of the display object

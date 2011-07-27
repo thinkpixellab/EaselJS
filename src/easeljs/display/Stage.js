@@ -582,6 +582,19 @@ var p = Stage.prototype;
 			}
 		}
 	}
+	
+	/**
+	* @param {DisplayObject} displayObject
+	* @returns {Stage}
+	*/
+	Stage.findStage = function(displayObject){
+		var o = displayObject;
+		while (o.parent) {
+			o = o.parent;
+		}
+		if (o instanceof Stage) { return o; }
+		return null;
+	};
 
 window.Stage = Stage;
 }(window));
