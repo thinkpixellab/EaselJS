@@ -93,7 +93,7 @@ var p = Container.prototype;
 	* into itself).
 	**/
 	p.draw = function(ctx, ignoreCache, _mtx) {
-		var snap = Stage._snapToPixelEnabled;
+		var snap = false; //Stage._snapToPixelEnabled;
 		if (!_mtx) {
 			_mtx = new Matrix2D();
 			_mtx.appendProperties(this.alpha, this.shadow, this.compositeOperation);
