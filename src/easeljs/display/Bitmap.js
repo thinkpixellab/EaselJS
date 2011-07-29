@@ -43,14 +43,18 @@ goog.require('DisplayObject');
 * @class Bitmap
 * @extends DisplayObject
 * @constructor
-* @param {Image | HTMLCanvasElement | HTMLVideoElement} image The Image, Canvas, or Video to render to the display list.
+* @param {Image | HTMLCanvasElement | HTMLVideoElement | String} imageOrUri The source object or URI to an image to display. This can be either an Image, Canvas, or Video object, or a string URI to an image file to load and use. If it is a URI, a new Image object will be constructed and assigned to the .image property.
 **/
-Bitmap = function(image) {
+Bitmap = function(imageOrUri) {
   DisplayObject.call(this);
-	this.image = image;
+	if (typeof imageOrUri == "string") {
+		this.image = new Image();
+		this.image.src = imageOrUri;
+	} else {
+		this.image = imageOrUri;
+	}
 }
 goog.inherits(Bitmap, DisplayObject);
-var p = Bitmap.prototype;
 
 	// public properties:
 	/**
@@ -58,7 +62,7 @@ var p = Bitmap.prototype;
 	* @property image
 	* @type Image | HTMLCanvasElement | HTMLVideoElement
 	**/
-	p.image = null;
+	Bitmap.prototype.image = null;
 	
 	/**
 	* Whether or not the Bitmap should be draw to the canvas at whole pixel coordinates.
@@ -66,7 +70,7 @@ var p = Bitmap.prototype;
 	* @type Boolean
 	* @default true
 	**/
-	p.snapToPixel = true;
+	Bitmap.prototype.snapToPixel = true;
 	
 // public methods:
 
@@ -77,16 +81,9 @@ var p = Bitmap.prototype;
 	* @method isVisible
 	* @return {Boolean} Boolean indicating whether the display object would be visible if drawn to a canvas
 	**/
-	p.isVisible = function() {
+	Bitmap.prototype.isVisible = function() {
 		return this.visible && this.alpha > 0 && this.scaleX != 0 && this.scaleY != 0 && this.image && (this.image.complete || this.image.getContext);
 	}
-
-	/**
-	* @property DisplayObject_draw
-	* @type Function
-	* @private
-	**/
-	p.DisplayObject_draw = p.draw;
 	
 	/**
 	* Draws the display object into the specified context ignoring it's visible, alpha, shadow, and transform.
@@ -98,8 +95,10 @@ var p = Bitmap.prototype;
 	* For example, used for drawing the cache (to prevent it from simply drawing an existing cache back
 	* into itself).
 	**/
-	p.draw = function(ctx, ignoreCache) {
-		if (this.DisplayObject_draw(ctx, ignoreCache)) { return true; }
+	Bitmap.prototype.draw = function(ctx, ignoreCache) {
+		if (DisplayObject.prototype.draw.call(this, ctx, ignoreCache)) { 
+			return true; 
+		}
 		ctx.drawImage(this.image, 0, 0);
 		return true;
 	}
@@ -130,7 +129,7 @@ var p = Bitmap.prototype;
 	* @method clone
 	* @return {Bitmap} a clone of the Bitmap instance.
 	**/
-	p.clone = function() {
+	Bitmap.prototype.clone = function() {
 		var o = new Bitmap(this.image);
 		this.cloneProps(o);
 		return o;
@@ -141,20 +140,8 @@ var p = Bitmap.prototype;
 	* @method toString
 	* @return {String} a string representation of the instance.
 	**/
-	p.toString = function() {
+	Bitmap.prototype.toString = function() {
 		return "[Bitmap (name="+  this.name +")]";
 	}
 
-// private methods:
-	/**
-	* @method _calculateBounds
-	* @protected
-	* @return {Rectangle}
-	**/
-	p._calculateBounds = function() {
-		if (this.image && (this.image.complete || this.image.getContext)) {
-			return new Rectangle(0,0,this.image.width,this.image.height);
-		} else {
-			return new Rectangle(0,0,0,0);
-		}
-	}
+

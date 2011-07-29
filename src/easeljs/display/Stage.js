@@ -4,7 +4,7 @@
 *
 *
 * Copyright (c) 2010 Grant Skinner
-* 
+*
 * Permission is hereby granted, free of charge, to any person
 * obtaining a copy of this software and associated documentation
 * files (the "Software"), to deal in the Software without
@@ -13,10 +13,10 @@
 * copies of the Software, and to permit persons to whom the
 * Software is furnished to do so, subject to the following
 * conditions:
-* 
+*
 * The above copyright notice and this permission notice shall be
 * included in all copies or substantial portions of the Software.
-* 
+*
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
 * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
 * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -28,8 +28,8 @@
 */
 
 /**
-* The Easel Javascript library provides a retained graphics mode for canvas 
-* including a full, hierarchical display list, a core interaction model, and 
+* The Easel Javascript library provides a retained graphics mode for canvas
+* including a full, hierarchical display list, a core interaction model, and
 * helper classes to make working with Canvas much easier.
 * @module EaselJS
 **/
@@ -45,32 +45,11 @@ goog.require('Container');
 * @extends Container
 * @constructor
 * @param {HTMLCanvasElement} canvas The canvas the stage will render to.
-* @param {Boolean} useTouch Whether the interaction model should leverage touch support. If touch support is enabled, Stage will listen for TouchEvents, and not
-* MouseEvents for its interaction model. Default value is false..
 **/
 Stage = function(canvas, useTouch) {
   Container.call(this, canvas);
 	this.canvas = canvas;
-	this.mouseChildren = true;
-	
-	var o = this;
-	if(!useTouch)
-	{
-		if (window.addEventListener) {
-			window.addEventListener("mouseup", function(e) { o._handleMouseUp(e); }, false);
-			window.addEventListener("mousemove", function(e) { o._handleMouseMove(e); }, false);
-			window.addEventListener("dblclick", function(e) { o._handleDoubleClick(e); }, false);
-		} else if (document.addEventListener) {
-			document.addEventListener("mouseup", function(e) { o._handleMouseUp(e); }, false);
-			document.addEventListener("mousemove", function(e) { o._handleMouseMove(e); }, false);
-			document.addEventListener("dblclick", function(e) { o._handleDoubleClick(e); }, false);
-		}
-		canvas.addEventListener("mousedown", function(e) { o._handleMouseDown(e); }, false);
-	}
-	else {
-		canvas.addEventListener("touchstart", function(e) { o._handleTouchStart(e); }, false);
-		document.addEventListener("touchend", function(e) { o._handleTouchEnd(e); }, false);
-	}
+  this._enableMouseEvents(true);
 }
 goog.inherits(Stage, Container);
 
@@ -84,7 +63,7 @@ goog.inherits(Stage, Container);
 	Stage._snapToPixelEnabled = false; // snapToPixelEnabled is temporarily copied here during a draw to provide global access.
 
 // public properties:
-	/** 
+	/**
 	* Indicates whether the stage should automatically clear the canvas before each render. You can set this to false to manually
 	* control clearing (for generative art, or when pointing multiple stages at the same canvas for example).
 	* @property autoClear
@@ -101,7 +80,7 @@ goog.inherits(Stage, Container);
 	Stage.prototype.canvas = null;
 	
 	/**
-	* READ-ONLY. The current mouse X position on the canvas. If the mouse leaves the canvas, this will indicate the most recent 
+	* READ-ONLY. The current mouse X position on the canvas. If the mouse leaves the canvas, this will indicate the most recent
 	* position over the canvas, and mouseInBounds will be set to false.
 	* @property mouseX
 	* @type Number
@@ -157,12 +136,14 @@ goog.inherits(Stage, Container);
 	
 // private properties:
 
-	/**
-	* @property _tmpCanvas
-	* @protected
-	* @type HTMLCanvasElement
+	/** If false, tick callbacks will be called on all display objects on the stage prior to rendering to the canvas.
+	* @property tickOnUpdate
+	* @type Boolean
+	* @default false
 	**/
-	Stage.prototype._tmpCanvas = null;
+	Stage.prototype.tickOnUpdate = true;
+
+// private properties:
 
 	/**
 	* @property _activeEaselMouseEvent
@@ -214,7 +195,7 @@ goog.inherits(Stage, Container);
 	**/
 
 	/**
-	* Each time the update method is called, the stage will tick any descendants exposing a tick method (ex. BitmapSequence) 
+	* Each time the update method is called, the stage will tick any descendants exposing a tick method (ex. BitmapSequence)
 	* and render its entire display list to the canvas.
 	* @method update
 	**/
@@ -222,9 +203,10 @@ goog.inherits(Stage, Container);
 		if (!this.canvas) { return; }
 		if (this.autoClear) { this.clear(); }
 		Stage._snapToPixelEnabled = this.snapToPixelEnabled;
-		this.draw(this.canvas.getContext("2d"), false, this.getConcatenatedMatrix(DisplayObject._workingMatrix));
+		if (this.tickOnUpdate) { this._tick(); }
+		this.draw(this.canvas.getContext("2d"), false, this.getConcatenatedMatrix(this._matrix));
 	}
-	
+
 	/**
 	* Calls the update method. Useful for adding stage as a listener to Ticker directly.
 	* @property tick
@@ -243,9 +225,9 @@ goog.inherits(Stage, Container);
 		ctx.setTransform(1, 0, 0, 1, 0, 0);
 		ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 	}
-	
+
 	/**
-	* Returns a data url that contains a Base64 encoded image of the contents of the stage. The returned data url can be 
+	* Returns a data url that contains a Base64 encoded image of the contents of the stage. The returned data url can be
 	* specified as the src value of an image element.
 	* @method toDataURL
 	* @param {String} backgroundColor The background color to be used for the generated image. The value can be any value HTML color
@@ -319,7 +301,7 @@ goog.inherits(Stage, Container);
 		this._mouseOverX = NaN;
 		this._mouseOverTarget = null;
 	}
-	
+
 	/**
 	* Returns a clone of this Stage.
 	* @return {Stage} A clone of the current Container instance.
@@ -329,7 +311,7 @@ goog.inherits(Stage, Container);
 		this.cloneProps(o);
 		return o;
 	}
-		
+
 	/**
 	* Returns a string representation of this object.
 	* @method toString
@@ -338,129 +320,41 @@ goog.inherits(Stage, Container);
 	Stage.prototype.toString = function() {
 		return "[Stage (name="+  this.name +")]";
 	}
-	
+
 	// private methods:
-	
-	/**
-	* @property _primaryTouchId
-	* @protected
-	* @type Number
-	* @default -1
-	**/
-	Stage.prototype._primaryTouchId = -1;
-	
-	/**
-	* @property _handleTouchMoveListener
-	* @protected
-	* @type Function
-	* @default null
-	**/
-	Stage.prototype._handleTouchMoveListener = null;
-	
-	/**
-	* @method _handleTouchStart
-	* @protected
-	* @param {TouchEvent} e
-	**/
-	Stage.prototype._handleTouchStart = function(e) {
-		
-		e.preventDefault();
-		var changedTouches = e.changedTouches;
-		
-		if(this._primaryTouchId != -1) {
-			//we are already tracking an id
-			//so we dont care about new ones
-			return;
-		}
-		
-		if(!this._handleTouchMoveListener){
-			var o = this;
-			
-			//have to dynamically define so we can get the closure and save
-			//the reference to this
-			this._handleTouchMoveListener = function(e){
-				o._handleTouchMove(e);
-			}
-		}
-		
-		//for touch we only need to listen to move events once a touch has started
-		//on the canvas
-		document.addEventListener("touchmove", this._handleTouchMoveListener, false);
-		
-		var touch = changedTouches[0];
-		this._primaryTouchId = touch.identifier;
-		this._updateMousePosition(touch.pageX, touch.pageY);
-		this._handleMouseDown(touch);
-	}	
-	
-	/**
-	* @method _handleTouchMove
-	* @protected
-	* @param {TouchEvent} e
-	**/
-	Stage.prototype._handleTouchMove = function(e) {
-		var touch = this._findPrimaryTouch(e.changedTouches);
-		if(touch) {
-			this._handleMouseMove(touch);
-		}		
-	}	
-	
-	/**
-	* @method _handleTouchEnd
-	* @protected
-	* @param {TouchEvent} e
-	**/
-	Stage.prototype._handleTouchEnd = function(e) {
-		var touch = this._findPrimaryTouch(e.changedTouches);	
-		if(touch) {
-			this._handleMouseUp(touch);
-			this._primaryTouchId = -1;
-			
-			//stop listening for move events, until another new touch starts on the
-			//canvas
-			document.removeEventListener("touchmove", this._handleTouchMoveListener);
-		}
+
+  /**
+  * @method _enableMouseEvents
+  * @protected
+  * @param {Boolean} enabled
+  **/	
+	Stage.prototype._enableMouseEvents = function() {
+		var o = this;
+		var evtTarget = window.addEventListener ? window : document;
+		evtTarget.addEventListener("mouseup", function(e) { o._handleMouseUp(e); }, false);
+		evtTarget.addEventListener("mousemove", function(e) { o._handleMouseMove(e); }, false);
+		evtTarget.addEventListener("dblclick", function(e) { o._handleDoubleClick(e); }, false);
+		this.canvas.addEventListener("mousedown", function(e) { o._handleMouseDown(e); }, false);
 	}
-	
-	/**
-	* @method _findPrimaryTouch
-	* @protected
-	* @param {Array[Touch]} touches
-	**/	
-	Stage.prototype._findPrimaryTouch = function(touches) {		
-		var len = touches.length;
-		var touch;
-		for(var i = 0; i < len; i++){
-			touch = touches[i];
-			
-			//find the primary touchPoint by id
-			if(touch.identifier == this._primaryTouchId) {
-				return touch;
-			}
-		}
-		
-		return null;
-	}
-	
+
 	/**
 	* @method _handleMouseMove
 	* @protected
 	* @param {EaselMouseEvent} e
 	**/
 	Stage.prototype._handleMouseMove = function(e) {
-				
+
 		if (!this.canvas) {
 			this.mouseX = this.mouseY = null;
 			return;
 		}
 		if(!e){ e = window.event; }
-		
+
 		var inBounds = this.mouseInBounds;
 		this._updateMousePosition(e.pageX, e.pageY);
 		if (!inBounds && !this.mouseInBounds) { return; }
 
-		var evt = new EaselMouseEvent("onMouseMove", this.mouseX, this.mouseY);
-		evt.nativeEvent = e;
+		var evt = new EaselMouseEvent("onMouseMove", this.mouseX, this.mouseY, this, e);
 
 		if (this.onMouseMove) { this.onMouseMove(evt); }
 		if (this._activeEaselMouseEvent && this._activeEaselMouseEvent.onMouseMove) { this._activeEaselMouseEvent.onMouseMove(evt); }
@@ -479,7 +373,7 @@ goog.inherits(Stage, Container);
 			pageX -= o.offsetLeft;
 			pageY -= o.offsetTop;
 		} while (o = o.offsetParent);
-		
+
 		this.mouseInBounds = (pageX >= 0 && pageY >= 0 && pageX < this.canvas.width && pageY < this.canvas.height);
 
 		if (this.mouseInBounds) {
@@ -494,19 +388,15 @@ goog.inherits(Stage, Container);
 	* @param {EaselMouseEvent} e
 	**/
 	Stage.prototype._handleMouseUp = function(e) {
-		var evt = new EaselMouseEvent("onMouseUp", this.mouseX, this.mouseY);
-		evt.nativeEvent = e;
+		var evt = new EaselMouseEvent("onMouseUp", this.mouseX, this.mouseY, this, e);
 		if (this.onMouseUp) { this.onMouseUp(evt); }
 		if (this._activeMouseEvent && this._activeMouseEvent.onMouseUp) { this._activeMouseEvent.onMouseUp(evt); }
-		if (this._activeMouseTarget && 
-			this._activeMouseTarget.onClick && 
-			this._getObjectsUnderPoint(this.mouseX, this.mouseY, null, true, (this._mouseOverIntervalID ? 3 : 1)) == this._activeMouseTarget) {
-			
-			evt = new EaselMouseEvent("onClick", this.mouseX, this.mouseY);
-			evt.nativeEvent = e;
-			this._activeMouseTarget.onClick(evt);
+		if (this._activeMouseTarget && this._activeMouseTarget.onClick &&
+				this._getObjectsUnderPoint(this.mouseX, this.mouseY, null, true, (this._mouseOverIntervalID ? 3 : 1)) == this._activeMouseTarget) {
+
+			this._activeMouseTarget.onClick(new EaselMouseEvent("onClick", this.mouseX, this.mouseY, this._activeMouseTarget, e));
 		}
-		this._activeEaselMouseEvent = this.activeMouseTarget = null;
+		this._activeMouseEvent = this._activeMouseTarget = null;
 	}
 
 	/**
@@ -515,18 +405,13 @@ goog.inherits(Stage, Container);
 	* @param {EaselMouseEvent} e
 	**/
 	Stage.prototype._handleMouseDown = function(e) {
-		var evt;
-		if (this.onMouseDown) { 
-			evt = new EaselMouseEvent("onMouseDown", this.mouseX, this.mouseY);
-			evt.nativeEvent = e;
-			this.onMouseDown(evt); 
+		if (this.onMouseDown) {
+			this.onMouseDown(new EaselMouseEvent("onMouseDown", this.mouseX, this.mouseY, this, e));
 		}
 		var target = this._getObjectsUnderPoint(this.mouseX, this.mouseY, null, (this._mouseOverIntervalID ? 3 : 1));
 		if (target) {
 			if (target.onPress instanceof Function) {
-				evt = new EaselMouseEvent("onPress", this.mouseX, this.mouseY);
-				evt.nativeEvent = e;
-				
+				var evt = new EaselMouseEvent("onPress", this.mouseX, this.mouseY, target, e);
 				target.onPress(evt);
 				if (evt.onMouseMove || evt.onMouseUp) { this._activeEaselMouseEvent = evt; }
 			}
@@ -542,17 +427,17 @@ goog.inherits(Stage, Container);
 		if (this.mouseX == this._mouseOverX && this.mouseY == this._mouseOverY && this.mouseInBounds) { return; }
 		var target = null;
 		if (this.mouseInBounds) {
-			var target = this._getObjectsUnderPoint(this.mouseX, this.mouseY, null, 3);
+			target = this._getObjectsUnderPoint(this.mouseX, this.mouseY, null, 3);
 			this._mouseOverX = this.mouseX;
 			this._mouseOverY = this.mouseY;
 		}
-		
+
 		if (this._mouseOverTarget != target) {
 			if (this._mouseOverTarget && this._mouseOverTarget.onMouseOut) {
-				this._mouseOverTarget.onMouseOut(new EaselMouseEvent("onMouseOver", this.mouseX, this.mouseY));
+				this._mouseOverTarget.onMouseOut(new EaselMouseEvent("onMouseOut", this.mouseX, this.mouseY, this._mouseOverTarget));
 			}
 			if (target && target.onMouseOver) {
-				target.onMouseOver(new EaselMouseEvent("onMouseOut", this.mouseX, this.mouseY));
+				target.onMouseOver(new EaselMouseEvent("onMouseOver", this.mouseX, this.mouseY, target));
 			}
 			this._mouseOverTarget = target;
 		}
@@ -561,21 +446,16 @@ goog.inherits(Stage, Container);
 	/**
 	* @method _handleDoubleClick
 	* @protected
-	* @param {MouseEvent} e
+	* @param {EaselMouseEvent} e
 	**/
 	Stage.prototype._handleDoubleClick = function(e) {
-		var evt;
 		if (this.onDoubleClick) {
-			evt = new EaselMouseEvent("onDoubleClick", this.mouseX, this.mouseY);
-			evt.nativeEvent = e;
-			this.onDoubleClick(evt);
+			this.onDoubleClick(new EaselMouseEvent("onDoubleClick", this.mouseX, this.mouseY, this, e));
 		}
 		var target = this._getObjectsUnderPoint(this.mouseX, this.mouseY, null, (this._mouseOverIntervalID ? 3 : 1));
 		if (target) {
 			if (target.onDoubleClick instanceof Function) {
-				evt = new EaselMouseEvent("onPress", this.mouseX, this.mouseY);
-				evt.nativeEvent = e;
-				target.onDoubleClick(evt);
+				target.onDoubleClick(new EaselMouseEvent("onPress", this.mouseX, this.mouseY, target, e));
 			}
 		}
 	}

@@ -36,8 +36,6 @@
 
 goog.provide('Filter');
 
-(function(window) {
-
 /**
 * Base class that all filters should inherit from.
 * @class Filter
@@ -45,7 +43,6 @@ goog.provide('Filter');
 **/
 Filter = function() {
 }
-var p = Filter.prototype;
 	
 // public methods:
 	/**
@@ -55,7 +52,7 @@ var p = Filter.prototype;
 	* @method getBounds
 	* @return {Rectangle} a rectangle object indicating the margins required to draw the filter.
 	**/
-	p.getBounds = function() {
+	Filter.prototype.getBounds = function() {
 		return new Rectangle(0,0,0,0);
 	}
 	
@@ -71,14 +68,14 @@ var p = Filter.prototype;
 	* @param targetX Optional. The x position to draw the result to. Defaults to the value passed to x.
 	* @param targetY Optional. The y position to draw the result to. Defaults to the value passed to y.
 	**/
-	p.applyFilter = function(ctx, x, y, width, height, targetCtx, targetX, targetY) {}
+	Filter.prototype.applyFilter = function(ctx, x, y, width, height, targetCtx, targetX, targetY) {}
 
 	/**
 	* Returns a string representation of this object.
 	* @method toString
 	* @return {String} a string representation of the instance.
 	**/
-	p.toString = function() {
+	Filter.prototype.toString = function() {
 		return "[Filter]";
 	}
 	
@@ -88,9 +85,6 @@ var p = Filter.prototype;
 	* @method clone
 	 @return {Filter} A clone of the current Filter instance.
 	**/
-	p.clone = function() {
+	Filter.prototype.clone = function() {
 		return new Filter();
 	}
-	
-window.Filter = Filter;
-}(window));

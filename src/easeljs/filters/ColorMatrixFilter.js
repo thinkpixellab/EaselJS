@@ -38,34 +38,19 @@ goog.provide('ColorMatrixFilter');
 
 goog.require('Filter');
 
-(function(window) {
-
 /**
 * Applies color transforms.
 * @class ColorMatrixFilter
 * @constructor
+* @augments Filter
+* @param {Number} blurX
 **/
 ColorMatrixFilter = function(matrix) {
   Filter.call(this);
 	this.matrix = matrix;
 }
 goog.inherits(ColorMatrixFilter, Filter);
-var p = ColorMatrixFilter.prototype;
 
-// public properties:
-	p.matrix = null;
-	
-// constructor:
-	// TODO: detailed docs.
-	/** 
-	* Initialization method.
-	* @method initialize
-	* @protected
-	* @param matrix A 4x5 matrix describing the color operation to perform.
-	**/
-	p.initialize = function(matrix) {
-	}
-	
 // public methods:
 	/**
 	* Applies the filter to the specified context.
@@ -79,7 +64,7 @@ var p = ColorMatrixFilter.prototype;
 	* @param targetX Optional. The x position to draw the result to. Defaults to the value passed to x.
 	* @param targetY Optional. The y position to draw the result to. Defaults to the value passed to y.
 	**/
-	p.applyFilter = function(ctx, x, y, width, height, targetCtx, targetX, targetY) {
+	ColorMatrixFilter.prototype.applyFilter = function(ctx, x, y, width, height, targetCtx, targetX, targetY) {
 		targetCtx = targetCtx || ctx;
 		if (targetX = null) { targetX = x; }
 		if (targetY = null) { targetY = y; }
@@ -93,17 +78,20 @@ var p = ColorMatrixFilter.prototype;
 		var l = data.length;
 		var r,g,b,a;
 		var mtx = this.matrix;
+		var m0 =  mtx[0],  m1 =  mtx[1],  m2 =  mtx[2],  m3 =  mtx[3],  m4 =  mtx[4];
+		var m5 =  mtx[5],  m6 =  mtx[6],  m7 =  mtx[7],  m8 =  mtx[8],  m9 =  mtx[9];
+		var m10 = mtx[10], m11 = mtx[11], m12 = mtx[12], m13 = mtx[13], m14 = mtx[14];
+		var m15 = mtx[15], m16 = mtx[16], m17 = mtx[17], m18 = mtx[18], m19 = mtx[19];
 		
-		// TODO: this would run 10-20% faster if the matrix was broken out into vars.
 		for (var i=0; i<l; i+=4) {
 			r = data[i];
 			g = data[i+1];
 			b = data[i+2];
 			a = data[i+3];
-			data[i] = r*mtx[0]+g*mtx[1]+b*mtx[2]+a*mtx[3]+mtx[4];
-			data[i+1] = r*mtx[5]+g*mtx[6]+b*mtx[7]+a*mtx[8]+mtx[9];
-			data[i+2] = r*mtx[10]+g*mtx[11]+b*mtx[12]+a*mtx[13]+mtx[14];
-			data[i+3] = r*mtx[15]+g*mtx[16]+b*mtx[17]+a*mtx[18]+mtx[19];
+			data[i] = r*m0+g*m1+b*m2+a*m3+m4; // red
+			data[i+1] = r*m5+g*m6+b*m7+a*m8+m9; // green
+			data[i+2] = r*m10+g*m11+b*m12+a*m13+m14; // blue
+			data[i+3] = r*m15+g*m16+b*m17+a*m18+m19; // alpha
 		}
 		imageData.data = data;
 		targetCtx.putImageData(imageData, targetX, targetY);
@@ -115,7 +103,7 @@ var p = ColorMatrixFilter.prototype;
 	* @method toString
 	* @return {String} a string representation of the instance.
 	**/
-	p.toString = function() {
+	ColorMatrixFilter.prototype.toString = function() {
 		return "[ColorMatrixFilter]";
 	}
 	
@@ -125,9 +113,7 @@ var p = ColorMatrixFilter.prototype;
 	* @method clone
 	 @return {ColorMatrixFilter} A clone of the current ColorMatrixFilter instance.
 	**/
-	p.clone = function() {
+	ColorMatrixFilter.prototype.clone = function() {
 		return new ColorMatrixFilter(this.matrix);
 	}
 	
-window.ColorMatrixFilter = ColorMatrixFilter;
-}(window));

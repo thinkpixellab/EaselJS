@@ -38,8 +38,6 @@ goog.provide('DisplayText');
 
 goog.require('DisplayObject');
 
-(function(window) {
-	
 /**
 * Allows you to display one or more lines of dynamic text (not user editable) in the display list.
 * Line wrapping support (using the lineWidth is very basic, wrapping on spaces and tabs only. Note
@@ -61,7 +59,6 @@ DisplayText = function(text, font, color) {
 	this.color = color ? color : "#000";
 }
 goog.inherits(DisplayText, DisplayObject);
-var p = DisplayText.prototype;
 
 /**
 * @property _workingContext
@@ -70,27 +67,28 @@ var p = DisplayText.prototype;
 **/
 DisplayText._workingContext = document.createElement("canvas").getContext("2d");
 
+
 // public properties:
 	/**
 	* The text to display.
 	* @property text
 	* @type String
 	**/
-	p.text = "";
+	DisplayText.prototype.text = "";
 	
 	/**
 	* The font style to use. Any valid value for the CSS font attribute is acceptable (ex. "bold 36px Arial"). 
 	* @property font
 	* @type String
 	**/
-	p.font = null;
+	DisplayText.prototype.font = null;
 	
 	/**
 	* The color to draw the text in. Any valid value for the CSS color attribute is acceptable (ex. "#F00").
 	* @property color
 	* @type String
 	**/
-	p.color = null;
+	DisplayText.prototype.color = null;
 	
 	/**
 	* The horizontal text alignment. Any of "start", "end", "left", "right", and "center". For detailed 
@@ -100,7 +98,7 @@ DisplayText._workingContext = document.createElement("canvas").getContext("2d");
 	* @property textAlign
 	* @type String
 	**/
-	p.textAlign = null;
+	DisplayText.prototype.textAlign = null;
 	
 	/** The vertical alignment point on the font. Any of "top", "hanging", "middle", "alphabetic", 
 	* "ideographic", or "bottom". For detailed information view the 
@@ -109,7 +107,7 @@ DisplayText._workingContext = document.createElement("canvas").getContext("2d");
 	* @property textBaseline
 	* @type String
 	*/
-	p.textBaseline = null;
+	DisplayText.prototype.textBaseline = null;
 	
 	/** The maximum width to draw the text. If maxWidth is specified (not null), the text will be condensed or 
 	* shrunk to make it fit in this width. For detailed information view the 
@@ -118,20 +116,20 @@ DisplayText._workingContext = document.createElement("canvas").getContext("2d");
 	* @property maxWidth
 	* @type Number
 	*/
-	p.maxWidth = null;
+	DisplayText.prototype.maxWidth = null;
 	
 	/** If true, the text will be drawn as a stroke (outline). If false, the text will be drawn as a fill.
 	* @property outline
 	* @type Boolean
 	**/
-	p.outline = false;
+	DisplayText.prototype.outline = false;
 	
 	/** Indicates the line height (vertical distance between baselines) for multi-line text. If null, 
 	* the value of getMeasuredLineHeight is used.
 	* @property lineHeight
 	* @type Number
 	**/
-	p.lineHeight = null;
+	DisplayText.prototype.lineHeight = null;
 	
 	/**
 	* Indicates the maximum width for a line of text before it is wrapped to multiple lines. If null, 
@@ -139,7 +137,7 @@ DisplayText._workingContext = document.createElement("canvas").getContext("2d");
 	* @property lineWidth
 	* @type Number
 	**/
-	p.lineWidth = null;
+	DisplayText.prototype.lineWidth = null;
 	
 	/**
 	* Returns true or false indicating whether the display object would be visible if drawn to a canvas.
@@ -148,7 +146,7 @@ DisplayText._workingContext = document.createElement("canvas").getContext("2d");
 	* @method isVisible
 	* @return {Boolean} Boolean indicating whether the display object would be visible if drawn to a canvas
 	**/
-	p.isVisible = function() {
+	DisplayText.prototype.isVisible = function() {
 		return Boolean(this.visible && this.alpha > 0 && 
 						this.scaleX != 0 && this.scaleY != 0 && this.text != null && this.text != "");
 	}
@@ -158,7 +156,7 @@ DisplayText._workingContext = document.createElement("canvas").getContext("2d");
 	* @private
 	* @type Function
 	**/
-	p.DisplayObject_draw = p.draw;
+	DisplayText.prototype.DisplayObject_draw = DisplayText.prototype.draw;
 	
 	/**
 	* Draws the DisplayText into the specified context ignoring it's visible, alpha, shadow, and transform.
@@ -170,7 +168,7 @@ DisplayText._workingContext = document.createElement("canvas").getContext("2d");
 	* For example, used for drawing the cache (to prevent it from simply drawing an existing cache back
 	* into itself).
 	**/
-	p.draw = function(ctx, ignoreCache) {
+	DisplayText.prototype.draw = function(ctx, ignoreCache) {
 		if (this.DisplayObject_draw(ctx, ignoreCache)) { return true; }
 		
 		if (this.outline) { ctx.strokeStyle = this.color; }
@@ -214,7 +212,7 @@ DisplayText._workingContext = document.createElement("canvas").getContext("2d");
 	* @method getMeasuredWidth
 	* @return {Number} The measured, untransformed width of the text.
 	**/
-	p.getMeasuredWidth = function() {
+	DisplayText.prototype.getMeasuredWidth = function() {
 		return this._getWorkingContext().measureText(this.text).width;
 	}
 
@@ -225,7 +223,7 @@ DisplayText._workingContext = document.createElement("canvas").getContext("2d");
 	* @return {Number} an approximate line height of the text, ignoring the lineHeight property. This is 
 	* based on the measured width of a "M" character multiplied by 1.2, which approximates em for most fonts.
 	**/
-	p.getMeasuredLineHeight = function() {
+	DisplayText.prototype.getMeasuredLineHeight = function() {
 		return this._getWorkingContext().measureText("M").width*1.2;
 	}
 	
@@ -234,7 +232,7 @@ DisplayText._workingContext = document.createElement("canvas").getContext("2d");
 	* @method clone
 	* @return {Point} a clone of the Point instance.
 	**/
-	p.clone = function() {
+	DisplayText.prototype.clone = function() {
 		var o = new DisplayText(this.text, this.font, this.color);
 		this.cloneProps(o);
 		return o;
@@ -245,7 +243,7 @@ DisplayText._workingContext = document.createElement("canvas").getContext("2d");
 	* @method toString
 	* @return {String} a string representation of the instance.
 	**/
-	p.toString = function() {
+	DisplayText.prototype.toString = function() {
 		return "[DisplayText (text="+  (this.text.length > 20 ? this.text.substr(0, 17)+"..." : this.text) +")]";
 	}
 	
@@ -256,14 +254,14 @@ DisplayText._workingContext = document.createElement("canvas").getContext("2d");
 	* @private
 	* @type Function
 	**/
-	p.DisplayObject_cloneProps = p.cloneProps;
+	DisplayText.prototype.DisplayObject_cloneProps = DisplayText.prototype.cloneProps;
 
 	/** 
 	 * @method cloneProps
 	 * @param {DisplayText} o
 	 * @protected 
 	 **/
-	p.cloneProps = function(o) {
+	DisplayText.prototype.cloneProps = function(o) {
 		this.DisplayObject_cloneProps(o);
 		o.textAlign = this.textAlign;
 		o.textBaseline = this.textBaseline;
@@ -277,7 +275,7 @@ DisplayText._workingContext = document.createElement("canvas").getContext("2d");
 	 * @method _getWorkingContext
 	 * @protected 
 	 **/
-	p._getWorkingContext = function() {
+	DisplayText.prototype._getWorkingContext = function() {
 		var ctx = DisplayText._workingContext;
 		ctx.font = this.font;
 		ctx.textAlign = this.textAlign ? this.textAlign : "start";
@@ -292,20 +290,7 @@ DisplayText._workingContext = document.createElement("canvas").getContext("2d");
 	 * @param {Number} y
 	 * @protected 
 	 **/
-	p._drawTextLine = function(ctx, text, y) {
+	DisplayText.prototype._drawTextLine = function(ctx, text, y) {
 		if (this.outline) { ctx.strokeText(text, 0, y, this.maxWidth); }
 		else { ctx.fillText(text, 0, y, this.maxWidth); }
 	}
-
-	/**
-	* @method _calculateBounds
-	* @protected
-	* @return {Rectangle}
-	**/
-	p._calculateBounds = function() {
-		// TODO: implement.
-		// use getMeasuredLineHeight / lineHeight * lines for height
-		// measure each line for width
-	}
-window.DisplayText = DisplayText;
-}(window));

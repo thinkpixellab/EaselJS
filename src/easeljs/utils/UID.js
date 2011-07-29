@@ -36,23 +36,24 @@
 
 goog.provide('UID');
 
+
+/**
+* Global utility for generating sequential unique ID numbers.
+* The UID class uses a static interface (ex. UID.get()) and should not be instantiated.
+* @class UID
+* @static
+**/
+var UID = function() {
+	throw "UID cannot be instantiated";
+}
+
 	/**
-	* Global utility for generating sequential unique ID numbers.
-	* The UID class uses a static interface (ex. UID.get()) and should not be instantiated.
-	* @class UID
-	* @static
-	**/
-	UID = function() {
-		throw "UID cannot be instantiated"; 
-	}
-	
-	/** 
 	* @property _nextID
 	* @type Number
-	* @protected 
+	* @protected
 	**/
 	UID._nextID = 0;
-	
+
 	/**
 	* Returns the next unique id.
 	* @method get

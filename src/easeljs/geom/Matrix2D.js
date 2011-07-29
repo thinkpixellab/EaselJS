@@ -48,12 +48,7 @@ goog.provide('Matrix2D');
 * @param {Number} ty Specifies the ty property for the new matrix.
 **/
 Matrix2D = function(a, b, c, d, tx, ty) {
-	if (a != null) { this.a = a; }
-	if (b != null) { this.b = b; }
-	if (c != null) { this.c = c; }
-	if (d != null) { this.d = d; }
-	if (tx != null) { this.tx = tx; }
-	if (ty != null) { this.ty = ty; }
+	this.initialize(a,b,c,d,tx,ty);
 }
 
 // static public properties:
@@ -144,6 +139,20 @@ Matrix2D = function(a, b, c, d, tx, ty) {
 	* @type String
 	**/
 	Matrix2D.prototype.compositeOperation  = null;
+	
+	/** 
+	* Initialization method.
+	* @method initialize
+	* @protected
+	*/
+	Matrix2D.prototype.initialize = function(a, b, c, d, tx, ty) {
+		if (a != null) { this.a = a; }
+		this.b = b || 0;
+		this.c = c || 0;
+		if (d != null) { this.d = d; }
+		this.tx = tx || 0;
+		this.ty = ty || 0;
+	}
 	
 // public methods:
 	/**
@@ -414,6 +423,27 @@ Matrix2D = function(a, b, c, d, tx, ty) {
 			target.skewY = skewY/Matrix2D.DEG_TO_RAD;
 		}
 		return target;
+	}
+
+	/**
+	* Reinitializes all matrix properties to those specified.
+	* @method appendProperties
+	* @param {Number} a
+	* @param {Number} b
+	* @param {Number} c
+	* @param {Number} d
+	* @param {Number} tx
+	* @param {Number} ty
+	* @param {Number} alpha desired alpha value
+	* @param {Shadow} shadow desired shadow value
+	* @param {String} compositeOperation desired composite operation value
+	*/
+	Matrix2D.prototype.reinitialize = function(a,b,c,d,tx,ty,alpha,shadow,compositeOperation) {
+		this.initialize(a,b,c,d,tx,ty);
+		this.alpha = alpha || 1;
+		this.shadow = shadow;
+		this.compositeOperation = compositeOperation;
+		return this;
 	}
 
 	/**

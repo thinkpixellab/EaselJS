@@ -4,7 +4,7 @@
 *
 *
 * Copyright (c) 2010 Grant Skinner
-* 
+*
 * Permission is hereby granted, free of charge, to any person
 * obtaining a copy of this software and associated documentation
 * files (the "Software"), to deal in the Software without
@@ -13,10 +13,10 @@
 * copies of the Software, and to permit persons to whom the
 * Software is furnished to do so, subject to the following
 * conditions:
-* 
+*
 * The above copyright notice and this permission notice shall be
 * included in all copies or substantial portions of the Software.
-* 
+*
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
 * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
 * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -28,8 +28,8 @@
 */
 
 /**
-* The Easel Javascript library provides a retained graphics mode for canvas 
-* including a full, hierarchical display list, a core interaction model, and 
+* The Easel Javascript library provides a retained graphics mode for canvas
+* including a full, hierarchical display list, a core interaction model, and
 * helper classes to make working with Canvas much easier.
 * @module EaselJS
 **/
@@ -44,6 +44,15 @@ goog.require('Filter');
 * Applies color transforms.
 * @class ColorFilter
 * @constructor
+* @augments Filter
+* @param {Number} redMultiplier
+* @param {Number} greenMultiplier
+* @param {Number} blueMultiplier
+* @param {Number} alphaMultiplier
+* @param {Number} redOffset
+* @param {Number} greenOffset
+* @param {Number} blueOffset
+* @param {Number} alphaOffset
 **/
 ColorFilter = function(redMultiplier, greenMultiplier, blueMultiplier, alphaMultiplier, redOffset, greenOffset, blueOffset, alphaOffset) {
   Filter.call(this);
@@ -59,17 +68,6 @@ ColorFilter = function(redMultiplier, greenMultiplier, blueMultiplier, alphaMult
 goog.inherits(ColorFilter, Filter);
 var p = ColorFilter.prototype;
 
-// public properties:
-	// TODO: doc.
-	p.redMultiplier = 1;
-	p.greenMultiplier = 1;
-	p.blueMultiplier = 1;
-	p.alphaMultiplier = 1;
-	p.redOffset = 0;
-	p.greenOffset = 0;
-	p.blueOffset = 0;
-	p.alphaOffset = 0;
-	
 // public methods:
 	/**
 	* Applies the filter to the specified context.
@@ -114,8 +112,8 @@ var p = ColorFilter.prototype;
 	p.toString = function() {
 		return "[ColorFilter]";
 	}
-	
-	
+
+
 	/**
 	* Returns a clone of this ColorFilter instance.
 	* @method clone
@@ -124,6 +122,6 @@ var p = ColorFilter.prototype;
 	p.clone = function() {
 		return new ColorFilter(this.redMultiplier, this.greenMultiplier, this.blueMultiplier, this.alphaMultiplier, this.redOffset, this.greenOffset, this.blueOffset, this.alphaOffset);
 	}
-	
+
 window.ColorFilter = ColorFilter;
 }(window));

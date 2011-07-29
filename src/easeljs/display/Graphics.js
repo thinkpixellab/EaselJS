@@ -80,15 +80,11 @@ Command.prototype.exec = function(scope) { this.f.apply(scope, this.params); }
 * <pre><code>myGraphics.beginStroke("#F00").beginFill("#00F").drawRect(20, 20, 100, 50).draw(myContext2D);
 * @class Graphics
 * @constructor
-* @param {String} instructions Optional. This is a string that will be eval'ed in the scope of this Graphics object.</code></pre>
-* This provides a mechanism for generating a vector shape from a serialized string. Ex. 
-* "beginFill('#F00');drawRect(0, 0, 10, 10);"
 * @for Graphics
 **/
 Graphics = function(instructions) {
 	this.clear();
 	this._ctx = Graphics._ctx;
-	with (this) { eval(instructions); }
 }
 var p = Graphics.prototype;
 
@@ -258,15 +254,6 @@ var p = Graphics.prototype;
 	* @default false
 	**/
 	p._dirty = false;
-
-	// TODO: Doc & update clone.
-	p._minX = NaN;
-	p._minY = NaN;
-	p._maxX = NaN;
-	p._maxY = NaN;
-	p._boundsQueue = null; // defers expensive bounds operations until getBounds is called.
-	p._x = 0; // current "pen" location
-	p._y = 0; // TODO: implement in all methods.
 	
 	/**
 	* Draws the display object into the specified context ignoring it's visible, alpha, shadow, and transform.
@@ -284,16 +271,6 @@ var p = Graphics.prototype;
 			instr[i].exec(ctx);
 		}
 	}
-
-	// TODO: Doc.
-	p.getBounds = function() {
-		// TODO: finish implementation.
-			// TODO: implement _x, _y tracking everywhere (ex. see "lineTo" and "moveTo") (required for lineTo/curveTo, etc bounds).
-		// For cheap calculations, bounds are updated immediately  (ex. see "lineTo" & "rect").
-		// More expensive calculations are deferred until getBounds is called (ex. see "bezierCurveTo").
-		if (this._boundsQueue.length) { this._updateBounds(); }
-		return isNaN(this._minX) ? null : new Rectangle(this._minX, this._minY, this._maxX-this._minX, this._maxY-this._minY);
-	}
 	
 // public methods that map directly to context 2D calls:
 	/**
@@ -305,8 +282,6 @@ var p = Graphics.prototype;
 	**/
 	p.moveTo = function(x, y) {
 		this._activeInstructions.push(new Command(this._ctx.moveTo, [x, y]));
-		this._x = x;
-		this._y = y;
 		return this;
 	}
 	
@@ -323,10 +298,6 @@ var p = Graphics.prototype;
 	p.lineTo = function(x, y) {
 		this._dirty = this._active = true;
 		this._activeInstructions.push(new Command(this._ctx.lineTo, [x, y]));
-		this._extendBounds(this._x, this._y);
-		this._extendBounds(x, y);
-		this._x = x;
-		this._y = y;
 		return this;
 	}
 	
@@ -403,9 +374,6 @@ var p = Graphics.prototype;
 	p.bezierCurveTo = function(cp1x, cp1y, cp2x, cp2y, x, y) {
 		this._dirty = this._active = true;
 		this._activeInstructions.push(new Command(this._ctx.bezierCurveTo, [cp1x, cp1y, cp2x, cp2y, x, y]));
-		this._x = x;
-		thix._y = y;
-		this._boundsQueue.push(new Command(this._bezierCurveToBounds, [this._x, this._y, cp1x, cp1y, cp2x, cp2y, x, y]));
 		return this;
 	}
 	
@@ -423,9 +391,7 @@ var p = Graphics.prototype;
 	**/
 	p.rect = function(x, y, w, h) {
 		this._dirty = this._active = true;
-		this._activeInstructions.push(new Command(this._ctx.rect, [x, y, w-1, h]));
-		this._extendBounds(x, y);
-		this._extendBounds(x+w, y+h);
+		this._activeInstructions.push(new Command(this._ctx.rect, [x, y, w, h]));
 		return this;
 	}
 	
@@ -456,8 +422,6 @@ var p = Graphics.prototype;
 		this._activeInstructions = [];
 		this._strokeStyleInstructions = this._strokeInstructions = this._fillInstructions = null;
 		this._active = this._dirty = false;
-		this._boundsQueue = [];
-		this._minX = this._minY = this._maxX = this._maxY = NaN;
 		return this;
 	}
 	
@@ -1057,45 +1021,6 @@ var p = Graphics.prototype;
 	**/
 	p._setProp = function(name, value) {
 		this[name] = value;
-	}
-
-	/**
-	* @method _extendBounds
-	* @param {Number} x
-	* @param {Number} y
-	* @protected
-	**/
-	p._extendBounds = function(x, y) {
-		if (isNaN(this._minX)) {
-			this._minX = this._maxX = x;
-			this._minY = this._maxY = y;
-		} else {
-			if (x < this._minX) { this._minX = x; }
-			else if (x > this._maxX) { this._maxX = x; }
-			if (y < this._minY) { this._minY = y; }
-			else if (y > this._maxY) { this._maxY = y; }
-		}
-	}
-
-	/**
-	* @method _updateBounds
-	* @protected
-	**/
-	p._updateBounds = function() {
-		var ctx = this._ctx;
-		while (boundsQueue.length) {
-			boundsQueue.pop().exec(this);
-		}
-	}
-
-		/**
-	* @method _bezierCurveToBounds
-	* @protected
-	**/
-	p._bezierCurveToBounds = function(x1, y1, cp1x, cp1y, cp2x, cp2y, x2, y2) {
-		this._extendBounds(x1, y1);
-		this._extendBounds(x2, y2);
-		// TODO: implement.
 	}
 
 window.Graphics = Graphics;
