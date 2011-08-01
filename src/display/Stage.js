@@ -47,8 +47,8 @@ goog.require('Container');
 * @param {HTMLCanvasElement} canvas The canvas the stage will render to.
 **/
 Stage = function(canvas, useTouch) {
-  Container.call(this, canvas);
-	this.canvas = canvas;
+  Container.call(this);
+  this.canvas = canvas;
   this._enableMouseEvents(true);
 }
 goog.inherits(Stage, Container);
