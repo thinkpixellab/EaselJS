@@ -31,7 +31,6 @@
 * The Easel Javascript library provides a retained graphics mode for canvas 
 * including a full, hierarchical display list, a core interaction model, and 
 * helper classes to make working with Canvas much easier.
-* @module EaselJS
 **/
 
 goog.provide('Ticker');
@@ -62,74 +61,64 @@ var Ticker = function() {
 
 	
 	/** 
-	* @property _listeners
-	* @type Array[Object]
-	* @protected 
+	* @type Array.<Object>
+	* @private
 	**/
 	Ticker._listeners = [];
 	
 	/** 
-	* @property _pauseable
-	* @type Array[Boolean]
-	* @protected 
+	* @type Array.<boolean>
+	* @private
 	**/
 	Ticker._pauseable = [];
 	
 	/** 
-	* @property _paused
-	* @type Boolean
-	* @protected 
+	* @type {boolean}
+	* @private
 	**/
 	Ticker._paused = false;
 	
 	/** 
-	* @property _inited
-	* @type Boolean
-	* @protected 
+	* @type {boolean}
+	* @private
 	**/
 	Ticker._inited = false;
 	
 	/** 
-	* @property _startTime
-	* @type Number
-	* @protected 
+	* @type {number}
+	* @private
 	**/
 	Ticker._startTime = 0;
 	
 	/** 
-	* @property _pausedTime
-	* @type Number
-	* @protected 
+	* @type {number}
+	* @private
 	**/
 	Ticker._pausedTime=0;
 	
 	/** 
 	* Number of ticks that have passed
-	* @property _ticks
-	* @type Number
-	* @protected 
+	* @type {number}
+	* @private
 	**/
 	Ticker._ticks = 0;
 	
 	/**
 	* Number of ticks that have passed while Ticker has been paused
-	* @property _pausedTickers
-	* @type Number
-	* @protected 
+	* @type {number}
+	* @private
 	**/
 	Ticker._pausedTickers = 0;
 	
 	/** 
-	* @property _lastTime
-	* @type Number
-	* @protected 
+	* @type {number}
+	* @private
 	**/
 	Ticker._lastTime = 0;
 	
 	/** 
-	* @property _times
-	* @type Array[Number]
-	* @protected 
+	* @type Array.<number>
+	* @private
 	**/
 	Ticker._times = [];
 	
@@ -140,25 +129,23 @@ var Ticker = function() {
 	* .setInterval(ms) method.
 	* The exposed tick method is passed a single parameter, which include the elapsed time between the 
 	* previous tick and the current one.
-	* @method addListener
 	* @static
 	* @param {Object} o The object to add as a listener.
-	* @param {Boolean} pauseable If false, the listener will continue to have tick called 
+	* @param {boolean=} opt_pauseable If false, the listener will continue to have tick called 
 	* even when Ticker is paused via Ticker.pause(). Default is true.
 	**/
-	Ticker.addListener = function(o, pauseable) {
+	Ticker.addListener = function(o, opt_pauseable) {
 		if (!Ticker._inited) {
 			Ticker._inited = true;
   		Ticker.requestAnimFrame(Ticker._tick);
 		}
 		Ticker.removeListener(o);
-		Ticker._pauseable[Ticker._listeners.length] = (pauseable == null) ? true : pauseable;
+		Ticker._pauseable[Ticker._listeners.length] = opt_pauseable ? true : false;
 		Ticker._listeners.push(o);
 	}
 	
 	/**
 	* Removes the specified listener.
-	* @method removeListener
 	* @static
 	* @param {Object} o The object to remove from listening from the tick event.
 	**/
@@ -173,8 +160,6 @@ var Ticker = function() {
 	
 	/**
 	* Removes all listeners.
-	* @method removeAllListeners
-	* @static
 	**/
 	Ticker.removeAllListeners = function() {
 		Ticker._listeners = [];
@@ -183,11 +168,9 @@ var Ticker = function() {
 	
 	/**
 	* Returns the actual frames / ticks per second.
-	* @method getMeasuredFPS
-	* @static
-	* @param {Number} ticks Optional. The number of previous ticks over which to measure the actual 
+	* @param {number} ticks Optional. The number of previous ticks over which to measure the actual 
 	* frames / ticks per second.
-	* @return {Number} The actual frames / ticks per second. Depending on performance, this may differ
+	* @return {number} The actual frames / ticks per second. Depending on performance, this may differ
 	* from the target frames per second.
 	**/
 	Ticker.getMeasuredFPS = function(ticks) {
@@ -201,9 +184,7 @@ var Ticker = function() {
 	
 	/**
 	* While Ticker is paused, pausable listeners are not ticked. See addListener for more information.
-	* @method setPaused
-	* @static
-	* @param {Boolean} value Indicates whether to pause (true) or unpause (false) Ticker.
+	* @param {boolean} value Indicates whether to pause (true) or unpause (false) Ticker.
 	**/
 	Ticker.setPaused = function(value) {
 		Ticker._paused = value;
@@ -211,9 +192,7 @@ var Ticker = function() {
 	
 	/**
 	* Returns a boolean indicating whether Ticker is currently paused, as set with setPaused.
-	* @method getPaused
-	* @static
-	* @return {Boolean} Whether the Ticker is currently paused.
+	* @return {boolean} Whether the Ticker is currently paused.
 	**/
 	Ticker.getPaused = function() {
 		return Ticker._paused;
@@ -223,12 +202,10 @@ var Ticker = function() {
 	* Returns the number of milliseconds that have elapsed since the first tick event listener was added to
 	* Ticker. For example, you could use this in a time synchronized animation to determine the exact amount of 
 	* time that has elapsed.
-	* @method getTime
-	* @static
-	* @param {Boolean} pauseable Indicates whether to include time elapsed
+	* @param {boolean} pauseable Indicates whether to include time elapsed
 	* while Ticker was paused. If false only time elapsed while Ticker is not paused will be returned.
 	* If true, the value returned will be total time elapsed since the first tick event listener was added.
-	* @return {Number} Number of milliseconds that have elapsed since Ticker was begun.
+	* @return {number} Number of milliseconds that have elapsed since Ticker was begun.
 	**/
 	Ticker.getTime = function(pauseable) {
 		return Ticker._getTime() - Ticker._startTime - (pauseable ? Ticker._pausedTime : 0);
@@ -236,13 +213,12 @@ var Ticker = function() {
 	
 	/**
 	* Returns the number of ticks that have been broadcast by Ticker.
-	* @method getTicks
 	* @static
-	* @param {Boolean} pauseable Indicates whether to include ticks that would have been broadcast
+	* @param {boolean} pauseable Indicates whether to include ticks that would have been broadcast
 	* while Ticker was paused. If false only tick events broadcast while Ticker is not paused will be returned.
 	* If true, tick events that would have been broadcast while Ticker was paused will be included in the return
 	* value. The default value is false.
-	* @return {Number} of ticks that have been broadcast.
+	* @return {number} of ticks that have been broadcast.
 	**/
 	Ticker.getTicks = function(pauseable) {
 		return  Ticker._ticks - (pauseable ?Ticker._pausedTickers : 0);
@@ -251,8 +227,7 @@ var Ticker = function() {
 // private static methods:
 
 	/**
-	* @method _tick
-	* @protected
+	* @private
 	**/
 	Ticker._tick = function() {
 		Ticker.requestAnimFrame(Ticker._tick);
@@ -283,8 +258,7 @@ var Ticker = function() {
 	}
 	
 	/**
-	* @method _getTime
-	* @protected
+	* @private
 	**/
 	Ticker._getTime = function() {
 		return new Date().getTime();
