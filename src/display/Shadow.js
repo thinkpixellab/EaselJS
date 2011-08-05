@@ -4,7 +4,7 @@
 *
 *
 * Copyright (c) 2010 Grant Skinner
-* 
+*
 * Permission is hereby granted, free of charge, to any person
 * obtaining a copy of this software and associated documentation
 * files (the "Software"), to deal in the Software without
@@ -13,10 +13,10 @@
 * copies of the Software, and to permit persons to whom the
 * Software is furnished to do so, subject to the following
 * conditions:
-* 
+*
 * The above copyright notice and this permission notice shall be
 * included in all copies or substantial portions of the Software.
-* 
+*
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
 * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
 * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -28,8 +28,8 @@
 */
 
 /**
-* The Easel Javascript library provides a retained graphics mode for canvas 
-* including a full, hierarchical display list, a core interaction model, and 
+* The Easel Javascript library provides a retained graphics mode for canvas
+* including a full, hierarchical display list, a core interaction model, and
 * helper classes to make working with Canvas much easier.
 * @module EaselJS
 **/
@@ -50,10 +50,10 @@ Shadow = function(color, offsetX, offsetY, blur) {
 	this.offsetX = offsetX;
 	this.offsetY = offsetY;
 	this.blur = blur;
-}
-	
+};
+
 // static public properties:
-	
+
 // public properties:
 	/** The color of the shadow.
 	* property color
@@ -61,28 +61,28 @@ Shadow = function(color, offsetX, offsetY, blur) {
 	* @default null
 	*/
 	Shadow.prototype.color = null;
-	
+
 	/** The x offset of the shadow.
 	* property offsetX
 	* @type Number
 	* @default 0
 	*/
 	Shadow.prototype.offsetX = 0;
-	
+
 	/** The y offset of the shadow.
 	* property offsetY
 	* @type Number
 	* @default 0
 	*/
 	Shadow.prototype.offsetY = 0;
-	
+
 	/** The blur of the shadow.
 	* property blur
 	* @type Number
 	* @default 0
 	*/
 	Shadow.prototype.blur = 0;
-	
+
 // public methods:
 	/**
 	* Returns a string representation of this object.
@@ -90,10 +90,10 @@ Shadow = function(color, offsetX, offsetY, blur) {
 	* @return {String} a string representation of the instance.
 	**/
 	Shadow.prototype.toString = function() {
-		return "[Shadow]";
-	}
-	
-	
+		return '[Shadow]';
+	};
+
+
 	/**
 	* Returns a clone of this Shadow instance.
 	* @method clone
@@ -101,7 +101,7 @@ Shadow = function(color, offsetX, offsetY, blur) {
 	**/
 	Shadow.prototype.clone = function() {
 		return new Shadow(this.color, this.offsetX, this.offsetY, this.blur);
-	}
-	
+	};
+
 	// this has to be populated after the class is defined:
 	Shadow.identity = new Shadow(null, 0, 0, 0);

@@ -65,7 +65,7 @@ EaselMouseEvent = function(type, stageX, stageY, target, nativeEvent) {
 	* @type Number
 	*/
 	EaselMouseEvent.prototype.stageX = 0;
-	
+
 	/**
 	* The mouseY position on the stage.
 	* @property stageY
@@ -89,8 +89,8 @@ EaselMouseEvent = function(type, stageX, stageY, target, nativeEvent) {
 	* @type MouseEvent
 	* @default null
 	**/
-	EaselMouseEvent.prototype.nativeEvent = null;	
-	
+	EaselMouseEvent.prototype.nativeEvent = null;
+
 	/**
 	* For events of type "onPress" and "onMouseDown" only you can assign a handler to the onMouseMove
 	* property. This handler will be called every time the mouse is moved until the mouse is released.
@@ -99,7 +99,7 @@ EaselMouseEvent = function(type, stageX, stageY, target, nativeEvent) {
 	* @param {EaselMouseEvent} event A EaselMouseEvent instance with information about the current mouse event.
 	**/
 	EaselMouseEvent.prototype.onMouseMove = null;
-	
+
 	/**
 	* For events of type "onPress" and "onMouseDown" only you can assign a handler to the onMouseUp
 	* property. This handler will be called every time the mouse is moved until the mouse is released.
@@ -108,7 +108,7 @@ EaselMouseEvent = function(type, stageX, stageY, target, nativeEvent) {
 	* @param {EaselMouseEvent} event A EaselMouseEvent instance with information about the current mouse event.
 	*/
 	EaselMouseEvent.prototype.onMouseUp = null;
-	
+
 	/**
 	* The display object this event relates to.
 	* @property target
@@ -125,7 +125,7 @@ EaselMouseEvent = function(type, stageX, stageY, target, nativeEvent) {
 	**/
 	EaselMouseEvent.prototype.clone = function() {
 		return new MouseEvent(this.type, this.stageX, this.stageY, this.target, this.nativeEvent);
-	}
+	};
 
 	/**
 	* Returns a string representation of this object.
@@ -133,5 +133,5 @@ EaselMouseEvent = function(type, stageX, stageY, target, nativeEvent) {
 	* @return {String} a string representation of the instance.
 	**/
 	EaselMouseEvent.prototype.toString = function() {
-		return "[EaselMouseEvent (type="+this.type+" stageX="+this.stageX+" stageY="+this.stageY+")]";
-	}
+		return '[EaselMouseEvent (type='+ this.type + ' stageX='+ this.stageX + ' stageY='+ this.stageY + ')]';
+	};

@@ -87,7 +87,7 @@ Stage.prototype.canvas = null;
  **/
 Stage.prototype.mouseX = null;
 
-/** READ-ONLY. The current mouse Y position on the canvas. If the mouse leaves the canvas, this will indicate the most recent 
+/** READ-ONLY. The current mouse Y position on the canvas. If the mouse leaves the canvas, this will indicate the most recent
  * position over the canvas, and mouseInBounds will be set to false.
  * @property mouseY
  * @type Number
@@ -103,7 +103,7 @@ Stage.prototype.mouseY = null;
 Stage.prototype.onMouseMove = null;
 
 /**
- * The onMouseUp callback is called when the user releases the mouse button anywhere that the page can detect it.  The handler 
+ * The onMouseUp callback is called when the user releases the mouse button anywhere that the page can detect it.  The handler
  * is passed a single param containing the corresponding EaselMouseEvent instance.
  * @event onMouseUp
  * @param {EaselMouseEvent} event A EaselMouseEvent instance with information about the current mouse event.
@@ -111,7 +111,7 @@ Stage.prototype.onMouseMove = null;
 Stage.prototype.onMouseUp = null;
 
 /**
- * The onMouseDown callback is called when the user presses the mouse button over the canvas.  The handler is passed a single 
+ * The onMouseDown callback is called when the user presses the mouse button over the canvas.  The handler is passed a single
  * param containing the corresponding EaselMouseEvent instance.
  * @event onMouseDown
  * @param {EaselMouseEvent} event A EaselMouseEvent instance with information about the current mouse event.
@@ -206,7 +206,7 @@ Stage.prototype.update = function() {
   if (this.tickOnUpdate) {
     this._tick();
   }
-  this.draw(this.canvas.getContext("2d"), false, this.getConcatenatedMatrix(this._matrix));
+  this.draw(this.canvas.getContext('2d'), false, this.getConcatenatedMatrix(this._matrix));
 };
 
 /**
@@ -225,7 +225,7 @@ Stage.prototype.clear = function() {
   if (!this.canvas) {
     return;
   }
-  var ctx = this.canvas.getContext("2d");
+  var ctx = this.canvas.getContext('2d');
   ctx.setTransform(1, 0, 0, 1, 0, 0);
   ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 };
@@ -242,7 +242,7 @@ Stage.prototype.clear = function() {
  **/
 Stage.prototype.toDataURL = function(backgroundColor, mimeType) {
   if (!mimeType) {
-    mimeType = "image/png";
+    mimeType = 'image/png';
   }
 
   var ctx = this.canvas.getContext('2d');
@@ -260,7 +260,7 @@ Stage.prototype.toDataURL = function(backgroundColor, mimeType) {
     var compositeOperation = ctx.globalCompositeOperation;
 
     //set to draw behind current content
-    ctx.globalCompositeOperation = "destination-over";
+    ctx.globalCompositeOperation = 'destination-over';
 
     //set background color
     ctx.fillStyle = backgroundColor;
@@ -326,7 +326,7 @@ Stage.prototype.clone = function() {
  * @return {String} a string representation of the instance.
  **/
 Stage.prototype.toString = function() {
-  return "[Stage (name=" + this.name + ")]";
+  return '[Stage (name=' + this.name + ')]';
 };
 
 // private methods:
@@ -338,16 +338,16 @@ Stage.prototype.toString = function() {
 Stage.prototype._enableMouseEvents = function() {
   var o = this;
   var evtTarget = window.addEventListener ? window : document;
-  evtTarget.addEventListener("mouseup", function(e) {
+  evtTarget.addEventListener('mouseup', function(e) {
     o._handleMouseUp(e);
   }, false);
-  evtTarget.addEventListener("mousemove", function(e) {
+  evtTarget.addEventListener('mousemove', function(e) {
     o._handleMouseMove(e);
   }, false);
-  evtTarget.addEventListener("dblclick", function(e) {
+  evtTarget.addEventListener('dblclick', function(e) {
     o._handleDoubleClick(e);
   }, false);
-  this.canvas.addEventListener("mousedown", function(e) {
+  this.canvas.addEventListener('mousedown', function(e) {
     o._handleMouseDown(e);
   }, false);
 };
@@ -373,7 +373,7 @@ Stage.prototype._handleMouseMove = function(e) {
     return;
   }
 
-  var evt = new EaselMouseEvent("onMouseMove", this.mouseX, this.mouseY, this, e);
+  var evt = new EaselMouseEvent('onMouseMove', this.mouseX, this.mouseY, this, e);
 
   if (this.onMouseMove) {
     this.onMouseMove(evt);
@@ -412,7 +412,7 @@ Stage.prototype._updateMousePosition = function(pageX, pageY) {
  * @param {EaselMouseEvent} e
  **/
 Stage.prototype._handleMouseUp = function(e) {
-  var evt = new EaselMouseEvent("onMouseUp", this.mouseX, this.mouseY, this, e);
+  var evt = new EaselMouseEvent('onMouseUp', this.mouseX, this.mouseY, this, e);
   if (this.onMouseUp) {
     this.onMouseUp(evt);
   }
@@ -421,7 +421,7 @@ Stage.prototype._handleMouseUp = function(e) {
   }
   if (this._activeMouseTarget && this._activeMouseTarget.onClick && this._getObjectsUnderPoint(this.mouseX, this.mouseY, null, true, (this._mouseOverIntervalID ? 3 : 1)) == this._activeMouseTarget) {
 
-    this._activeMouseTarget.onClick(new EaselMouseEvent("onClick", this.mouseX, this.mouseY, this._activeMouseTarget, e));
+    this._activeMouseTarget.onClick(new EaselMouseEvent('onClick', this.mouseX, this.mouseY, this._activeMouseTarget, e));
   }
   this._activeMouseEvent = this._activeMouseTarget = null;
 };
@@ -433,12 +433,12 @@ Stage.prototype._handleMouseUp = function(e) {
  **/
 Stage.prototype._handleMouseDown = function(e) {
   if (this.onMouseDown) {
-    this.onMouseDown(new EaselMouseEvent("onMouseDown", this.mouseX, this.mouseY, this, e));
+    this.onMouseDown(new EaselMouseEvent('onMouseDown', this.mouseX, this.mouseY, this, e));
   }
   var target = this._getObjectsUnderPoint(this.mouseX, this.mouseY, null, (this._mouseOverIntervalID ? 3 : 1));
   if (target) {
     if (target.onPress instanceof Function) {
-      var evt = new EaselMouseEvent("onPress", this.mouseX, this.mouseY, target, e);
+      var evt = new EaselMouseEvent('onPress', this.mouseX, this.mouseY, target, e);
       target.onPress(evt);
       if (evt.onMouseMove || evt.onMouseUp) {
         this._activeEaselMouseEvent = evt;
@@ -465,10 +465,10 @@ Stage.prototype._testMouseOver = function() {
 
   if (this._mouseOverTarget != target) {
     if (this._mouseOverTarget && this._mouseOverTarget.onMouseOut) {
-      this._mouseOverTarget.onMouseOut(new EaselMouseEvent("onMouseOut", this.mouseX, this.mouseY, this._mouseOverTarget));
+      this._mouseOverTarget.onMouseOut(new EaselMouseEvent('onMouseOut', this.mouseX, this.mouseY, this._mouseOverTarget));
     }
     if (target && target.onMouseOver) {
-      target.onMouseOver(new EaselMouseEvent("onMouseOver", this.mouseX, this.mouseY, target));
+      target.onMouseOver(new EaselMouseEvent('onMouseOver', this.mouseX, this.mouseY, target));
     }
     this._mouseOverTarget = target;
   }
@@ -481,19 +481,19 @@ Stage.prototype._testMouseOver = function() {
  **/
 Stage.prototype._handleDoubleClick = function(e) {
   if (this.onDoubleClick) {
-    this.onDoubleClick(new EaselMouseEvent("onDoubleClick", this.mouseX, this.mouseY, this, e));
+    this.onDoubleClick(new EaselMouseEvent('onDoubleClick', this.mouseX, this.mouseY, this, e));
   }
   var target = this._getObjectsUnderPoint(this.mouseX, this.mouseY, null, (this._mouseOverIntervalID ? 3 : 1));
   if (target) {
     if (target.onDoubleClick instanceof Function) {
-      target.onDoubleClick(new EaselMouseEvent("onPress", this.mouseX, this.mouseY, target, e));
+      target.onDoubleClick(new EaselMouseEvent('onPress', this.mouseX, this.mouseY, target, e));
     }
   }
 };
 
 /**
  * @param {DisplayObject} displayObject
- * @returns {Stage}
+ * @return {Stage}
  */
 Stage.findStage = function(displayObject) {
   var o = displayObject;

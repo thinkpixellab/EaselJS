@@ -4,7 +4,7 @@
 *
 *
 * Copyright (c) 2010 Grant Skinner
-* 
+*
 * Permission is hereby granted, free of charge, to any person
 * obtaining a copy of this software and associated documentation
 * files (the "Software"), to deal in the Software without
@@ -13,10 +13,10 @@
 * copies of the Software, and to permit persons to whom the
 * Software is furnished to do so, subject to the following
 * conditions:
-* 
+*
 * The above copyright notice and this permission notice shall be
 * included in all copies or substantial portions of the Software.
-* 
+*
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
 * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
 * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -28,8 +28,8 @@
 */
 
 /**
-* The Easel Javascript library provides a retained graphics mode for canvas 
-* including a full, hierarchical display list, a core interaction model, and 
+* The Easel Javascript library provides a retained graphics mode for canvas
+* including a full, hierarchical display list, a core interaction model, and
 * helper classes to make working with Canvas much easier.
 * @module EaselJS
 **/
@@ -47,13 +47,13 @@ goog.require('DisplayObject');
 **/
 Bitmap = function(imageOrUri) {
   DisplayObject.call(this);
-	if (typeof imageOrUri == "string") {
+	if (typeof imageOrUri == 'string') {
 		this.image = new Image();
 		this.image.src = imageOrUri;
 	} else {
 		this.image = imageOrUri;
 	}
-}
+};
 goog.inherits(Bitmap, DisplayObject);
 
 	// public properties:
@@ -63,7 +63,7 @@ goog.inherits(Bitmap, DisplayObject);
 	* @type Image | HTMLCanvasElement | HTMLVideoElement
 	**/
 	Bitmap.prototype.image = null;
-	
+
 	/**
 	* Whether or not the Bitmap should be draw to the canvas at whole pixel coordinates.
 	* @property snapToPixel
@@ -71,7 +71,7 @@ goog.inherits(Bitmap, DisplayObject);
 	* @default true
 	**/
 	Bitmap.prototype.snapToPixel = true;
-	
+
 // public methods:
 
 	/**
@@ -79,51 +79,51 @@ goog.inherits(Bitmap, DisplayObject);
 	* This does not account for whether it would be visible within the boundaries of the stage.
 	* NOTE: This method is mainly for internal use, though it may be useful for advanced uses.
 	* @method isVisible
-	* @return {Boolean} Boolean indicating whether the display object would be visible if drawn to a canvas
+	* @return {Boolean} Boolean indicating whether the display object would be visible if drawn to a canvas.
 	**/
 	Bitmap.prototype.isVisible = function() {
 		return this.visible && this.alpha > 0 && this.scaleX != 0 && this.scaleY != 0 && this.image && (this.image.complete || this.image.getContext);
-	}
-	
+	};
+
 	/**
 	* Draws the display object into the specified context ignoring it's visible, alpha, shadow, and transform.
 	* Returns true if the draw was handled (useful for overriding functionality).
 	* NOTE: This method is mainly for internal use, though it may be useful for advanced uses.
 	* @method draw
 	* @param {CanvasRenderingContext2D} ctx The canvas 2D context object to draw into.
-	* @param {Boolean} ignoreCache Indicates whether the draw operation should ignore any current cache. 
+	* @param {Boolean} ignoreCache Indicates whether the draw operation should ignore any current cache.
 	* For example, used for drawing the cache (to prevent it from simply drawing an existing cache back
 	* into itself).
 	**/
 	Bitmap.prototype.draw = function(ctx, ignoreCache) {
-		if (DisplayObject.prototype.draw.call(this, ctx, ignoreCache)) { 
-			return true; 
+		if (DisplayObject.prototype.draw.call(this, ctx, ignoreCache)) {
+			return true;
 		}
 		ctx.drawImage(this.image, 0, 0);
 		return true;
-	}
-	
+	};
+
 	//Note, the doc sections below document using the specified APIs (from DisplayObject)  from
 	//Bitmap. This is why they have no method implementations.
-	
+
 	/**
 	* Because the content of a Bitmap is already in a simple format, cache is unnecessary for Bitmap instances.
 	* You should not cache Bitmap instances as it can degrade performance.
 	* @method cache
 	**/
-	
+
 	/**
 	* Because the content of a Bitmap is already in a simple format, cache is unnecessary for Bitmap instances.
 	* You should not cache Bitmap instances as it can degrade performance.
 	* @method updateCache
 	**/
-	
+
 	/**
 	* Because the content of a Bitmap is already in a simple format, cache is unnecessary for Bitmap instances.
 	* You should not cache Bitmap instances as it can degrade performance.
 	* @method uncache
 	**/
-	
+
 	/**
 	* Returns a clone of the Bitmap instance.
 	* @method clone
@@ -133,15 +133,15 @@ goog.inherits(Bitmap, DisplayObject);
 		var o = new Bitmap(this.image);
 		this.cloneProps(o);
 		return o;
-	}
-	
+	};
+
 	/**
 	* Returns a string representation of this object.
 	* @method toString
 	* @return {String} a string representation of the instance.
 	**/
 	Bitmap.prototype.toString = function() {
-		return "[Bitmap (name="+  this.name +")]";
-	}
+		return '[Bitmap (name='+ this.name + ')]';
+	};
 
 

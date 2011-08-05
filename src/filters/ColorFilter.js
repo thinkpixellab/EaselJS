@@ -87,17 +87,17 @@ var p = ColorFilter.prototype;
 		if (targetY = null) { targetY = y; }
 		try {
 			var imageData = ctx.getImageData(x, y, width, height);
-		} catch(e) {
+		} catch (e) {
 			//if (!this.suppressCrossDomainErrors) throw new Error("unable to access local image data: " + e);
 			return false;
 		}
 		var data = imageData.data;
 		var l = data.length;
-		for (var i=0; i<l; i+=4) {
-			data[i] = data[i]*this.redMultiplier+this.redOffset;
-			data[i+1] = data[i+1]*this.greenMultiplier+this.greenOffset;
-			data[i+2] = data[i+2]*this.blueMultiplier+this.blueOffset;
-			data[i+3] = data[i+3]*this.alphaMultiplier+this.alphaOffset;
+		for (var i = 0; i < l; i += 4) {
+			data[i] = data[i] * this.redMultiplier + this.redOffset;
+			data[i + 1] = data[i + 1] * this.greenMultiplier + this.greenOffset;
+			data[i + 2] = data[i + 2] * this.blueMultiplier + this.blueOffset;
+			data[i + 3] = data[i + 3] * this.alphaMultiplier + this.alphaOffset;
 		}
 		imageData.data = data;
 		targetCtx.putImageData(imageData, targetX, targetY);
@@ -110,7 +110,7 @@ var p = ColorFilter.prototype;
 	* @return {String} a string representation of the instance.
 	**/
 	p.toString = function() {
-		return "[ColorFilter]";
+		return '[ColorFilter]';
 	}
 
 

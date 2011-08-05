@@ -4,7 +4,7 @@
 *
 *
 * Copyright (c) 2010 Grant Skinner
-* 
+*
 * Permission is hereby granted, free of charge, to any person
 * obtaining a copy of this software and associated documentation
 * files (the "Software"), to deal in the Software without
@@ -13,10 +13,10 @@
 * copies of the Software, and to permit persons to whom the
 * Software is furnished to do so, subject to the following
 * conditions:
-* 
+*
 * The above copyright notice and this permission notice shall be
 * included in all copies or substantial portions of the Software.
-* 
+*
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
 * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
 * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -28,8 +28,8 @@
 */
 
 /**
-* The Easel Javascript library provides a retained graphics mode for canvas 
-* including a full, hierarchical display list, a core interaction model, and 
+* The Easel Javascript library provides a retained graphics mode for canvas
+* including a full, hierarchical display list, a core interaction model, and
 * helper classes to make working with Canvas much easier.
 * @module EaselJS
 **/
@@ -46,24 +46,24 @@ goog.provide('Point');
 Point = function(x, y) {
 	this.x = (x == null ? 0 : x);
 	this.y = (y == null ? 0 : y);
-}
-	
+};
+
 // public properties:
 
-	/** 
-	* X position. 
+	/**
+	* X position.
 	* @property x
 	* @type Number
 	**/
 	Point.prototype.x = 0;
-	
-	/** 
-	* Y position. 
+
+	/**
+	* Y position.
 	* @property y
 	* @type Number
 	**/
 	Point.prototype.y = 0;
-	
+
 // public methods:
 	/**
 	* Returns a clone of the Point instance.
@@ -72,7 +72,7 @@ Point = function(x, y) {
 	**/
 	Point.prototype.clone = function() {
 		return new Point(this.x, this.y);
-	}
+	};
 
 	/**
 	* Returns a string representation of this object.
@@ -80,5 +80,5 @@ Point = function(x, y) {
 	* @return {String} a string representation of the instance.
 	**/
 	Point.prototype.toString = function() {
-		return "[Point (x="+this.x+" y="+this.y+")]";
-	}
+		return '[Point (x='+ this.x + ' y='+ this.y + ')]';
+	};

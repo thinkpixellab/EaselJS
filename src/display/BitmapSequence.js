@@ -165,7 +165,7 @@ var p = BitmapSequence.prototype;
 	* This does not account for whether it would be visible within the boundaries of the stage.
 	* NOTE: This method is mainly for internal use, though it may be useful for advanced uses.
 	* @method isVisible
-	* @return {Boolean} Boolean indicating whether the display object would be visible if drawn to a canvas
+	* @return {Boolean} Boolean indicating whether the display object would be visible if drawn to a canvas.
 	**/
 	p.isVisible = function() {
 		var image = this.spriteSheet ? this.spriteSheet.image : null;
@@ -195,8 +195,8 @@ var p = BitmapSequence.prototype;
 		var image = this.spriteSheet.image;
 		var frameWidth = this.spriteSheet.frameWidth;
 		var frameHeight = this.spriteSheet.frameHeight;
-		var cols = image.width/frameWidth|0;
-		var rows = image.height/frameHeight|0;
+		var cols = image.width / frameWidth | 0;
+		var rows = image.height / frameHeight | 0;
 
 		if (this.currentEndFrame != null) {
 			// use sequencing.
@@ -211,20 +211,20 @@ var p = BitmapSequence.prototype;
 			}
 		} else {
 			// use simple mode.
-			var ttlFrames = this.spriteSheet.totalFrames || cols*rows;
+			var ttlFrames = this.spriteSheet.totalFrames || cols * rows;
 			if (this.currentFrame >= ttlFrames) {
 				if (this.spriteSheet.loop) { this.currentFrame = 0; }
 				else {
-					this.currentFrame = ttlFrames-1;
+					this.currentFrame = ttlFrames - 1;
 					this.paused = true;
 				}
 				if (this.callback) { this.callback(this); }
 			}
 		}
 		if (this.currentFrame >= 0) {
-			var col = this.currentFrame%cols;
-			var row = this.currentFrame/cols|0;
-			ctx.drawImage(image, frameWidth*col, frameHeight*row, frameWidth, frameHeight, 0, 0, frameWidth, frameHeight);
+			var col = this.currentFrame % cols;
+			var row = this.currentFrame / cols | 0;
+			ctx.drawImage(image, frameWidth * col, frameHeight * row, frameWidth, frameHeight, 0, 0, frameWidth, frameHeight);
 		}
 		return true;
 	}
@@ -297,7 +297,7 @@ var p = BitmapSequence.prototype;
 	* @return {String} a string representation of the instance.
 	**/
 	p.toString = function() {
-		return "[BitmapSequence (name="+  this.name +")]";
+		return '[BitmapSequence (name='+ this.name + ')]';
 	}
 
 // private methods:
@@ -311,7 +311,7 @@ var p = BitmapSequence.prototype;
 			// sequence data is set, but we haven't actually played a sequence yet:
 			this.paused = true;
 		}
-		if (this.paused || ((++this._advanceCount)+this.advanceOffset)%this.advanceFrequency != 0) { return; }
+		if (this.paused || ((++this._advanceCount) + this.advanceOffset) % this.advanceFrequency != 0) { return; }
 		this.currentFrame++;
 	}
 

@@ -36,12 +36,12 @@
 
 goog.provide('DisplayObject');
 
-goog.require('Matrix2D');
-goog.require('UID');
 goog.require('EaselMouseEvent');
+goog.require('Matrix2D');
 goog.require('Point');
 goog.require('Rectangle');
 goog.require('Shadow');
+goog.require('UID');
 
 /**
 * DisplayObject is an abstract class that should not be constructed directly. Instead construct subclasses such as
@@ -53,7 +53,7 @@ goog.require('Shadow');
 DisplayObject = function() {
 	this.id = UID.get();
 	this._matrix = new Matrix2D();
-}
+};
 
 	/**
 	* Suppresses errors generated when using features like hitTest, onPress/onClick, and getObjectsUnderPoint with cross
@@ -71,7 +71,7 @@ DisplayObject = function() {
 	* @static
 	* @protected
 	**/
-	DisplayObject._hitTestCanvas = document.createElement("canvas");
+	DisplayObject._hitTestCanvas = document.createElement('canvas');
 	DisplayObject._hitTestCanvas.width = DisplayObject._hitTestCanvas.height = 1;
 
 	/**
@@ -80,7 +80,7 @@ DisplayObject = function() {
 	* @static
 	* @protected
 	**/
-	DisplayObject._hitTestContext = DisplayObject._hitTestCanvas.getContext("2d");
+	DisplayObject._hitTestContext = DisplayObject._hitTestCanvas.getContext('2d');
 
 
 	/**
@@ -90,7 +90,7 @@ DisplayObject = function() {
 	* @default 1
 	**/
 	DisplayObject.prototype.alpha = 1;
-	
+
 	/**
 	* If a cache is active, this returns the canvas that holds the cached version of this display object. See cache()
 	* for more information. READ-ONLY.
@@ -99,7 +99,7 @@ DisplayObject = function() {
 	* @default null
 	**/
 	DisplayObject.prototype.cacheCanvas = null;
-	
+
 	/**
 	* Unique ID for this display object. Makes display objects easier for some uses.
 	* @property id
@@ -107,7 +107,7 @@ DisplayObject = function() {
 	* @default -1
 	**/
 	DisplayObject.prototype.id = -1;
-	
+
 	/**
 	* Indicates whether to include this object when running Stage.getObjectsUnderPoint(). Setting this to true for
 	* Sprites will cause the Sprite to be returned (not its children) regardless of whether it's mouseChildren property
@@ -117,7 +117,7 @@ DisplayObject = function() {
 	* @default true
 	**/
 	DisplayObject.prototype.mouseEnabled = true;
-	
+
 	/**
 	* An optional name for this display object. Included in toString(). Useful for debugging.
 	* @property name
@@ -125,7 +125,7 @@ DisplayObject = function() {
 	* @default null
 	**/
 	DisplayObject.prototype.name = null;
-	
+
 	/**
 	* A reference to the Sprite or Stage object that contains this display object, or null if it has not been added to
 	* one. READ-ONLY.
@@ -135,7 +135,7 @@ DisplayObject = function() {
 	* @default null
 	**/
 	DisplayObject.prototype.parent = null;
-	
+
 	/**
 	* The x offset for this display object's registration point. For example, to make a 100x100px Bitmap rotate around
 	* it's center, you would set regX and regY to 50.
@@ -144,7 +144,7 @@ DisplayObject = function() {
 	* @default 0
 	**/
 	DisplayObject.prototype.regX = 0;
-	
+
 	/**
 	* The y offset for this display object's registration point. For example, to make a 100x100px Bitmap rotate around
 	* it's center, you would set regX and regY to 50.
@@ -153,7 +153,7 @@ DisplayObject = function() {
 	* @default 0
 	**/
 	DisplayObject.prototype.regY = 0;
-	
+
 	/**
 	* The rotation in degrees for this display object.
 	* @property rotation
@@ -161,7 +161,7 @@ DisplayObject = function() {
 	* @default 0
 	**/
 	DisplayObject.prototype.rotation = 0;
-	
+
 	/**
 	* The factor to stretch this display object horizontally. For example, setting scaleX to 2 will stretch the display
 	* object to twice it's nominal width.
@@ -170,7 +170,7 @@ DisplayObject = function() {
 	* @default 1
 	**/
 	DisplayObject.prototype.scaleX = 1;
-	
+
 	/**
 	* The factor to stretch this display object vertically. For example, setting scaleY to 0.5 will stretch the display
 	* object to half it's nominal height.
@@ -179,7 +179,7 @@ DisplayObject = function() {
 	* @default 1
 	**/
 	DisplayObject.prototype.scaleY = 1;
-	
+
 	/**
 	* The factor to skew this display object horizontally.
 	* @property skewX
@@ -187,7 +187,7 @@ DisplayObject = function() {
 	* @default 0
 	**/
 	DisplayObject.prototype.skewX = 0;
-	
+
 	/**
 	* The factor to skew this display object vertically.
 	* @property skewY
@@ -195,7 +195,7 @@ DisplayObject = function() {
 	* @default 0
 	**/
 	DisplayObject.prototype.skewY = 0;
-	
+
 	/**
 	* A shadow object that defines the shadow to render on this display object. Set to null to remove a shadow. If
 	* null, this property is inherited from the parent container.
@@ -204,7 +204,7 @@ DisplayObject = function() {
 	* @default null
 	**/
 	DisplayObject.prototype.shadow = null;
-	
+
 	/**
 	* Indicates whether this display object should be rendered to the canvas and included when running
 	* Stage.getObjectsUnderPoint().
@@ -213,7 +213,7 @@ DisplayObject = function() {
 	* @default true
 	**/
 	DisplayObject.prototype.visible = true;
-	
+
 	/**
 	* The x (horizontal) position of the display object, relative to its parent.
 	* @property x
@@ -221,14 +221,14 @@ DisplayObject = function() {
 	* @default 0
 	**/
 	DisplayObject.prototype.x = 0;
-	
+
 	/** The y (vertical) position of the display object, relative to its parent.
 	* @property y
 	* @type Number
 	* @default 0
 	**/
 	DisplayObject.prototype.y = 0;
-	
+
 	/**
 	* The composite operation indicates how the pixels of this display object will be composited with the elements
 	* behind it. If null, this property is inherited from the parent container. For more information, read the
@@ -239,7 +239,7 @@ DisplayObject = function() {
 	* @default null
 	**/
 	DisplayObject.prototype.compositeOperation = null;
-	
+
 	/**
 	* Indicates whether the display object should have it's x & y position rounded prior to drawing it to stage.
 	* This only applies if the enclosing stage has snapPixelsEnabled set to true, and the display object's composite
@@ -250,7 +250,7 @@ DisplayObject = function() {
 	* @default false
 	**/
 	DisplayObject.prototype.snapToPixel = false;
-	
+
 	/**
 	* The onPress callback is called when the user presses down on their mouse over this display object. The handler
 	* is passed a single param containing the corresponding MouseEvent instance. You can subscribe to the onMouseMove
@@ -260,10 +260,10 @@ DisplayObject = function() {
 	* @param {EaselMouseEvent} event EaselMouseEvent with information about the event.
 	**/
 	DisplayObject.prototype.onPress = null;
-	
+
 	/**
-	* The onClick callback is called when the user presses down on and then releases the mouse button over this 
-	* display object. The handler is passed a single param containing the corresponding EaselMouseEvent instance. If an 
+	* The onClick callback is called when the user presses down on and then releases the mouse button over this
+	* display object. The handler is passed a single param containing the corresponding EaselMouseEvent instance. If an
 	* onClick handler is set on a container, it will receive the event if any of its children are clicked.
 	* @event onClick
 	* @param {EaselMouseEvent} event EaselMouseEvent with information about the event.
@@ -278,7 +278,7 @@ DisplayObject = function() {
 	* @param {MouseEvent} event MouseEvent with information about the event.
 	**/
 	DisplayObject.prototype.onDoubleClick = null;
-	
+
 	/**
 	* The onMouseOver callback is called when the user rolls over the display object. You must enable this event using
 	* stage.enableMouseOver(). The handler is passed a single param containing the corresponding MouseEvent instance.
@@ -286,7 +286,7 @@ DisplayObject = function() {
 	* @param {MouseEvent} event MouseEvent with information about the event.
 	**/
 	DisplayObject.prototype.onMouseOver = null;
-	
+
 	/**
 	* The onMouseOut callback is called when the user rolls off of the display object. You must enable this event using
 	* stage.enableMouseOver(). The handler is passed a single param containing the corresponding MouseEvent instance.
@@ -310,7 +310,7 @@ DisplayObject = function() {
 	* @default null
 	**/
 	DisplayObject.prototype.filters = null;
-	
+
 // private properties:
 
 	/**
@@ -320,7 +320,7 @@ DisplayObject = function() {
 	* @default 0
 	**/
 	DisplayObject.prototype._cacheOffsetX = 0;
-	
+
 	/**
 	* @property _cacheOffsetY
 	* @protected
@@ -328,7 +328,7 @@ DisplayObject = function() {
 	* @default 0
 	**/
 	DisplayObject.prototype._cacheOffsetY = 0;
-	
+
 	/**
 	* @property _matrix
 	* @protected
@@ -346,11 +346,11 @@ DisplayObject = function() {
 	* This does not account for whether it would be visible within the boundaries of the stage.
 	* NOTE: This method is mainly for internal use, though it may be useful for advanced uses.
 	* @method isVisible
-	* @return {Boolean} Boolean indicating whether the display object would be visible if drawn to a canvas
+	* @return {Boolean} Boolean indicating whether the display object would be visible if drawn to a canvas.
 	**/
 	DisplayObject.prototype.isVisible = function() {
 		return this.visible && this.alpha > 0 && this.scaleX != 0 && this.scaleY != 0;
-	}
+	};
 
 	/**
 	* Draws the display object into the specified context ignoring it's visible, alpha, shadow, and transform.
@@ -366,7 +366,7 @@ DisplayObject = function() {
 		if (ignoreCache || !this.cacheCanvas) { return false; }
 		ctx.drawImage(this.cacheCanvas, this._cacheOffsetX, this._cacheOffsetY);
 		return true;
-	}
+	};
 
 	/**
 	* Draws the display object into a new canvas, which is then used for subsequent draws. For complex content
@@ -385,17 +385,17 @@ DisplayObject = function() {
 	**/
 	DisplayObject.prototype.cache = function(x, y, width, height) {
 		// draw to canvas.
-		if (this.cacheCanvas == null) { this.cacheCanvas = document.createElement("canvas"); }
-		var ctx = this.cacheCanvas.getContext("2d");
+		if (this.cacheCanvas == null) { this.cacheCanvas = document.createElement('canvas'); }
+		var ctx = this.cacheCanvas.getContext('2d');
 		this.cacheCanvas.width = width;
 		this.cacheCanvas.height = height;
 		ctx.setTransform(1, 0, 0, 1, -x, -y);
-		ctx.clearRect(0, 0, width+1, height+1); // because some browsers don't properly clear if the width/height remain the same.
+		ctx.clearRect(0, 0, width + 1, height + 1); // because some browsers don't properly clear if the width/height remain the same.
 		this.draw(ctx, true);
 		this._cacheOffsetX = x;
 		this._cacheOffsetY = y;
 		this._applyFilters();
-	}
+	};
 
 	/**
 	* Redraws the display object to its cache. Calling updateCache without an active cache will throw an error.
@@ -407,15 +407,15 @@ DisplayObject = function() {
 	* whatwg spec on compositing</a>.
 	**/
 	DisplayObject.prototype.updateCache = function(compositeOperation) {
-		if (this.cacheCanvas == null) { throw "cache() must be called before updateCache()"; }
-		var ctx = this.cacheCanvas.getContext("2d");
+		if (this.cacheCanvas == null) { throw 'cache() must be called before updateCache()'; }
+		var ctx = this.cacheCanvas.getContext('2d');
 		ctx.setTransform(1, 0, 0, 1, -this._cacheOffsetX, -this._cacheOffsetY);
-		if (!compositeOperation) { ctx.clearRect(0, 0, this.cacheCanvas.width+1, this.cacheCanvas.height+1); }
+		if (!compositeOperation) { ctx.clearRect(0, 0, this.cacheCanvas.width + 1, this.cacheCanvas.height + 1); }
 		else { ctx.globalCompositeOperation = compositeOperation; }
 		this.draw(ctx, true);
-		if (compositeOperation) { ctx.globalCompositeOperation = "source-over"; }
+		if (compositeOperation) { ctx.globalCompositeOperation = 'source-over'; }
 		this._applyFilters();
-	}
+	};
 
 	/**
 	* Clears the current cache. See cache() for more information.
@@ -424,7 +424,7 @@ DisplayObject = function() {
 	DisplayObject.prototype.uncache = function() {
 		this.cacheCanvas = null;
 		this._cacheOffsetX = this._cacheOffsetY = 0;
-	}
+	};
 
 	/**
 	* Transforms the specified x and y position from the coordinate space of the display object
@@ -442,7 +442,7 @@ DisplayObject = function() {
 		if (mtx == null) { return null; }
 		mtx.append(1, 0, 0, 1, x, y);
 		return new Point(mtx.tx, mtx.ty);
-	}
+	};
 
 	/**
 	* Transforms the specified x and y position from the global (stage) coordinate space to the
@@ -461,7 +461,7 @@ DisplayObject = function() {
 		mtx.invert();
 		mtx.append(1, 0, 0, 1, x, y);
 		return new Point(mtx.tx, mtx.ty);
-	}
+	};
 
 	/**
 	* Transforms the specified x and y position from the coordinate space of this display object to the
@@ -478,7 +478,7 @@ DisplayObject = function() {
 	DisplayObject.prototype.localToLocal = function(x, y, target) {
 		var pt = this.localToGlobal(x, y);
 		return target.globalToLocal(pt.x, pt.y);
-	}
+	};
 
 	/**
 	* Shortcut method to quickly set the transform properties on the display object. All parameters are optional.
@@ -504,7 +504,7 @@ DisplayObject = function() {
 		this.skewY = skewY || 0;
 		this.regX = regX || 0;
 		this.regY = regY || 0;
-	}
+	};
 
 	/**
 	* Generates a concatenated Matrix2D object representing the combined transform of
@@ -528,7 +528,7 @@ DisplayObject = function() {
 			target = target.parent;
 		}
 		return mtx;
-	}
+	};
 
 	/**
 	* Tests whether the display object intersects the specified local point (ie. draws a pixel with alpha > 0 at
@@ -544,7 +544,7 @@ DisplayObject = function() {
 		var ctx = DisplayObject._hitTestContext;
 		var canvas = DisplayObject._hitTestCanvas;
 
-		ctx.setTransform(1,  0, 0, 1, -x, -y);
+		ctx.setTransform(1, 0, 0, 1, -x, -y);
 		this.draw(ctx);
 
 		var hit = this._testHit(ctx);
@@ -552,7 +552,7 @@ DisplayObject = function() {
 		canvas.width = 0;
 		canvas.width = 1;
 		return hit;
-	}
+	};
 
 	/**
 	* Returns a clone of this DisplayObject. Some properties that are specific to this instance's current context are
@@ -564,7 +564,7 @@ DisplayObject = function() {
 		var o = new DisplayObject();
 		this.cloneProps(o);
 		return o;
-	}
+	};
 
 	/**
 	* Returns a string representation of this object.
@@ -572,8 +572,8 @@ DisplayObject = function() {
 	* @return {String} a string representation of the instance.
 	**/
 	DisplayObject.prototype.toString = function() {
-		return "[DisplayObject (name="+  this.name +")]";
-	}
+		return '[DisplayObject (name='+ this.name + ')]';
+	};
 
 // private methods:
 
@@ -596,11 +596,11 @@ DisplayObject = function() {
 		o.skewX = this.skewX;
 		o.skewY = this.skewY;
 		o.visible = this.visible;
-		o.x  = this.x;
+		o.x = this.x;
 		o.y = this.y;
 		o.mouseEnabled = this.mouseEnabled;
 		o.compositeOperation = this.compositeOperation;
-	}
+	};
 
 	/**
 	* @method applyShadow
@@ -614,7 +614,7 @@ DisplayObject = function() {
 		ctx.shadowOffsetX = shadow.offsetX;
 		ctx.shadowOffsetY = shadow.offsetY;
 		ctx.shadowBlur = shadow.blur;
-	}
+	};
 
 	/**
 	* @method _testHit
@@ -627,12 +627,12 @@ DisplayObject = function() {
 			var hit = ctx.getImageData(0, 0, 1, 1).data[3] > 1;
 		} catch (e) {
 			if (!DisplayObject.suppressCrossDomainErrors) {
-				throw "An error has occured. This is most likely due to security restrictions on reading canvas pixel " +
-				"data with local or cross-domain images.";
+				throw 'An error has occured. This is most likely due to security restrictions on reading canvas pixel ' +
+				'data with local or cross-domain images.';
 			}
 		}
 		return hit;
-	}
+	};
 
 	/**
 	* @method _applyFilters
@@ -641,10 +641,10 @@ DisplayObject = function() {
 	DisplayObject.prototype._applyFilters = function() {
 		if (!this.filters || this.filters.length == 0 || !this.cacheCanvas) { return; }
 		var l = this.filters.length;
-		var ctx = this.cacheCanvas.getContext("2d");
+		var ctx = this.cacheCanvas.getContext('2d');
 		var w = this.cacheCanvas.width;
 		var h = this.cacheCanvas.height;
-		for (var i=0; i<l; i++) {
+		for (var i = 0; i < l; i++) {
 			this.filters[i].applyFilter(ctx, 0, 0, w, h);
 		}
-	}
+	};

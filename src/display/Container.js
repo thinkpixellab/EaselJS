@@ -53,7 +53,7 @@ goog.require('DisplayObject');
 Container = function() {
   DisplayObject.call(this);
 	this.children = [];
-}
+};
 goog.inherits(Container, DisplayObject);
 
 // public properties:
@@ -65,7 +65,7 @@ goog.inherits(Container, DisplayObject);
 	* @default null
 	**/
 	Container.prototype.children = null;
-	
+
 // public methods:
 
 	/**
@@ -73,11 +73,11 @@ goog.inherits(Container, DisplayObject);
 	* This does not account for whether it would be visible within the boundaries of the stage.
 	* NOTE: This method is mainly for internal use, though it may be useful for advanced uses.
 	* @method isVisible
-	* @return {Boolean} Boolean indicating whether the display object would be visible if drawn to a canvas
+	* @return {Boolean} Boolean indicating whether the display object would be visible if drawn to a canvas.
 	**/
 	Container.prototype.isVisible = function() {
 		return this.visible && this.alpha > 0 && this.children.length && this.scaleX != 0 && this.scaleY != 0;
-	}
+	};
 
 	/**
 	* Draws the display object into the specified context ignoring it's visible, alpha, shadow, and transform.
@@ -92,35 +92,35 @@ goog.inherits(Container, DisplayObject);
 	Container.prototype.draw = function(ctx, ignoreCache, _mtx) {
 		var snap = Stage._snapToPixelEnabled;
 		if (DisplayObject.prototype.draw.call(this, ctx, ignoreCache)) { return true; }
-		_mtx = _mtx || this._matrix.reinitialize(1,0,0,1,0,0,this.alpha, this.shadow, this.compositeOperation);
+		_mtx = _mtx || this._matrix.reinitialize(1, 0, 0, 1, 0, 0, this.alpha, this.shadow, this.compositeOperation);
 		var l = this.children.length;
 		// this ensures we don't have issues with display list changes that occur during a draw:
 		var list = this.children.slice(0);
-		for (var i=0; i<l; i++) {
+		for (var i = 0; i < l; i++) {
 			var child = list[i];
 			if (!child.isVisible()) { continue; }
 
 			var shadow = false;
-			var mtx = child._matrix.reinitialize(_mtx.a,_mtx.b,_mtx.c,_mtx.d,_mtx.tx,_mtx.ty,_mtx.alpha,_mtx.shadow,_mtx.compositeOperation);
+			var mtx = child._matrix.reinitialize(_mtx.a, _mtx.b, _mtx.c, _mtx.d, _mtx.tx, _mtx.ty, _mtx.alpha, _mtx.shadow, _mtx.compositeOperation);
 			mtx.appendTransform(child.x, child.y, child.scaleX, child.scaleY, child.rotation, child.skewX, child.skewY,
 									child.regX, child.regY);
 			mtx.appendProperties(child.alpha, child.shadow, child.compositeOperation);
 
 			if (!(child instanceof Container && child.cacheCanvas == null)) {
 				if (snap && child.snapToPixel && mtx.a == 1 && mtx.b == 0 && mtx.c == 0 && mtx.d == 1) {
-					ctx.setTransform(mtx.a,  mtx.b, mtx.c, mtx.d, mtx.tx+0.5|0, mtx.ty+0.5|0);
+					ctx.setTransform(mtx.a, mtx.b, mtx.c, mtx.d, mtx.tx + 0.5 | 0, mtx.ty + 0.5 | 0);
 				} else {
-					ctx.setTransform(mtx.a,  mtx.b, mtx.c, mtx.d, mtx.tx, mtx.ty);
+					ctx.setTransform(mtx.a, mtx.b, mtx.c, mtx.d, mtx.tx, mtx.ty);
 				}
 				ctx.globalAlpha = mtx.alpha;
-				ctx.globalCompositeOperation = mtx.compositeOperation || "source-over";
+				ctx.globalCompositeOperation = mtx.compositeOperation || 'source-over';
 				if (shadow = mtx.shadow) { this.applyShadow(ctx, shadow); }
 			}
 			child.draw(ctx, false, mtx);
 			if (shadow) { this.applyShadow(ctx); }
 		}
 		return true;
-	}
+	};
 
 	/**
 	* Adds a child to the top of the display list. You can also add multiple children, such as "addChild(child1, child2, ...);".
@@ -132,14 +132,14 @@ goog.inherits(Container, DisplayObject);
 	Container.prototype.addChild = function(child) {
 		var l = arguments.length;
 		if (l > 1) {
-			for (var i=0; i<l; i++) { this.addChild(arguments[i]); }
-			return arguments[l-1];
+			for (var i = 0; i < l; i++) { this.addChild(arguments[i]); }
+			return arguments[l - 1];
 		}
 		if (child.parent) { child.parent.removeChild(child); }
 		child.parent = this;
 		this.children.push(child);
 		return child;
-	}
+	};
 
 	/**
 	* Adds a child to the display list at the specified index, bumping children at equal or greater indexes up one, and setting
@@ -155,15 +155,15 @@ goog.inherits(Container, DisplayObject);
 	Container.prototype.addChildAt = function(child, index) {
 		var l = arguments.length;
 		if (l > 2) {
-			index = arguments[i-1];
-			for (var i=0; i<l-1; i++) { this.addChildAt(arguments[i], index+i); }
-			return arguments[l-2];
+			index = arguments[i - 1];
+			for (var i = 0; i < l - 1; i++) { this.addChildAt(arguments[i], index + i); }
+			return arguments[l - 2];
 		}
 		if (child.parent) { child.parent.removeChild(child); }
 		child.parent = this;
 		this.children.splice(index, 0, child);
 		return child;
-	}
+	};
 
 	/**
 	* Removes the specified child from the display list. Note that it is faster to use removeChildAt() if the index is already
@@ -177,11 +177,11 @@ goog.inherits(Container, DisplayObject);
 		var l = arguments.length;
 		if (l > 1) {
 			var good = true;
-			for (var i=0; i<l; i++) { good = good && this.removeChild(arguments[i]); }
+			for (var i = 0; i < l; i++) { good = good && this.removeChild(arguments[i]); }
 			return good;
 		}
 		return this.removeChildAt(this.children.indexOf(child));
-	}
+	};
 
 	/**
 	* Removes the child at the specified index from the display list, and sets its parent to null. You can also remove multiple
@@ -194,18 +194,18 @@ goog.inherits(Container, DisplayObject);
 		var l = arguments.length;
 		if (l > 1) {
 			var a = [];
-			for (var i=0; i<l; i++) { a[i] = arguments[i]; }
-			a.sort(function(a, b) { return b-a; })
+			for (var i = 0; i < l; i++) { a[i] = arguments[i]; }
+			a.sort(function(a, b) { return b - a; });
 			var good = true;
-			for (var i=0; i<l; i++) { good = good && this.removeChildAt(a[i]); }
+			for (var i = 0; i < l; i++) { good = good && this.removeChildAt(a[i]); }
 			return good;
 		}
-		if (index < 0 || index > this.children.length-1) { return false; }
+		if (index < 0 || index > this.children.length - 1) { return false; }
 		var child = this.children[index];
 		if (child != null) { child.parent = null; }
 		this.children.splice(index, 1);
 		return true;
-	}
+	};
 
 	/**
 	* Removes all children from the display list.
@@ -213,7 +213,7 @@ goog.inherits(Container, DisplayObject);
 	**/
 	Container.prototype.removeAllChildren = function() {
 		while (this.children.length) { this.removeChildAt(0); }
-	}
+	};
 
 	/**
 	* Returns the child at the specified index.
@@ -223,7 +223,7 @@ goog.inherits(Container, DisplayObject);
 	**/
 	Container.prototype.getChildAt = function(index) {
 		return this.children[index];
-	}
+	};
 
 	/**
 	* Performs an array sort operation on the child list.
@@ -233,7 +233,7 @@ goog.inherits(Container, DisplayObject);
 	**/
 	Container.prototype.sortChildren = function(sortFunction) {
 		this.children.sort(sortFunction);
-	}
+	};
 
 	/**
 	* Returns the index of the specified child in the display list, or -1 if it is not in the display list.
@@ -243,7 +243,7 @@ goog.inherits(Container, DisplayObject);
 	**/
 	Container.prototype.getChildIndex = function(child) {
 		return this.children.indexOf(child);
-	}
+	};
 
 	/**
 	* Returns the number of children in the display list.
@@ -252,7 +252,7 @@ goog.inherits(Container, DisplayObject);
 	**/
 	Container.prototype.getNumChildren = function() {
 		return this.children.length;
-	}
+	};
 
 	/**
 	* Returns true if the specified display object either is this container or is a descendent.
@@ -267,7 +267,7 @@ goog.inherits(Container, DisplayObject);
 			child = child.parent;
 		}
 		return false;
-	}
+	};
 
 	/**
 	* Tests whether the display object intersects the specified local point (ie. draws a pixel with alpha > 0 at the specified
@@ -282,7 +282,7 @@ goog.inherits(Container, DisplayObject);
 	Container.prototype.hitTest = function(x, y) {
 		// TODO: optimize to use the fast cache check where possible.
 		return (this.getObjectUnderPoint(x, y) != null);
-	}
+	};
 
 	/**
 	* Returns an array of all display objects under the specified coordinates that are in this container's display list.
@@ -300,7 +300,7 @@ goog.inherits(Container, DisplayObject);
 		var pt = this.localToGlobal(x, y);
 		this._getObjectsUnderPoint(pt.x, pt.y, arr);
 		return arr;
-	}
+	};
 
 	/**
 	* Similar to getObjectsUnderPoint(), but returns only the top-most display object. This runs significantly faster than
@@ -313,7 +313,7 @@ goog.inherits(Container, DisplayObject);
 	Container.prototype.getObjectUnderPoint = function(x, y) {
 		var pt = this.localToGlobal(x, y);
 		return this._getObjectsUnderPoint(pt.x, pt.y);
-	}
+	};
 
 	/**
 	* Returns a clone of this Container. Some properties that are specific to this instance's current context are reverted to
@@ -327,14 +327,14 @@ goog.inherits(Container, DisplayObject);
 		this.cloneProps(o);
 		if (recursive) {
 			var arr = o.children = [];
-			for (var i=0, l=this.children.length; i<l; i++) {
+			for (var i = 0, l = this.children.length; i < l; i++) {
 				var clone = this.children[i].clone(recursive);
 				clone.parent = o;
 				arr.push(clone);
 			}
 		}
 		return o;
-	}
+	};
 
 	/**
 	* Returns a string representation of this object.
@@ -342,8 +342,8 @@ goog.inherits(Container, DisplayObject);
 	* @return {String} a string representation of the instance.
 	**/
 	Container.prototype.toString = function() {
-		return "[Container (name="+  this.name +")]";
-	}
+		return '[Container (name='+ this.name + ')]';
+	};
 
 // private properties:
 	/**
@@ -351,12 +351,12 @@ goog.inherits(Container, DisplayObject);
 	* @protected
 	**/
 	Container.prototype._tick = function() {
-		for (var i=this.children.length-1; i>=0; i--) {
+		for (var i = this.children.length - 1; i >= 0; i--) {
 			var child = this.children[i];
 			if (child._tick) { child._tick(); }
 			if (child.tick) { child.tick(); }
 		}
-	}
+	};
 
 	/**
 	* @method _getObjectsUnderPoint
@@ -372,13 +372,13 @@ goog.inherits(Container, DisplayObject);
 		var ctx = DisplayObject._hitTestContext;
 		var canvas = DisplayObject._hitTestCanvas;
 		var mtx = this._matrix;
-		var hasHandler = (mouseEvents&1 && (this.onPress || this.onClick || this.onDoubleClick)) || (mouseEvents&2 &&
+		var hasHandler = (mouseEvents & 1 && (this.onPress || this.onClick || this.onDoubleClick)) || (mouseEvents & 2 &&
 																(this.onMouseOver || this.onMouseOut));
 
 		// if we have a cache handy, we can use it to do a quick check:
 		if (this.cacheCanvas) {
 			this.getConcatenatedMatrix(mtx);
-			ctx.setTransform(mtx.a,  mtx.b, mtx.c, mtx.d, mtx.tx-x, mtx.ty-y);
+			ctx.setTransform(mtx.a, mtx.b, mtx.c, mtx.d, mtx.tx - x, mtx.ty - y);
 			ctx.globalAlpha = mtx.alpha;
 			this.draw(ctx);
 			if (this._testHit(ctx)) {
@@ -392,7 +392,7 @@ goog.inherits(Container, DisplayObject);
 
 		// draw children one at a time, and check if we get a hit:
 		var l = this.children.length;
-		for (var i=l-1; i>=0; i--) {
+		for (var i = l - 1; i >= 0; i--) {
 			var child = this.children[i];
 			if (!child.isVisible() || !child.mouseEnabled) { continue; }
 
@@ -406,10 +406,10 @@ goog.inherits(Container, DisplayObject);
 					result = child._getObjectsUnderPoint(x, y, arr, mouseEvents);
 					if (!arr && result) { return result; }
 				}
-			} else if (!mouseEvents || hasHandler || (mouseEvents&1 && (child.onPress || child.onClick || child.onDoubleClick)) ||
-														(mouseEvents&2 && (child.onMouseOver || child.onMouseOut))) {
+			} else if (!mouseEvents || hasHandler || (mouseEvents & 1 && (child.onPress || child.onClick || child.onDoubleClick)) ||
+														(mouseEvents & 2 && (child.onMouseOver || child.onMouseOut))) {
 				child.getConcatenatedMatrix(mtx);
-				ctx.setTransform(mtx.a,  mtx.b, mtx.c, mtx.d, mtx.tx-x, mtx.ty-y);
+				ctx.setTransform(mtx.a, mtx.b, mtx.c, mtx.d, mtx.tx - x, mtx.ty - y);
 				ctx.globalAlpha = mtx.alpha;
 				child.draw(ctx);
 				if (!this._testHit(ctx)) { continue; }
@@ -421,4 +421,4 @@ goog.inherits(Container, DisplayObject);
 			}
 		}
 		return null;
-	}
+	};

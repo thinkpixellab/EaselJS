@@ -58,8 +58,8 @@ SpriteSheet = function(image, frameWidth, frameHeight, frameData) {
 	this.frameWidth = frameWidth;
 	this.frameHeight = frameHeight;
 	this.frameData = frameData;
-}
-	
+};
+
 // public properties:
 	/**
 	* The Image, Canvas, or Video instance to use as a sprite sheet.
@@ -67,21 +67,21 @@ SpriteSheet = function(image, frameWidth, frameHeight, frameData) {
 	* @type Image | HTMLCanvasElement | HTMLVideoElement
 	**/
 	SpriteSheet.prototype.image = null;
-	
+
 	/** The width in pixels of each frame on the sprite sheet image.
 	* @property frameWidth
 	* @type Number
 	**/
 	SpriteSheet.prototype.frameWidth = 0;
-	
+
 	/** The height in pixels of each frame on the sprite sheet image.
 	* @property frameHeight
 	* @type Number
 	**/
 	SpriteSheet.prototype.frameHeight = 0;
-	
-	/** Defines named frames and frame sequences. Frame data is specified as a generic object, where each property name will 
-	* be used to define a new named frame or sequence. Named frames specify a frame number. Sequences are defined using an 
+
+	/** Defines named frames and frame sequences. Frame data is specified as a generic object, where each property name will
+	* be used to define a new named frame or sequence. Named frames specify a frame number. Sequences are defined using an
 	* array of 2 or 3 values: the start frame, the end frame, and optionally the name of the next sequence to play.<br/><br/>
 	* For example, examine the following frame data:<br/>{walk:[0,20], shoot:[21,25,"walk"], crouch:[26,30,false], stand:31}<br/>
 	* This will create 3 sequences and a named frame. The first sequence will be named "walk", and will loop frames 0 to 20 inclusive.
@@ -92,22 +92,22 @@ SpriteSheet = function(image, frameWidth, frameHeight, frameData) {
 	* @type Object
 	**/
 	SpriteSheet.prototype.frameData = null;
-	
-	/** The loop property is only used if no frameData is specified, and indicates whether all frames (as specified with totalFrames) 
+
+	/** The loop property is only used if no frameData is specified, and indicates whether all frames (as specified with totalFrames)
 	* should loop. If false, the animation will play to totalFrames, then pause.
 	* @property loop
 	* @type Boolean
 	**/
 	SpriteSheet.prototype.loop = true;
-	
-	/** Specifies the total number of frames in the sprite sheet if no frameData is specified. This is useful for excluding extraneous 
-	* frames (for example, if you have 7 frames in a 2x4 sprite sheet). The total frames will be automatically calculated by 
+
+	/** Specifies the total number of frames in the sprite sheet if no frameData is specified. This is useful for excluding extraneous
+	* frames (for example, if you have 7 frames in a 2x4 sprite sheet). The total frames will be automatically calculated by
 	* BitmapSequence based on frame and image dimensions if totalFrames is 0.
 	* @property totalFrames
 	* @type Number
 	**/
 	SpriteSheet.prototype.totalFrames = 0;
-	
+
 // public methods:
 	/**
 	* Returns a string representation of this object.
@@ -115,8 +115,8 @@ SpriteSheet = function(image, frameWidth, frameHeight, frameData) {
 	* @return {String} a string representation of the instance.
 	**/
 	SpriteSheet.prototype.toString = function() {
-		return "[SpriteSheet]";
-	}
+		return '[SpriteSheet]';
+	};
 
 	/**
 	* Returns a clone of the SpriteSheet instance.
@@ -128,5 +128,5 @@ SpriteSheet = function(image, frameWidth, frameHeight, frameData) {
 		o.loop = this.loop;
 		o.totalFrames = this.totalFrames;
 		return o;
-	}
+	};
 

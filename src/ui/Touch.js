@@ -4,7 +4,7 @@
 *
 *
 * Copyright (c) 2011 Grant Skinner
-* 
+*
 * Permission is hereby granted, free of charge, to any person
 * obtaining a copy of this software and associated documentation
 * files (the "Software"), to deal in the Software without
@@ -13,10 +13,10 @@
 * copies of the Software, and to permit persons to whom the
 * Software is furnished to do so, subject to the following
 * conditions:
-* 
+*
 * The above copyright notice and this permission notice shall be
 * included in all copies or substantial portions of the Software.
-* 
+*
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
 * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
 * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -28,13 +28,13 @@
 */
 
 /**
-* The Easel Javascript library provides a retained graphics mode for canvas 
-* including a full, hierarchical display list, a core interaction model, and 
+* The Easel Javascript library provides a retained graphics mode for canvas
+* including a full, hierarchical display list, a core interaction model, and
 * helper classes to make working with Canvas much easier.
 * @module EaselJS
 **/
 
-goog.provide("Touch");
+goog.provide('Touch');
 
 (function(window) {
 
@@ -44,7 +44,7 @@ goog.provide("Touch");
 * @static
 **/
 var Touch = function() {
-	throw "Touch cannot be instantiated";
+	throw 'Touch cannot be instantiated';
 }
 
 	/**
@@ -77,12 +77,12 @@ var Touch = function() {
 
 		// note that in the future we may need to disable the standard mouse event model before adding
 		// these to prevent duplicate calls. It doesn't seem to be an issue with iOS devices though.
-		o.canvas.addEventListener("touchstart", function(e) {
-			Touch._handleTouchStart(o,e);
+		o.canvas.addEventListener('touchstart', function(e) {
+			Touch._handleTouchStart(o, e);
 		}, false);
 
-		document.addEventListener("touchend", function(e) {
-			Touch._handleTouchEnd(o,e);
+		document.addEventListener('touchend', function(e) {
+			Touch._handleTouchEnd(o, e);
 		}, false);
 	}
 
@@ -95,18 +95,18 @@ var Touch = function() {
 	Touch._handleTouchStart = function(stage,e) {
 		e.preventDefault();
 
-		if(stage._primaryTouchId != -1) {
+		if (stage._primaryTouchId != -1) {
 			//we are already tracking an id
 			return;
 		}
 
-		stage._handleTouchMoveListener = stage._handleTouchMoveListener || function(e){
-			Touch._handleTouchMove(stage,e);
+		stage._handleTouchMoveListener = stage._handleTouchMoveListener || function(e) {
+			Touch._handleTouchMove(stage, e);
 		}
 
 		//for touch we only need to listen to move events once a touch has started
 		//on the canvas
-		document.addEventListener("touchmove", stage._handleTouchMoveListener, false);
+		document.addEventListener('touchmove', stage._handleTouchMoveListener, false);
 
 		var touch = e.changedTouches[0];
 		stage._primaryTouchId = touch.identifier;
@@ -121,8 +121,8 @@ var Touch = function() {
 	* @param {TouchEvent} e
 	**/
 	Touch._handleTouchMove = function(stage,e) {
-		var touch = Touch._findPrimaryTouch(stage,e.changedTouches);
-		if(touch) {
+		var touch = Touch._findPrimaryTouch(stage, e.changedTouches);
+		if (touch) {
 			stage._handleMouseMove(touch);
 		}
 	}
@@ -134,13 +134,13 @@ var Touch = function() {
 	* @param {TouchEvent} e
 	**/
 	Touch._handleTouchEnd = function(stage,e) {
-		var touch = Touch._findPrimaryTouch(stage,e.changedTouches);
+		var touch = Touch._findPrimaryTouch(stage, e.changedTouches);
 
-		if(touch) {
+		if (touch) {
 			stage._primaryTouchId = -1;
 			stage._handleMouseUp(touch);
 			//stop listening for move events, until another new touch starts on the canvas
-			document.removeEventListener("touchmove", stage._handleTouchMoveListener);
+			document.removeEventListener('touchmove', stage._handleTouchMoveListener);
 			stage._handleTouchMoveListener = null;
 		}
 	}
@@ -153,11 +153,11 @@ var Touch = function() {
 	**/
 	Touch._findPrimaryTouch = function(stage,touches) {
 		var l = touches.length;
-		for(var i = 0; i < l; i++){
+		for (var i = 0; i < l; i++) {
 			var touch = touches[i];
 
 			//find the primary touchPoint by id
-			if(touch.identifier == stage._primaryTouchId) {
+			if (touch.identifier == stage._primaryTouchId) {
 				return touch;
 			}
 		}

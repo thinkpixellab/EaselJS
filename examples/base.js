@@ -1168,7 +1168,7 @@ goog.globalEval = function(script) {
  *
  * Does nothing in uncompiled code.
  *
- * @deprecated Please use the {@code @typedef} annotation.
+ * @deprecated Please use the {@code. @typedef} annotation.
  */
 goog.typedef = true;
 

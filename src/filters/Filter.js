@@ -4,7 +4,7 @@
 *
 *
 * Copyright (c) 2010 Grant Skinner
-* 
+*
 * Permission is hereby granted, free of charge, to any person
 * obtaining a copy of this software and associated documentation
 * files (the "Software"), to deal in the Software without
@@ -13,10 +13,10 @@
 * copies of the Software, and to permit persons to whom the
 * Software is furnished to do so, subject to the following
 * conditions:
-* 
+*
 * The above copyright notice and this permission notice shall be
 * included in all copies or substantial portions of the Software.
-* 
+*
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
 * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
 * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -28,8 +28,8 @@
 */
 
 /**
-* The Easel Javascript library provides a retained graphics mode for canvas 
-* including a full, hierarchical display list, a core interaction model, and 
+* The Easel Javascript library provides a retained graphics mode for canvas
+* including a full, hierarchical display list, a core interaction model, and
 * helper classes to make working with Canvas much easier.
 * @module EaselJS
 **/
@@ -42,8 +42,8 @@ goog.provide('Filter');
 * @constructor
 **/
 Filter = function() {
-}
-	
+};
+
 // public methods:
 	/**
 	* Returns a rectangle with values indicating the margins required to draw the filter.
@@ -53,9 +53,9 @@ Filter = function() {
 	* @return {Rectangle} a rectangle object indicating the margins required to draw the filter.
 	**/
 	Filter.prototype.getBounds = function() {
-		return new Rectangle(0,0,0,0);
-	}
-	
+		return new Rectangle(0, 0, 0, 0);
+	};
+
 	/**
 	* Applies the filter to the specified context.
 	* @method applyFilter
@@ -68,7 +68,7 @@ Filter = function() {
 	* @param targetX Optional. The x position to draw the result to. Defaults to the value passed to x.
 	* @param targetY Optional. The y position to draw the result to. Defaults to the value passed to y.
 	**/
-	Filter.prototype.applyFilter = function(ctx, x, y, width, height, targetCtx, targetX, targetY) {}
+	Filter.prototype.applyFilter = function(ctx, x, y, width, height, targetCtx, targetX, targetY) {};
 
 	/**
 	* Returns a string representation of this object.
@@ -76,10 +76,10 @@ Filter = function() {
 	* @return {String} a string representation of the instance.
 	**/
 	Filter.prototype.toString = function() {
-		return "[Filter]";
-	}
-	
-	
+		return '[Filter]';
+	};
+
+
 	/**
 	* Returns a clone of this Filter instance.
 	* @method clone
@@ -87,4 +87,4 @@ Filter = function() {
 	**/
 	Filter.prototype.clone = function() {
 		return new Filter();
-	}
+	};

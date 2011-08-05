@@ -4,7 +4,7 @@
 *
 *
 * Copyright (c) 2010 Grant Skinner
-* 
+*
 * Permission is hereby granted, free of charge, to any person
 * obtaining a copy of this software and associated documentation
 * files (the "Software"), to deal in the Software without
@@ -13,10 +13,10 @@
 * copies of the Software, and to permit persons to whom the
 * Software is furnished to do so, subject to the following
 * conditions:
-* 
+*
 * The above copyright notice and this permission notice shall be
 * included in all copies or substantial portions of the Software.
-* 
+*
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
 * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
 * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -28,8 +28,8 @@
 */
 
 /**
- * The Easel Javascript library provides a retained graphics mode for canvas 
- * including a full, hierarchical display list, a core interaction model, and 
+ * The Easel Javascript library provides a retained graphics mode for canvas
+ * including a full, hierarchical display list, a core interaction model, and
  * helper classes to make working with Canvas much easier.
  **/
 
@@ -46,11 +46,11 @@ goog.provide('Ticker');
  * @static
  **/
 var Ticker = function() {
-  throw "Ticker cannot be instantiated.";
+  throw 'Ticker cannot be instantiated.';
 };
 
 /**
- * Event broadcast  once each tick / interval. The interval is specified via the 
+ * Event broadcast  once each tick / interval. The interval is specified via the
  * .setInterval(ms) or setFPS methods.
  * @event tick
  * @param {Number} timeElapsed The time elapsed in milliseconds since the last tick event.
@@ -58,43 +58,43 @@ var Ticker = function() {
 
 // private static properties:
 
-/** 
+/**
  * @type Array.<Object>
  * @private
  **/
 Ticker._listeners = [];
 
-/** 
+/**
  * @type Array.<boolean>
  * @private
  **/
 Ticker._pauseable = [];
 
-/** 
+/**
  * @type {boolean}
  * @private
  **/
 Ticker._paused = false;
 
-/** 
+/**
  * @type {boolean}
  * @private
  **/
 Ticker._inited = false;
 
-/** 
+/**
  * @type {number}
  * @private
  **/
 Ticker._startTime = 0;
 
-/** 
+/**
  * @type {number}
  * @private
  **/
 Ticker._pausedTime = 0;
 
-/** 
+/**
  * Number of ticks that have passed
  * @type {number}
  * @private
@@ -108,13 +108,13 @@ Ticker._ticks = 0;
  **/
 Ticker._pausedTickers = 0;
 
-/** 
+/**
  * @type {number}
  * @private
  **/
 Ticker._lastTime = 0;
 
-/** 
+/**
  * @type Array.<number>
  * @private
  **/
@@ -122,14 +122,14 @@ Ticker._times = [];
 
 // public static methods:
 /**
- * Adds a listener for the tick event. The listener object must expose a .tick() method, 
- * which will be called once each tick / interval. The interval is specified via the 
+ * Adds a listener for the tick event. The listener object must expose a .tick() method,
+ * which will be called once each tick / interval. The interval is specified via the
  * .setInterval(ms) method.
- * The exposed tick method is passed a single parameter, which include the elapsed time between the 
+ * The exposed tick method is passed a single parameter, which include the elapsed time between the
  * previous tick and the current one.
  * @static
  * @param {Object} o The object to add as a listener.
- * @param {boolean=} opt_pauseable If false, the listener will continue to have tick called 
+ * @param {boolean=} opt_pauseable If false, the listener will continue to have tick called
  * even when Ticker is paused via Ticker.pause(). Default is true.
  **/
 Ticker.addListener = function(o, opt_pauseable) {
@@ -168,7 +168,7 @@ Ticker.removeAllListeners = function() {
 
 /**
  * Returns the actual frames / ticks per second.
- * @param {number} ticks Optional. The number of previous ticks over which to measure the actual 
+ * @param {number} ticks Optional. The number of previous ticks over which to measure the actual
  * frames / ticks per second.
  * @return {number} The actual frames / ticks per second. Depending on performance, this may differ
  * from the target frames per second.
@@ -202,7 +202,7 @@ Ticker.getPaused = function() {
 
 /**
  * Returns the number of milliseconds that have elapsed since the first tick event listener was added to
- * Ticker. For example, you could use this in a time synchronized animation to determine the exact amount of 
+ * Ticker. For example, you could use this in a time synchronized animation to determine the exact amount of
  * time that has elapsed.
  * @param {boolean} pauseable Indicates whether to include time elapsed
  * while Ticker was paused. If false only time elapsed while Ticker is not paused will be returned.

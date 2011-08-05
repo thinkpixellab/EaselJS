@@ -28,7 +28,7 @@
 */
 goog.require('DisplayObject');
 
-goog.provide("DOMElement");
+goog.provide('DOMElement');
 
 /**
 * The Easel Javascript library provides a retained graphics mode for canvas
@@ -84,8 +84,8 @@ var p = DOMElement.prototype = new DisplayObject();
 		this.htmlElement = htmlElement;
 		if (htmlElement) {
 			this._style = htmlElement.style;
-			this._style.position = "absolute";
-			this._style.transformOrigin = this._style.webkitTransformOrigin = this._style.MozTransformOrigin = "0px 0px";
+			this._style.position = 'absolute';
+			this._style.transformOrigin = this._style.webkitTransformOrigin = this._style.MozTransformOrigin = '0px 0px';
 		}
 	}
 
@@ -96,7 +96,7 @@ var p = DOMElement.prototype = new DisplayObject();
 	* This does not account for whether it would be visible within the boundaries of the stage.
 	* NOTE: This method is mainly for internal use, though it may be useful for advanced uses.
 	* @method isVisible
-	* @return {Boolean} Boolean indicating whether the display object would be visible if drawn to a canvas
+	* @return {Boolean} Boolean indicating whether the display object would be visible if drawn to a canvas.
 	**/
 	p.isVisible = function() {
 		return this.htmlElement != null;
@@ -117,11 +117,11 @@ var p = DOMElement.prototype = new DisplayObject();
 		if (this.htmlElement == null) { return; }
 		var mtx = this._matrix;
 		var o = this.htmlElement;
-		o.style.opacity = ""+mtx.alpha;
+		o.style.opacity = ''+ mtx.alpha;
 		// this relies on the _tick method because draw isn't called if a parent is not visible.
-		o.style.visibility = this.visible ? "visible" : "hidden";
-		o.style.transform = o.style.webkitTransform = o.style.oTransform = ["matrix("+mtx.a,mtx.b,mtx.c,mtx.d,mtx.tx,mtx.ty+")"].join(",");
-		o.style.MozTransform = ["matrix("+mtx.a,mtx.b,mtx.c,mtx.d,mtx.tx+"px",mtx.ty+"px)"].join(",");
+		o.style.visibility = this.visible ? 'visible' : 'hidden';
+		o.style.transform = o.style.webkitTransform = o.style.oTransform = ['matrix('+ mtx.a, mtx.b, mtx.c, mtx.d, mtx.tx, mtx.ty + ')'].join(',');
+		o.style.MozTransform = ['matrix('+ mtx.a, mtx.b, mtx.c, mtx.d, mtx.tx + 'px', mtx.ty + 'px)'].join(',');
 		return true;
 	}
 
@@ -184,13 +184,13 @@ var p = DOMElement.prototype = new DisplayObject();
 	* @return {String} a string representation of the instance.
 	**/
 	p.toString = function() {
-		return "[DOMElement (name="+  this.name +")]";
+		return '[DOMElement (name='+ this.name + ')]';
 	}
 
 // private methods:
 	p._tick = function() {
 		if (this.htmlElement == null) { return; }
-		this.htmlElement.style.visibility = "hidden";
+		this.htmlElement.style.visibility = 'hidden';
 	}
 
 	/* Not needed with current setup:

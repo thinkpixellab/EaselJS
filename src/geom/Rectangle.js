@@ -4,7 +4,7 @@
 *
 *
 * Copyright (c) 2010 Grant Skinner
-* 
+*
 * Permission is hereby granted, free of charge, to any person
 * obtaining a copy of this software and associated documentation
 * files (the "Software"), to deal in the Software without
@@ -13,10 +13,10 @@
 * copies of the Software, and to permit persons to whom the
 * Software is furnished to do so, subject to the following
 * conditions:
-* 
+*
 * The above copyright notice and this permission notice shall be
 * included in all copies or substantial portions of the Software.
-* 
+*
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
 * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
 * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -28,8 +28,8 @@
 */
 
 /**
-* The Easel Javascript library provides a retained graphics mode for canvas 
-* including a full, hierarchical display list, a core interaction model, and 
+* The Easel Javascript library provides a retained graphics mode for canvas
+* including a full, hierarchical display list, a core interaction model, and
 * helper classes to make working with Canvas much easier.
 * @module EaselJS
 **/
@@ -50,37 +50,37 @@ Rectangle = function(x, y, width, height) {
 	this.y = (y == null ? 0 : y);
 	this.width = (width == null ? 0 : width);
 	this.height = (height == null ? 0 : height);
-}
-	
+};
+
 // public properties:
-	/** 
-	* X position. 
+	/**
+	* X position.
 	* @property x
 	* @type Number
 	**/
 	Rectangle.prototype.x = 0;
-	
-	/** 
-	* Y position. 
+
+	/**
+	* Y position.
 	* @property y
 	* @type Number
 	**/
 	Rectangle.prototype.y = 0;
-	
-	/** 
+
+	/**
 	* Width.
 	* @property width
 	* @type Number
 	**/
 	Rectangle.prototype.width = 0;
-	
-	/** 
+
+	/**
 	* Height.
 	* @property height
 	* @type Number
 	**/
 	Rectangle.prototype.height = 0;
-	
+
 // public methods:
 	/**
 	* Returns a clone of the Rectangle instance.
@@ -89,7 +89,7 @@ Rectangle = function(x, y, width, height) {
 	**/
 	Rectangle.prototype.clone = function() {
 		return new Rectangle(this.x, this.y, this.width, this.height);
-	}
+	};
 
 	/**
 	* Returns a string representation of this object.
@@ -97,5 +97,5 @@ Rectangle = function(x, y, width, height) {
 	* @return {String} a string representation of the instance.
 	**/
 	Rectangle.prototype.toString = function() {
-		return "[Rectangle (x="+this.x+" y="+this.y+" width="+this.width+" height="+this.height+")]";
-	}
+		return '[Rectangle (x='+ this.x + ' y='+ this.y + ' width='+ this.width + ' height='+ this.height + ')]';
+	};
