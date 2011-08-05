@@ -39,7 +39,7 @@ document.onkeyup = handleKeyUp;
 
 
 
-function init() {
+window['init'] = function() {
   //associate the canvas with the stage
   canvas = document.getElementById("testCanvas");
   stage = new Stage(canvas);
@@ -112,9 +112,7 @@ function restart() {
   Ticker.addListener(window);
 }
 
-
-
-function tick() {
+window['tick'] = function() {
   var index;
   var o;
   

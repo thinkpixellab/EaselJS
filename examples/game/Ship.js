@@ -3,10 +3,10 @@ goog.provide('Ship');
 goog.require('Container');
 goog.require('Shape');
 
-(function(window) {
-
-//
-function Ship() {
+/*
+ * @constructor
+ **/
+Ship = function() {
   Container.call(this);
 
 	this.shipFlame = new Shape();
@@ -121,6 +121,3 @@ goog.inherits(Ship, Container);
 		this.vX = Math.min(Ship.MAX_VELOCITY, Math.max(-Ship.MAX_VELOCITY, this.vX));
 		this.vY = Math.min(Ship.MAX_VELOCITY, Math.max(-Ship.MAX_VELOCITY, this.vY));
 	}
-
-window.Ship = Ship;
-}(window));

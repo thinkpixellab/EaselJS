@@ -38,25 +38,6 @@ goog.provide('Graphics');
 goog.provide('Graphics.Command');
 
 /**
- * Inner class used by the Graphics class. Used to create the instruction lists used in Graphics:
- * @class Command
- * @for Graphics
- * @constructor
- **/
-Graphics.Command = function(f, params) {
-  this.f = f;
-  this.params = params;
-};
-
-/**
- * @method exec
- * @param {Object} scope
- **/
-Graphics.Command.prototype.exec = function(scope) {
-  this.f.apply(scope, this.params);
-}
-
-/**
  * The Graphics class exposes an easy to use API for generating vector drawing instructions and drawing them to a specified context.
  * Note that you can use Graphics without any dependency on the Easel framework by calling draw() directly,
  * or it can be used with the Shape object to draw vector graphics within the context of an Easel display list.<br/><br/>
@@ -81,6 +62,25 @@ Graphics.Command.prototype.exec = function(scope) {
 Graphics = function(instructions) {
   this.clear();
   this._ctx = Graphics._ctx;
+}
+
+/**
+ * Inner class used by the Graphics class. Used to create the instruction lists used in Graphics:
+ * @class Command
+ * @for Graphics
+ * @constructor
+ **/
+Graphics.Command = function(f, params) {
+  this.f = f;
+  this.params = params;
+};
+
+/**
+ * @method exec
+ * @param {Object} scope
+ **/
+Graphics.Command.prototype.exec = function(scope) {
+  this.f.apply(scope, this.params);
 }
 
 // static public methods:

@@ -83,7 +83,7 @@ Shape.prototype.isVisible = function() {
  * into itself).
  **/
 Shape.prototype.draw = function(ctx, ignoreCache) {
-  if (Shape.prototype.draw.call(this, ctx, ignoreCache)) {
+  if (DisplayObject.prototype.draw.call(this, ctx, ignoreCache)) {
     return true;
   }
   this.graphics.draw(ctx);
