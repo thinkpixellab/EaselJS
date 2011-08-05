@@ -1,5 +1,9 @@
 base_path: examples/base.js
+inputs:
+  - examples/game/game.js
 js_paths:
   - src
+  - examples/base.js
   - examples/game
 deps_path: examples/deps.js
+compile_path: examples/game/compiled.js

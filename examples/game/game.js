@@ -103,7 +103,6 @@ function restart() {
   lfHeld = false;
   rtHeld = false;
   fwdHeld = false;
-  dnHeld = false;
 
   //ensure stage is blank and add the ship
   stage.clear();
