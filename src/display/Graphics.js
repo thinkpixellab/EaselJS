@@ -143,7 +143,7 @@ Graphics.getHSL = function(hue, saturation, lightness, alpha) {
  * @property STROKE_CAPS_MAP
  * @static
  * @final
- * @type Array[String]
+ * @type Array.<String>
  **/
 Graphics.STROKE_CAPS_MAP = ['butt', 'round', 'square'];
 
@@ -155,7 +155,7 @@ Graphics.STROKE_CAPS_MAP = ['butt', 'round', 'square'];
  * @property STROKE_JOINTS_MAP
  * @static
  * @final
- * @type Array[String]
+ * @type Array.<String>
  **/
 Graphics.STROKE_JOINTS_MAP = ['miter', 'round', 'bevel'];
 
@@ -194,42 +194,42 @@ Graphics.strokeCmd = new Graphics.Command(Graphics._ctx.stroke, []);
 /**
  * @property _strokeInstructions
  * @protected
- * @type Array[Command]
+ * @type Array<Graphics.Command>
  **/
 Graphics.prototype._strokeInstructions = null;
 
 /**
  * @property _strokeStyleInstructions
  * @protected
- * @type Array[Command]
+ * @type Array<Graphics.Command>
  **/
 Graphics.prototype._strokeStyleInstructions = null;
 
 /**
  * @property _fillInstructions
  * @protected
- * @type Array[Command]
+ * @type Array<Graphics.Command>
  **/
 Graphics.prototype._fillInstructions = null;
 
 /**
  * @property _instructions
  * @protected
- * @type Array[Command]
+ * @type Array<Graphics.Command>
  **/
 Graphics.prototype._instructions = null;
 
 /**
  * @property _oldInstructions
  * @protected
- * @type Array[Command]
+ * @type Array<Graphics.Command>
  **/
 Graphics.prototype._oldInstructions = null;
 
 /**
  * @property _activeInstructions
  * @protected
- * @type Array[Command]
+ * @type Array<Graphics.Command>
  **/
 Graphics.prototype._activeInstructions = null;
 
@@ -440,7 +440,7 @@ Graphics.prototype.beginFill = function(color) {
  * following code defines a black to white vertical gradient ranging from 20px to 120px, and draws a square to display it:<br/>
  * myGraphics.beginLinearGradientFill(["#000","#FFF"], [0, 1], 0, 20, 0, 120).drawRect(20, 20, 120, 120);
 
- * @param {Array[String]} colors An array of CSS compatible color values. For example, ["#F00","#00F"] would define a gradient
+ * @param {Array.<String>} colors An array of CSS compatible color values. For example, ["#F00","#00F"] would define a gradient
  * drawing from red to blue.
  * @param {Array[Number]} ratios An array of gradient positions which correspond to the colors. For example, [0.1, 0.9] would draw
  * the first color to 10% then interpolating to the second color at 90%.
@@ -467,7 +467,7 @@ Graphics.prototype.beginLinearGradientFill = function(colors, ratios, x0, y0, x1
  * gradient centered at (100, 100), with a radius of 50, and draws a circle to display it:<br/>
  * myGraphics.beginRadialGradientFill(["#F00","#00F"], [0, 1], 100, 100, 0, 100, 100, 50).drawCircle(100, 100, 50);
 
- * @param {Array[String]} colors An array of CSS compatible color values. For example, ["#F00","#00F"] would define a gradient
+ * @param {Array.<String>} colors An array of CSS compatible color values. For example, ["#F00","#00F"] would define a gradient
  * drawing from red to blue.
  * @param {Array[Number]} ratios An array of gradient positions which correspond to the colors. For example, [0.1, 0.9] would
  * draw the first color to 10% then interpolating to the second color at 90%.
