@@ -94,7 +94,7 @@ Rectangle = function(x, y, width, height) {
 	/**
 	* Returns a string representation of this object.
 
-	* @return {String} a string representation of the instance.
+	* @return {string} a string representation of the instance.
 	**/
 	Rectangle.prototype.toString = function() {
 		return '[Rectangle (x='+ this.x + ' y='+ this.y + ' width='+ this.width + ' height='+ this.height + ')]';

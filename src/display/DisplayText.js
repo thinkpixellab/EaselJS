@@ -46,10 +46,10 @@ goog.require('DisplayObject');
 * @class DisplayText
 * @extends DisplayObject
 * @constructor
-* @param {String} text Optional. The text to display.
-* @param {String} font Optional. The font style to use. Any valid value for the CSS font attribute is
+* @param {string} text Optional. The text to display.
+* @param {string} font Optional. The font style to use. Any valid value for the CSS font attribute is
 * acceptable (ex. "36px bold Arial").
-* @param {String} color Optional. The color to draw the text in. Any valid value for the CSS color attribute
+* @param {string} color Optional. The color to draw the text in. Any valid value for the CSS color attribute
 * is acceptable (ex. "#F00").
 **/
 DisplayText = function(text, font, color) {
@@ -72,21 +72,21 @@ DisplayText._workingContext = document.createElement('canvas').getContext('2d');
 	/**
 	* The text to display.
 	* @property text
-	* @type String
+	* @type string
 	**/
 	DisplayText.prototype.text = '';
 
 	/**
 	* The font style to use. Any valid value for the CSS font attribute is acceptable (ex. "bold 36px Arial").
 	* @property font
-	* @type String
+	* @type string
 	**/
 	DisplayText.prototype.font = null;
 
 	/**
 	* The color to draw the text in. Any valid value for the CSS color attribute is acceptable (ex. "#F00").
 	* @property color
-	* @type String
+	* @type string
 	**/
 	DisplayText.prototype.color = null;
 
@@ -96,7 +96,7 @@ DisplayText._workingContext = document.createElement('canvas').getContext('2d');
 	* <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#text-0">
 	* whatwg spec</a>.
 	* @property textAlign
-	* @type String
+	* @type string
 	**/
 	DisplayText.prototype.textAlign = null;
 
@@ -105,7 +105,7 @@ DisplayText._workingContext = document.createElement('canvas').getContext('2d');
 	* <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#text-0">
 	* whatwg spec</a>.
 	* @property textBaseline
-	* @type String
+	* @type string
 	*/
 	DisplayText.prototype.textBaseline = null;
 
@@ -120,7 +120,7 @@ DisplayText._workingContext = document.createElement('canvas').getContext('2d');
 
 	/** If true, the text will be drawn as a stroke (outline). If false, the text will be drawn as a fill.
 	* @property outline
-	* @type Boolean
+	* @type boolean
 	**/
 	DisplayText.prototype.outline = false;
 
@@ -144,7 +144,7 @@ DisplayText._workingContext = document.createElement('canvas').getContext('2d');
 	* This does not account for whether it would be visible within the boundaries of the stage.
 	* NOTE: This method is mainly for internal use, though it may be useful for advanced uses.
 
-	* @return {Boolean} Boolean indicating whether the display object would be visible if drawn to a canvas.
+	* @return {boolean} Boolean indicating whether the display object would be visible if drawn to a canvas.
 	**/
 	DisplayText.prototype.isVisible = function() {
 		return Boolean(this.visible && this.alpha > 0 &&
@@ -164,7 +164,7 @@ DisplayText._workingContext = document.createElement('canvas').getContext('2d');
 	* NOTE: This method is mainly for internal use, though it may be useful for advanced uses.
 
 	* @param {CanvasRenderingContext2D} ctx The canvas 2D context object to draw into.
-	* @param {Boolean} ignoreCache Indicates whether the draw operation should ignore any current cache.
+	* @param {boolean} ignoreCache Indicates whether the draw operation should ignore any current cache.
 	* For example, used for drawing the cache (to prevent it from simply drawing an existing cache back
 	* into itself).
 	**/
@@ -241,7 +241,7 @@ DisplayText._workingContext = document.createElement('canvas').getContext('2d');
 	/**
 	* Returns a string representation of this object.
 
-	* @return {String} a string representation of the instance.
+	* @return {string} a string representation of the instance.
 	**/
 	DisplayText.prototype.toString = function() {
 		return '[DisplayText (text='+ (this.text.length > 20 ? this.text.substr(0, 17) + '...' : this.text) + ')]';

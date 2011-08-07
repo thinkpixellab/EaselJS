@@ -40,7 +40,7 @@ goog.provide('Shadow');
 * Encapsulates the properties required to define a shadow to apply to a DisplayObject via it's .shadow property.
 * @class Shadow
 * @constructor
-* @param {String} color The color of the shadow.
+* @param {string} color The color of the shadow.
 * @param {number} offsetX The x offset of the shadow.
 * @param {number} offsetY The y offset of the shadow.
 * @param {number} blur The size of the blurring effect.
@@ -57,7 +57,7 @@ Shadow = function(color, offsetX, offsetY, blur) {
 // public properties:
 	/** The color of the shadow.
 	* property color
-	* @type String
+	* @type string
 	* @default null
 	*/
 	Shadow.prototype.color = null;
@@ -87,7 +87,7 @@ Shadow = function(color, offsetX, offsetY, blur) {
 	/**
 	* Returns a string representation of this object.
 
-	* @return {String} a string representation of the instance.
+	* @return {string} a string representation of the instance.
 	**/
 	Shadow.prototype.toString = function() {
 		return '[Shadow]';

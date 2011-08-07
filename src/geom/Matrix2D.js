@@ -136,7 +136,7 @@ Matrix2D = function(a, b, c, d, tx, ty) {
 	* compositeOperation values. You can find a list of valid composite operations at:
 	* <a href="https://developer.mozilla.org/en/Canvas_tutorial/Compositing">https://developer.mozilla.org/en/Canvas_tutorial/Compositing</a>
 	* @property compositeOperation
-	* @type String
+	* @type string
 	**/
 	Matrix2D.prototype.compositeOperation = null;
 
@@ -436,7 +436,7 @@ Matrix2D = function(a, b, c, d, tx, ty) {
 	* @param {number} ty
 	* @param {number} alpha desired alpha value.
 	* @param {Shadow} shadow desired shadow value.
-	* @param {String} compositeOperation desired composite operation value.
+	* @param {string} compositeOperation desired composite operation value.
 	*/
 	Matrix2D.prototype.reinitialize = function(a,b,c,d,tx,ty,alpha,shadow,compositeOperation) {
 		this.initialize(a, b, c, d, tx, ty);
@@ -451,7 +451,7 @@ Matrix2D = function(a, b, c, d, tx, ty) {
 
 	* @param {number} alpha desired alpha value.
 	* @param {Shadow} shadow desired shadow value.
-	* @param {String} compositeOperation desired composite operation value.
+	* @param {string} compositeOperation desired composite operation value.
 	*/
 	Matrix2D.prototype.appendProperties = function(alpha, shadow, compositeOperation) {
 		this.alpha *= alpha;
@@ -464,7 +464,7 @@ Matrix2D = function(a, b, c, d, tx, ty) {
 
 	* @param {number} alpha desired alpha value.
 	* @param {Shadow} shadow desired shadow value.
-	* @param {String} compositeOperation desired composite operation value.
+	* @param {string} compositeOperation desired composite operation value.
 	*/
 	Matrix2D.prototype.prependProperties = function(alpha, shadow, compositeOperation) {
 		this.alpha *= alpha;
@@ -488,7 +488,7 @@ Matrix2D = function(a, b, c, d, tx, ty) {
 	/**
 	* Returns a string representation of this object.
 
-	* @return {String} a string representation of the instance.
+	* @return {string} a string representation of the instance.
 	**/
 	Matrix2D.prototype.toString = function() {
 		return '[Matrix2D (a='+ this.a + ' b='+ this.b + ' c='+ this.c + ' d='+ this.d + ' tx='+ this.tx + ' ty='+ this.ty + ')]';

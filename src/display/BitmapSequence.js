@@ -78,7 +78,7 @@ var p = BitmapSequence.prototype;
 	/**
 	* Returns the currently playing sequence when using frameData. READ-ONLY.
 	* @property currentSequence
-	* @type String
+	* @type string
 	* @final
 	**/
 	p.currentSequence = null; // READ-ONLY
@@ -103,7 +103,7 @@ var p = BitmapSequence.prototype;
 	* Returns the name of the next sequence that will be played, or null if it will stop playing after the
 	* current sequence. READ-ONLY.
 	* @property nextSequence
-	* @type String
+	* @type string
 	* @final
 	**/
 	p.nextSequence = null;
@@ -112,7 +112,7 @@ var p = BitmapSequence.prototype;
 	* Prevents the animation from advancing each tick automatically. For example, you could create a sprite
 	* sheet of icons, set paused to true, and display the appropriate icon by setting currentFrame.
 	* @property paused
-	* @type Boolean
+	* @type boolean
 	* @default false
 	**/
 	p.paused = false;
@@ -128,7 +128,7 @@ var p = BitmapSequence.prototype;
 	/**
 	* Whether or not the Bitmap should be draw to the canvas at whole pixel coordinates.
 	* @property snapToPixel
-	* @type Boolean
+	* @type boolean
 	* @default true
 	**/
 	p.snapToPixel = true;
@@ -165,7 +165,7 @@ var p = BitmapSequence.prototype;
 	* This does not account for whether it would be visible within the boundaries of the stage.
 	* NOTE: This method is mainly for internal use, though it may be useful for advanced uses.
 
-	* @return {Boolean} Boolean indicating whether the display object would be visible if drawn to a canvas.
+	* @return {boolean} Boolean indicating whether the display object would be visible if drawn to a canvas.
 	**/
 	p.isVisible = function() {
 		var image = this.spriteSheet ? this.spriteSheet.image : null;
@@ -185,7 +185,7 @@ var p = BitmapSequence.prototype;
 	* NOTE: This method is mainly for internal use, though it may be useful for advanced uses.
 
 	* @param {CanvasRenderingContext2D} ctx The canvas 2D context object to draw into.
-	* @param {Boolean} ignoreCache Indicates whether the draw operation should ignore any current cache.
+	* @param {boolean} ignoreCache Indicates whether the draw operation should ignore any current cache.
 	* For example, used for drawing the cache (to prevent it from simply drawing an existing cache back
 	* into itself).
 	**/
@@ -294,7 +294,7 @@ var p = BitmapSequence.prototype;
 	/**
 	* Returns a string representation of this object.
 
-	* @return {String} a string representation of the instance.
+	* @return {string} a string representation of the instance.
 	**/
 	p.toString = function() {
 		return '[BitmapSequence (name='+ this.name + ')]';

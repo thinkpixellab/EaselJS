@@ -236,7 +236,7 @@ Graphics.prototype._activeInstructions = null;
 /**
  * @property _active
  * @protected
- * @type Boolean
+ * @type boolean
  * @default false
  **/
 Graphics.prototype._active = false;
@@ -244,7 +244,7 @@ Graphics.prototype._active = false;
 /**
  * @property _dirty
  * @protected
- * @type Boolean
+ * @type boolean
  * @default false
  **/
 Graphics.prototype._dirty = false;
@@ -324,7 +324,7 @@ Graphics.prototype.arcTo = function(x1, y1, x2, y2, radius) {
  * @param {number} radius
  * @param {number} startAngle Measured in radians.
  * @param {number} endAngle Measured in radians.
- * @param {Boolean} anticlockwise
+ * @param {boolean} anticlockwise
  * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.).
  **/
 Graphics.prototype.arc = function(x, y, radius, startAngle, endAngle, anticlockwise) {
@@ -423,7 +423,7 @@ Graphics.prototype.clear = function() {
 /**
  * Begins a fill with the specified color. This ends the current subpath.
 
- * @param {String} color A CSS compatible color value (ex. "#FF0000" or "rgba(255,0,0,0.5)"). Setting to null will
+ * @param {string} color A CSS compatible color value (ex. "#FF0000" or "rgba(255,0,0,0.5)"). Setting to null will
  * result in no fill.
  * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.).
  **/
@@ -495,7 +495,7 @@ Graphics.prototype.beginRadialGradientFill = function(colors, ratios, x0, y0, r0
  * Begins a pattern fill using the specified image. This ends the current subpath.
 
  * @param image The Image, Canvas, or Video object to use as the pattern.
- * @param {String} repetition Optional. Indicates whether to repeat the image in the fill area. One of "repeat", "repeat-x",
+ * @param {string} repetition Optional. Indicates whether to repeat the image in the fill area. One of "repeat", "repeat-x",
  * "repeat-y", or "no-repeat". Defaults to "repeat".
  * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.).
  **/
@@ -600,7 +600,7 @@ Graphics.prototype.beginRadialGradientStroke = function(colors, ratios, x0, y0, 
 /**
  * Begins a pattern fill using the specified image. This ends the current subpath.
  * @param {Image | HTMLCanvasElement | HTMLVideoElement} image The Image, Canvas, or Video object to use as the pattern.
- * @param {String} repetition Optional. Indicates whether to repeat the image in the fill area. One of "repeat", "repeat-x",
+ * @param {string} repetition Optional. Indicates whether to repeat the image in the fill area. One of "repeat", "repeat-x",
  * "repeat-y", or "no-repeat". Defaults to "repeat".
  * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.).
  **/
@@ -790,7 +790,7 @@ Graphics.prototype.clone = function() {
 /**
  * Returns a string representation of this object.
 
- * @return {String} a string representation of the instance.
+ * @return {string} a string representation of the instance.
  **/
 Graphics.prototype.toString = function() {
   return '[Graphics]';
@@ -1025,8 +1025,8 @@ Graphics.prototype._newPath = function() {
 /**
  * used to create Commands that set properties
 
- * @param {String} name
- * @param {String} value
+ * @param {string} name
+ * @param {string} value
  * @protected
  **/
 Graphics.prototype._setProp = function(name, value) {

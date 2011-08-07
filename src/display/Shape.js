@@ -66,7 +66,7 @@ Shape.prototype.graphics = null;
  * This does not account for whether it would be visible within the boundaries of the stage.
  * NOTE: This method is mainly for internal use, though it may be useful for advanced uses.
 
- * @return {Boolean} Boolean indicating whether the Shape would be visible if drawn to a canvas.
+ * @return {boolean} Boolean indicating whether the Shape would be visible if drawn to a canvas.
  **/
 Shape.prototype.isVisible = function() {
   return this.visible && this.alpha > 0 && this.scaleX != 0 && this.scaleY != 0 && this.graphics;
@@ -78,7 +78,7 @@ Shape.prototype.isVisible = function() {
  * NOTE: This method is mainly for internal use, though it may be useful for advanced uses.
 
  * @param {CanvasRenderingContext2D} ctx The canvas 2D context object to draw into.
- * @param {Boolean} ignoreCache Indicates whether the draw operation should ignore any current cache.
+ * @param {boolean} ignoreCache Indicates whether the draw operation should ignore any current cache.
  * For example, used for drawing the cache (to prevent it from simply drawing an existing cache back
  * into itself).
  **/
@@ -94,7 +94,7 @@ Shape.prototype.draw = function(ctx, ignoreCache) {
  * Returns a clone of this Shape. Some properties that are specific to this instance's current context are reverted to
  * their defaults (for example .parent).
 
- * @param {Boolean} recursive If true, this Shape's Graphics instance will also be cloned. If false, the Graphics instance
+ * @param {boolean} recursive If true, this Shape's Graphics instance will also be cloned. If false, the Graphics instance
  * will be shared with the new Shape.
  **/
 Shape.prototype.clone = function(recursive) {
@@ -106,7 +106,7 @@ Shape.prototype.clone = function(recursive) {
 /**
  * Returns a string representation of this object.
 
- * @return {String} a string representation of the instance.
+ * @return {string} a string representation of the instance.
  **/
 Shape.prototype.toString = function() {
   return '[Shape (name=' + this.name + ')]';

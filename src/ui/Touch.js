@@ -52,7 +52,7 @@ var Touch = function() {
 	* currently only supports iOS, and simply maps single touch events
 	* to the existing EaselJS mouse events.
 
-	* @return {Boolean} A boolean indicating whether touch is supported in the current environment.
+	* @return {boolean} A boolean indicating whether touch is supported in the current environment.
 	* @static
 	**/
 	Touch.isSupported = function() {

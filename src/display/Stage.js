@@ -57,7 +57,7 @@ goog.inherits(Stage, Container);
 /**
  * @property _snapToPixelEnabled
  * @protected
- * @type Boolean
+ * @type boolean
  * @default false
  **/
 Stage._snapToPixelEnabled = false; // snapToPixelEnabled is temporarily copied here during a draw to provide global access.
@@ -66,7 +66,7 @@ Stage._snapToPixelEnabled = false; // snapToPixelEnabled is temporarily copied h
  * Indicates whether the stage should automatically clear the canvas before each render. You can set this to false to manually
  * control clearing (for generative art, or when pointing multiple stages at the same canvas for example).
  * @property autoClear
- * @type Boolean
+ * @type boolean
  * @default true
  **/
 Stage.prototype.autoClear = true;
@@ -121,14 +121,14 @@ Stage.prototype.onMouseDown = null;
 /**
  * Indicates whether this stage should use the snapToPixel property of display objects when rendering them.
  * @property snapToPixelEnabled
- * @type Boolean
+ * @type boolean
  * @default false
  **/
 Stage.prototype.snapToPixelEnabled = false;
 
 /** Indicates whether the mouse is currently within the bounds of the canvas.
  * @property mouseInBounds
- * @type Boolean
+ * @type boolean
  * @default false
  **/
 Stage.prototype.mouseInBounds = false;
@@ -136,7 +136,7 @@ Stage.prototype.mouseInBounds = false;
 // private properties:
 /** If false, tick callbacks will be called on all display objects on the stage prior to rendering to the canvas.
  * @property tickOnUpdate
- * @type Boolean
+ * @type boolean
  * @default false
  **/
 Stage.prototype.tickOnUpdate = true;
@@ -234,11 +234,11 @@ Stage.prototype.clear = function() {
  * Returns a data url that contains a Base64 encoded image of the contents of the stage. The returned data url can be
  * specified as the src value of an image element.
 
- * @param {String} backgroundColor The background color to be used for the generated image. The value can be any value HTML color
+ * @param {string} backgroundColor The background color to be used for the generated image. The value can be any value HTML color
  * value, including HEX colors, rgb and rgba. The default value is a transparent background.
- * @param {String} mimeType The MIME type of the image format to be create. The default is "image/png". If an unknown MIME type
+ * @param {string} mimeType The MIME type of the image format to be create. The default is "image/png". If an unknown MIME type
  * is passed in, or if the browser does not support the specified MIME type, the default value will be used.
- * @return {String} a Base64 encoded image.
+ * @return {string} a Base64 encoded image.
  **/
 Stage.prototype.toDataURL = function(backgroundColor, mimeType) {
   if (!mimeType) {
@@ -323,7 +323,7 @@ Stage.prototype.clone = function() {
 /**
  * Returns a string representation of this object.
 
- * @return {String} a string representation of the instance.
+ * @return {string} a string representation of the instance.
  **/
 Stage.prototype.toString = function() {
   return '[Stage (name=' + this.name + ')]';
@@ -333,7 +333,7 @@ Stage.prototype.toString = function() {
 /**
 
  * @protected
- * @param {Boolean} enabled
+ * @param {boolean} enabled
  **/
 Stage.prototype._enableMouseEvents = function() {
   var o = this;

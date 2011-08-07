@@ -60,7 +60,7 @@ DisplayObject = function() {
 	* domain content
 	* @property suppressCrossDomainErrors
 	* @static
-	* @type Boolean
+	* @type boolean
 	* @default false
 	**/
 	DisplayObject.suppressCrossDomainErrors = false;
@@ -113,7 +113,7 @@ DisplayObject = function() {
 	* Sprites will cause the Sprite to be returned (not its children) regardless of whether it's mouseChildren property
 	* is true.
 	* @property mouseEnabled
-	* @type Boolean
+	* @type boolean
 	* @default true
 	**/
 	DisplayObject.prototype.mouseEnabled = true;
@@ -121,7 +121,7 @@ DisplayObject = function() {
 	/**
 	* An optional name for this display object. Included in toString(). Useful for debugging.
 	* @property name
-	* @type String
+	* @type string
 	* @default null
 	**/
 	DisplayObject.prototype.name = null;
@@ -209,7 +209,7 @@ DisplayObject = function() {
 	* Indicates whether this display object should be rendered to the canvas and included when running
 	* Stage.getObjectsUnderPoint().
 	* @property visible
-	* @type Boolean
+	* @type boolean
 	* @default true
 	**/
 	DisplayObject.prototype.visible = true;
@@ -235,7 +235,7 @@ DisplayObject = function() {
 	* <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#compositing">
 	* whatwg spec on compositing</a>.
 	* @property compositeOperation
-	* @type String
+	* @type string
 	* @default null
 	**/
 	DisplayObject.prototype.compositeOperation = null;
@@ -246,7 +246,7 @@ DisplayObject = function() {
 	* transform does not include any scaling, rotation, or skewing. The snapToPixel property is true by default for
 	* Bitmap and BitmapSequence instances, and false for all other display objects.
 	* @property snapToPixel
-	* @type Boolean
+	* @type boolean
 	* @default false
 	**/
 	DisplayObject.prototype.snapToPixel = false;
@@ -346,7 +346,7 @@ DisplayObject = function() {
 	* This does not account for whether it would be visible within the boundaries of the stage.
 	* NOTE: This method is mainly for internal use, though it may be useful for advanced uses.
 
-	* @return {Boolean} Boolean indicating whether the display object would be visible if drawn to a canvas.
+	* @return {boolean} Boolean indicating whether the display object would be visible if drawn to a canvas.
 	**/
 	DisplayObject.prototype.isVisible = function() {
 		return this.visible && this.alpha > 0 && this.scaleX != 0 && this.scaleY != 0;
@@ -358,7 +358,7 @@ DisplayObject = function() {
 	* NOTE: This method is mainly for internal use, though it may be useful for advanced uses.
 
 	* @param {CanvasRenderingContext2D} ctx The canvas 2D context object to draw into.
-	* @param {Boolean} ignoreCache Indicates whether the draw operation should ignore any current cache.
+	* @param {boolean} ignoreCache Indicates whether the draw operation should ignore any current cache.
 	* For example, used for drawing the cache (to prevent it from simply drawing an existing cache back
 	* into itself).
 	**/
@@ -402,7 +402,7 @@ DisplayObject = function() {
 	* If compositeOperation is null the current cache will be cleared prior to drawing. Otherwise the display object
 	* will be drawn over the existing cache using the specified compositeOperation.
 
-	* @param {String} compositeOperation The compositeOperation to use, or null to clear the cache and redraw it.
+	* @param {string} compositeOperation The compositeOperation to use, or null to clear the cache and redraw it.
 	* <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#compositing">
 	* whatwg spec on compositing</a>.
 	**/
@@ -537,7 +537,7 @@ DisplayObject = function() {
 
 	* @param {number} x The x position to check in the display object's local coordinates.
 	* @param {number} y The y position to check in the display object's local coordinates.
-	* @return {Boolean} A Boolean indicting whether a visible portion of the DisplayObject intersect the specified
+	* @return {boolean} A Boolean indicting whether a visible portion of the DisplayObject intersect the specified
 	* local Point.
 	*/
 	DisplayObject.prototype.hitTest = function(x, y) {
@@ -569,7 +569,7 @@ DisplayObject = function() {
 	/**
 	* Returns a string representation of this object.
 
-	* @return {String} a string representation of the instance.
+	* @return {string} a string representation of the instance.
 	**/
 	DisplayObject.prototype.toString = function() {
 		return '[DisplayObject (name='+ this.name + ')]';
@@ -620,7 +620,7 @@ DisplayObject = function() {
 
 	* @protected
 	* @param {CanvasRenderingContext2D} ctx
-	* @return {Boolean}
+	* @return {boolean}
 	**/
 	DisplayObject.prototype._testHit = function(ctx) {
 		try {

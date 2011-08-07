@@ -43,7 +43,7 @@ goog.provide('EaselMouseEvent');
 * set mouseEventsEnabled to true on your stage instance.
 * @class EaselMouseEvent
 * @constructor
-* @param {String} type The event type.
+* @param {string} type The event type.
 * @param {number} stageX The mouseX position relative to the stage.
 * @param {number} stageY The mouseY position relative to the stage.
 * @param {DisplayObject} target The display object this event relates to.
@@ -77,7 +77,7 @@ EaselMouseEvent = function(type, stageX, stageY, target, nativeEvent) {
 	* The type of mouse event. This will be the same as the handler it maps to (onPress,
 	* onMouseDown, onMouseUp, onMouseMove, or onClick).
 	* @property type
-	* @type String
+	* @type string
 	**/
 	EaselMouseEvent.prototype.type = null;
 
@@ -86,7 +86,7 @@ EaselMouseEvent = function(type, stageX, stageY, target, nativeEvent) {
 	* event may differ between browsers. This property will be null if the
 	* EaselJS property was not directly generated from a native MouseEvent.
 	* @property nativeEvent
-	* @type MouseEvent
+	* @type EaselMouseEvent
 	* @default null
 	**/
 	EaselMouseEvent.prototype.nativeEvent = null;
@@ -130,7 +130,7 @@ EaselMouseEvent = function(type, stageX, stageY, target, nativeEvent) {
 	/**
 	* Returns a string representation of this object.
 
-	* @return {String} a string representation of the instance.
+	* @return {string} a string representation of the instance.
 	**/
 	EaselMouseEvent.prototype.toString = function() {
 		return '[EaselMouseEvent (type='+ this.type + ' stageX='+ this.stageX + ' stageY='+ this.stageY + ')]';

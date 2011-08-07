@@ -107,7 +107,7 @@ var p = ColorFilter.prototype;
 	/**
 	* Returns a string representation of this object.
 
-	* @return {String} a string representation of the instance.
+	* @return {string} a string representation of the instance.
 	**/
 	p.toString = function() {
 		return '[ColorFilter]';

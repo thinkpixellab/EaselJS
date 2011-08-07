@@ -73,7 +73,7 @@ Filter = function() {
 	/**
 	* Returns a string representation of this object.
 
-	* @return {String} a string representation of the instance.
+	* @return {string} a string representation of the instance.
 	**/
 	Filter.prototype.toString = function() {
 		return '[Filter]';

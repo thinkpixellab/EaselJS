@@ -101,7 +101,7 @@ goog.inherits(ColorMatrixFilter, Filter);
 	/**
 	* Returns a string representation of this object.
 
-	* @return {String} a string representation of the instance.
+	* @return {string} a string representation of the instance.
 	**/
 	ColorMatrixFilter.prototype.toString = function() {
 		return '[ColorMatrixFilter]';
