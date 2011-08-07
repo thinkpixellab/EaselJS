@@ -342,7 +342,7 @@ goog.inherits(Container, DisplayObject);
 	* @return {String} a string representation of the instance.
 	**/
 	Container.prototype.toString = function() {
-		return '[Container (name='+ this.name + ')]';
+		return '[Container (name=' + this.name + ')]';
 	};
 
 // private properties:

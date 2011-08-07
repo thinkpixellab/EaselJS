@@ -572,7 +572,7 @@ DisplayObject = function() {
 	* @return {String} a string representation of the instance.
 	**/
 	DisplayObject.prototype.toString = function() {
-		return '[DisplayObject (name='+ this.name + ')]';
+		return '[DisplayObject (name=' + this.name + ')]';
 	};
 
 // private methods:

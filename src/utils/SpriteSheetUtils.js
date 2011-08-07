@@ -193,13 +193,13 @@ var SpriteSheetUtils = function() {
 				start = end = data;
 				next = n;
 			}
-			str += '\n\t'+ n + ', start='+ start + ', end='+ end + ', next='+ next;
+			str += '\n\t' + n + ', start=' + start + ', end=' + end + ', next=' + next;
 			if (next == false) { str += ' (stop)'; }
 			else if (next == n) { str += ' (loop)'; }
 			if (end > max) { max = end; }
 			if (start < min) { min = start; }
 		}
-		str = count + ' sequences, min='+ min + ', max='+ max + str;
+		str = count + ' sequences, min=' + min + ', max=' + max + str;
 		return str;
 	}
 

@@ -133,5 +133,5 @@ EaselMouseEvent = function(type, stageX, stageY, target, nativeEvent) {
 	* @return {String} a string representation of the instance.
 	**/
 	EaselMouseEvent.prototype.toString = function() {
-		return '[EaselMouseEvent (type='+ this.type + ' stageX='+ this.stageX + ' stageY='+ this.stageY + ')]';
+		return '[EaselMouseEvent (type=' + this.type + ' stageX=' + this.stageX + ' stageY=' + this.stageY + ')]';
 	};

@@ -244,7 +244,7 @@ DisplayText._workingContext = document.createElement('canvas').getContext('2d');
 	* @return {String} a string representation of the instance.
 	**/
 	DisplayText.prototype.toString = function() {
-		return '[DisplayText (text='+ (this.text.length > 20 ? this.text.substr(0, 17) + '...' : this.text) + ')]';
+		return '[DisplayText (text=' + (this.text.length > 20 ? this.text.substr(0, 17) + '...' : this.text) + ')]';
 	};
 
 // private methods:

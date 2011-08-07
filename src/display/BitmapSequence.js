@@ -297,7 +297,7 @@ var p = BitmapSequence.prototype;
 	* @return {String} a string representation of the instance.
 	**/
 	p.toString = function() {
-		return '[BitmapSequence (name='+ this.name + ')]';
+		return '[BitmapSequence (name=' + this.name + ')]';
 	}
 
 // private methods:

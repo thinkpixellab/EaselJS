@@ -141,7 +141,7 @@ goog.inherits(Bitmap, DisplayObject);
 	* @return {String} a string representation of the instance.
 	**/
 	Bitmap.prototype.toString = function() {
-		return '[Bitmap (name='+ this.name + ')]';
+		return '[Bitmap (name=' + this.name + ')]';
 	};
 
 

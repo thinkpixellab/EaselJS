@@ -80,5 +80,5 @@ Point = function(x, y) {
 	* @return {String} a string representation of the instance.
 	**/
 	Point.prototype.toString = function() {
-		return '[Point (x='+ this.x + ' y='+ this.y + ')]';
+		return '[Point (x=' + this.x + ' y=' + this.y + ')]';
 	};

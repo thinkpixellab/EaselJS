@@ -20,7 +20,7 @@ Ship = function() {
 	this.thrust = 0;
 	this.vX = 0;
 	this.vY = 0;
-}
+};
 goog.inherits(Ship, Container);
 
 // public properties:
@@ -77,7 +77,7 @@ goog.inherits(Ship, Container);
 		//furthest visual element
 		this.bounds = 10;
 		this.hit = this.bounds;
-	}
+	};
 
 	Ship.prototype.tick = function() {
 		//move by velocity
@@ -104,7 +104,7 @@ goog.inherits(Ship, Container);
 			this.shipFlame.alpha = 0;
 			this.thrust = 0;
 		}
-	}
+	};
 
 	Ship.prototype.accelerate = function() {
 		//increase push amount for acceleration
@@ -120,4 +120,4 @@ goog.inherits(Ship, Container);
 		//cap max speeds
 		this.vX = Math.min(Ship.MAX_VELOCITY, Math.max(-Ship.MAX_VELOCITY, this.vX));
 		this.vY = Math.min(Ship.MAX_VELOCITY, Math.max(-Ship.MAX_VELOCITY, this.vY));
-	}
+	};

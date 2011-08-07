@@ -234,7 +234,7 @@ var p = BoxBlurFilter.prototype;
 	* Returns a string representation of this object.
 	**/
 	p.toString = function() {
-		return '[BoxBlurFilter (name='+ this.name + ')]';
+		return '[BoxBlurFilter (name=' + this.name + ')]';
 	}
 
 // private methods:

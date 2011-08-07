@@ -491,7 +491,7 @@ Matrix2D = function(a, b, c, d, tx, ty) {
 	* @return {String} a string representation of the instance.
 	**/
 	Matrix2D.prototype.toString = function() {
-		return '[Matrix2D (a='+ this.a + ' b='+ this.b + ' c='+ this.c + ' d='+ this.d + ' tx='+ this.tx + ' ty='+ this.ty + ')]';
+		return '[Matrix2D (a=' + this.a + ' b=' + this.b + ' c=' + this.c + ' d=' + this.d + ' tx=' + this.tx + ' ty=' + this.ty + ')]';
 	};
 
 	// this has to be populated after the class is defined:

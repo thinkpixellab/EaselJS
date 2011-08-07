@@ -62,7 +62,7 @@ goog.provide('Graphics.Command');
 Graphics = function(instructions) {
   this.clear();
   this._ctx = Graphics._ctx;
-}
+};
 
 /**
  * Inner class used by the Graphics class. Used to create the instruction lists used in Graphics:
@@ -81,7 +81,7 @@ Graphics.Command = function(f, params) {
  **/
 Graphics.Command.prototype.exec = function(scope) {
   this.f.apply(scope, this.params);
-}
+};
 
 // static public methods:
 /**
@@ -111,7 +111,7 @@ Graphics.getRGB = function(r, g, b, alpha) {
   } else {
     return 'rgba(' + r + ',' + g + ',' + b + ',' + alpha + ')';
   }
-}
+};
 
 /**
  * Returns a CSS compatible color string based on the specified HSL numeric color values in the format "hsla(360,100,100,1.0)",
@@ -133,7 +133,7 @@ Graphics.getHSL = function(hue, saturation, lightness, alpha) {
   } else {
     return 'hsla(' + (hue % 360) + ',' + saturation + '%,' + lightness + '%,' + alpha + ')';
   }
-}
+};
 
 /**
  * Maps numeric values for the caps parameter of setStrokeStyle to corresponding string values.
@@ -264,7 +264,7 @@ Graphics.prototype.draw = function(ctx) {
   for (var i = 0, l = instr.length; i < l; i++) {
     instr[i].exec(ctx);
   }
-}
+};
 
 // public methods that map directly to context 2D calls:
 /**
@@ -277,7 +277,7 @@ Graphics.prototype.draw = function(ctx) {
 Graphics.prototype.moveTo = function(x, y) {
   this._activeInstructions.push(new Graphics.Command(this._ctx.moveTo, [x, y]));
   return this;
-}
+};
 
 /**
  * Draws a line from the current drawing point to the specified position, which become the new current drawing point.
@@ -293,7 +293,7 @@ Graphics.prototype.lineTo = function(x, y) {
   this._dirty = this._active = true;
   this._activeInstructions.push(new Graphics.Command(this._ctx.lineTo, [x, y]));
   return this;
-}
+};
 
 /**
  * Draws an arc with the specified control points and radius.  For detailed information, read the
@@ -311,7 +311,7 @@ Graphics.prototype.arcTo = function(x1, y1, x2, y2, radius) {
   this._dirty = this._active = true;
   this._activeInstructions.push(new Graphics.Command(this._ctx.arcTo, [x1, y1, x2, y2, radius]));
   return this;
-}
+};
 
 /**
  * Draws an arc defined by the radius, startAngle and endAngle arguments, centered at the position (x, y). For example
@@ -334,7 +334,7 @@ Graphics.prototype.arc = function(x, y, radius, startAngle, endAngle, anticlockw
   }
   this._activeInstructions.push(new Graphics.Command(this._ctx.arc, [x, y, radius, startAngle, endAngle, anticlockwise]));
   return this;
-}
+};
 
 /**
  * Draws a quadratic curve from the current drawing point to (x, y) using the control point (cpx, cpy).  For detailed information,
@@ -351,7 +351,7 @@ Graphics.prototype.quadraticCurveTo = function(cpx, cpy, x, y) {
   this._dirty = this._active = true;
   this._activeInstructions.push(new Graphics.Command(this._ctx.quadraticCurveTo, [cpx, cpy, x, y]));
   return this;
-}
+};
 
 /**
  * Draws a bezier curve from the current drawing point to (x, y) using the control points (cp1x, cp1y) and (cp2x, cp2y).
@@ -371,7 +371,7 @@ Graphics.prototype.bezierCurveTo = function(cp1x, cp1y, cp2x, cp2y, x, y) {
   this._dirty = this._active = true;
   this._activeInstructions.push(new Graphics.Command(this._ctx.bezierCurveTo, [cp1x, cp1y, cp2x, cp2y, x, y]));
   return this;
-}
+};
 
 /**
  * Draws a rectangle at (x, y) with the specified width and height using the current fill and/or stroke.
@@ -389,7 +389,7 @@ Graphics.prototype.rect = function(x, y, w, h) {
   this._dirty = this._active = true;
   this._activeInstructions.push(new Graphics.Command(this._ctx.rect, [x, y, w, h]));
   return this;
-}
+};
 
 /**
  * Closes the current path, effectively drawing a line from the current drawing point to the first drawing point specified
@@ -403,7 +403,7 @@ Graphics.prototype.closePath = function() {
     this._activeInstructions.push(new Graphics.Command(this._ctx.closePath, []));
   }
   return this;
-}
+};
 
 // public methods that roughly map to Flash graphics APIs:
 /**
@@ -418,7 +418,7 @@ Graphics.prototype.clear = function() {
   this._strokeStyleInstructions = this._strokeInstructions = this._fillInstructions = null;
   this._active = this._dirty = false;
   return this;
-}
+};
 
 /**
  * Begins a fill with the specified color. This ends the current subpath.
@@ -433,7 +433,7 @@ Graphics.prototype.beginFill = function(color) {
   }
   this._fillInstructions = color ? [new Graphics.Command(this._setProp, ['fillStyle', color])] : null;
   return this;
-}
+};
 
 /**
  * Begins a linear gradient fill defined by the line (x0, y0) to (x1, y1). This ends the current subpath. For example, the
@@ -460,7 +460,7 @@ Graphics.prototype.beginLinearGradientFill = function(colors, ratios, x0, y0, x1
   }
   this._fillInstructions = [new Graphics.Command(this._setProp, ['fillStyle', o])];
   return this;
-}
+};
 
 /**
  * Begins a radial gradient fill. This ends the current subpath. For example, the following code defines a red to blue radial
@@ -489,7 +489,7 @@ Graphics.prototype.beginRadialGradientFill = function(colors, ratios, x0, y0, r0
   }
   this._fillInstructions = [new Graphics.Command(this._setProp, ['fillStyle', o])];
   return this;
-}
+};
 
 /**
  * Begins a pattern fill using the specified image. This ends the current subpath.
@@ -507,7 +507,7 @@ Graphics.prototype.beginBitmapFill = function(image, repetition) {
   var o = this._ctx.createPattern(image, repetition);
   this._fillInstructions = [new Graphics.Command(this._setProp, ['fillStyle', o])];
   return this;
-}
+};
 
 /**
  * Ends the current subpath, and begins a new one with no fill. Functionally identical to beginFill(null).
@@ -516,7 +516,7 @@ Graphics.prototype.beginBitmapFill = function(image, repetition) {
 Graphics.prototype.endFill = function() {
   this.beginFill(null);
   return this;
-}
+};
 
 /**
  * Sets the stroke style for the current subpath. Like all drawing methods, this can be chained, so you can define the stroke style and color in a single line of code like so:
@@ -534,7 +534,7 @@ Graphics.prototype.setStrokeStyle = function(thickness, caps, joints, miterLimit
   this._strokeStyleInstructions = [
   new Graphics.Command(this._setProp, ['lineWidth', (thickness == null ? '1' : thickness)]), new Graphics.Command(this._setProp, ['lineCap', (caps == null ? 'butt' : (isNaN(caps) ? caps : Graphics.STROKE_CAPS_MAP[caps]))]), new Graphics.Command(this._setProp, ['lineJoin', (joints == null ? 'miter' : (isNaN(joints) ? joints : Graphics.STROKE_JOINTS_MAP[joints]))]), new Graphics.Command(this._setProp, ['miterLimit', (miterLimit == null ? '10' : miterLimit)])];
   return this;
-}
+};
 
 /**
  * Begins a stroke with the specified color. This ends the current subpath.
@@ -547,7 +547,7 @@ Graphics.prototype.beginStroke = function(color) {
   }
   this._strokeInstructions = color ? [new Graphics.Command(this._setProp, ['strokeStyle', color])] : null;
   return this;
-}
+};
 
 /**
  * Begins a linear gradient stroke defined by the line (x0, y0) to (x1, y1). This ends the current subpath. For example, the following code defines a black to white vertical gradient ranging from 20px to 120px, and draws a square to display it:<br/>
@@ -570,7 +570,7 @@ Graphics.prototype.beginLinearGradientStroke = function(colors, ratios, x0, y0, 
   }
   this._strokeInstructions = [new Graphics.Command(this._setProp, ['strokeStyle', o])];
   return this;
-}
+};
 
 /**
  * Begins a radial gradient stroke. This ends the current subpath. For example, the following code defines a red to blue radial gradient centered at (100, 100), with a radius of 50, and draws a rectangle to display it:<br/>
@@ -595,7 +595,7 @@ Graphics.prototype.beginRadialGradientStroke = function(colors, ratios, x0, y0, 
   }
   this._strokeInstructions = [new Graphics.Command(this._setProp, ['strokeStyle', o])];
   return this;
-}
+};
 
 /**
  * Begins a pattern fill using the specified image. This ends the current subpath.
@@ -612,7 +612,7 @@ Graphics.prototype.beginBitmapStroke = function(image, repetition) {
   var o = this._ctx.createPattern(image, repetition);
   this._strokeInstructions = [new Graphics.Command(this._setProp, ['strokeStyle', o])];
   return this;
-}
+};
 
 /**
  * Ends the current subpath, and begins a new one with no stroke. Functionally identical to beginStroke(null).
@@ -622,7 +622,7 @@ Graphics.prototype.beginBitmapStroke = function(image, repetition) {
 Graphics.prototype.endStroke = function() {
   this.beginStroke(null);
   return this;
-}
+};
 
 /**
  * Maps the familiar ActionScript curveTo() method to the functionally similar quatraticCurveTo() method.
@@ -651,7 +651,7 @@ Graphics.prototype.drawRect = Graphics.prototype.rect;
 Graphics.prototype.drawRoundRect = function(x, y, w, h, radius) {
   this.drawRoundRectComplex(x, y, w, h, radius, radius, radius, radius);
   return this;
-}
+};
 
 /**
  * Draws a rounded rectangle with different corner radiuses.
@@ -671,7 +671,7 @@ Graphics.prototype.drawRoundRectComplex = function(x, y, w, h, radiusTL, radiusT
   this._activeInstructions.push(
   new Graphics.Command(this._ctx.moveTo, [x + radiusTL, y]), new Graphics.Command(this._ctx.lineTo, [x + w - radiusTR, y]), new Graphics.Command(this._ctx.arc, [x + w - radiusTR, y + radiusTR, radiusTR, (-Math.PI / 2), 0, false]), new Graphics.Command(this._ctx.lineTo, [x + w, y + h - radiusBR]), new Graphics.Command(this._ctx.arc, [x + w - radiusBR, y + h - radiusBR, radiusBR, 0, Math.PI / 2, false]), new Graphics.Command(this._ctx.lineTo, [x + radiusBL, y + h]), new Graphics.Command(this._ctx.arc, [x + radiusBL, y + h - radiusBL, radiusBL, Math.PI / 2, Math.PI, false]), new Graphics.Command(this._ctx.lineTo, [x, y + radiusTL]), new Graphics.Command(this._ctx.arc, [x + radiusTL, y + radiusTL, radiusTL, Math.PI, Math.PI * 3 / 2, false]));
   return this;
-}
+};
 
 /**
  * Draws a circle with the specified radius at (x, y).
@@ -697,7 +697,7 @@ Graphics.prototype.drawRoundRectComplex = function(x, y, w, h, radiusTL, radiusT
 Graphics.prototype.drawCircle = function(x, y, radius) {
   this.arc(x, y, radius, 0, Math.PI * 2);
   return this;
-}
+};
 
 /**
  * Draws an ellipse (oval).
@@ -721,7 +721,7 @@ Graphics.prototype.drawEllipse = function(x, y, w, h) {
   this._activeInstructions.push(
   new Graphics.Command(this._ctx.moveTo, [x, ym]), new Graphics.Command(this._ctx.bezierCurveTo, [x, ym - oy, xm - ox, y, xm, y]), new Graphics.Command(this._ctx.bezierCurveTo, [xm + ox, y, xe, ym - oy, xe, ym]), new Graphics.Command(this._ctx.bezierCurveTo, [xe, ym + oy, xm + ox, ye, xm, ye]), new Graphics.Command(this._ctx.bezierCurveTo, [xm - ox, ye, x, ym + oy, x, ym]));
   return this;
-}
+};
 
 /**
  * Draws a star if pointSize is greater than 0 or a regular polygon if pointSize is 0 with the specified number of points.
@@ -761,7 +761,7 @@ Graphics.prototype.drawPolyStar = function(x, y, radius, sides, pointSize, angle
     this._activeInstructions.push(new Graphics.Command(this._ctx.lineTo, [x + Math.cos(angle) * radius, y + Math.sin(angle) * radius]));
   }
   return this;
-}
+};
 
 /**
  * Returns a clone of this Graphics instance.
@@ -785,7 +785,7 @@ Graphics.prototype.clone = function() {
   o._active = this._active;
   o._dirty = this._dirty;
   return o;
-}
+};
 
 /**
  * Returns a string representation of this object.
@@ -794,7 +794,7 @@ Graphics.prototype.clone = function() {
  **/
 Graphics.prototype.toString = function() {
   return '[Graphics]';
-}
+};
 
 // tiny API:
 /** Shortcut to moveTo.
@@ -1006,7 +1006,7 @@ Graphics.prototype._updateInstructions = function() {
   if (this._strokeInstructions) {
     this._instructions.push(Graphics.strokeCmd);
   }
-}
+};
 
 /**
 
@@ -1019,7 +1019,7 @@ Graphics.prototype._newPath = function() {
   this._oldInstructions = this._instructions;
   this._activeInstructions = [];
   this._active = this._dirty = false;
-}
+};
 
 // used to create Commands that set properties:
 /**
@@ -1031,4 +1031,4 @@ Graphics.prototype._newPath = function() {
  **/
 Graphics.prototype._setProp = function(name, value) {
   this[name] = value;
-}
+};
