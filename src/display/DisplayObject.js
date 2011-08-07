@@ -619,14 +619,14 @@ DisplayObject.prototype.cloneProps = function(o) {
  
  * @protected
  * @param {CanvasRenderingContext2D} ctx
- * @param {Shadow} shadow
+ * @param {Shadow=} opt_shadow
  **/
-DisplayObject.prototype.applyShadow = function(ctx, shadow) {
-  shadow = shadow || Shadow.identity;
-  ctx.shadowColor = shadow.color;
-  ctx.shadowOffsetX = shadow.offsetX;
-  ctx.shadowOffsetY = shadow.offsetY;
-  ctx.shadowBlur = shadow.blur;
+DisplayObject.prototype.applyShadow = function(ctx, opt_shadow) {
+  opt_shadow = opt_shadow || Shadow.identity;
+  ctx.shadowColor = opt_shadow.color;
+  ctx.shadowOffsetX = opt_shadow.offsetX;
+  ctx.shadowOffsetY = opt_shadow.offsetY;
+  ctx.shadowBlur = opt_shadow.blur;
 };
 
 /**

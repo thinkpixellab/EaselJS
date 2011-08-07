@@ -440,9 +440,9 @@ Graphics.prototype.beginFill = function(color) {
  * following code defines a black to white vertical gradient ranging from 20px to 120px, and draws a square to display it:<br/>
  * myGraphics.beginLinearGradientFill(["#000","#FFF"], [0, 1], 0, 20, 0, 120).drawRect(20, 20, 120, 120);
 
- * @param {Array.<String>} colors An array of CSS compatible color values. For example, ["#F00","#00F"] would define a gradient
+ * @param {Array.<string>} colors An array of CSS compatible color values. For example, ["#F00","#00F"] would define a gradient
  * drawing from red to blue.
- * @param {Array[Number]} ratios An array of gradient positions which correspond to the colors. For example, [0.1, 0.9] would draw
+ * @param {Array.<number>} ratios An array of gradient positions which correspond to the colors. For example, [0.1, 0.9] would draw
  * the first color to 10% then interpolating to the second color at 90%.
  * @param {number} x0 The position of the first point defining the line that defines the gradient direction and size.
  * @param {number} y0 The position of the first point defining the line that defines the gradient direction and size.
@@ -467,9 +467,9 @@ Graphics.prototype.beginLinearGradientFill = function(colors, ratios, x0, y0, x1
  * gradient centered at (100, 100), with a radius of 50, and draws a circle to display it:<br/>
  * myGraphics.beginRadialGradientFill(["#F00","#00F"], [0, 1], 100, 100, 0, 100, 100, 50).drawCircle(100, 100, 50);
 
- * @param {Array.<String>} colors An array of CSS compatible color values. For example, ["#F00","#00F"] would define a gradient
+ * @param {Array.<string>} colors An array of CSS compatible color values. For example, ["#F00","#00F"] would define a gradient
  * drawing from red to blue.
- * @param {Array[Number]} ratios An array of gradient positions which correspond to the colors. For example, [0.1, 0.9] would
+ * @param {Array.<number>} ratios An array of gradient positions which correspond to the colors. For example, [0.1, 0.9] would
  * draw the first color to 10% then interpolating to the second color at 90%.
  * @param {number} x0 Center position of the inner circle that defines the gradient.
  * @param {number} y0 Center position of the inner circle that defines the gradient.

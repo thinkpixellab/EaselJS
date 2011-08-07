@@ -5,6 +5,7 @@ goog.require('Shape');
 
 /**
  @constructor
+ @extends {Shape}
  */
 var SpaceRock = function(size) {
   Shape.call(this);
@@ -27,8 +28,7 @@ SpaceRock.prototype.score = 0; //score value
 SpaceRock.prototype.vX = 0; //velocity X
 SpaceRock.prototype.vY = 0; //velocity Y
 SpaceRock.prototype.active = false; //is it active
-// constructor:
-SpaceRock.prototype.Shape_initialize = SpaceRock.prototype.initialize; //unique to avoid overiding base class
+
 // public methods:
 //handle drawing a spaceRock
 SpaceRock.prototype.getShape = function(size) {

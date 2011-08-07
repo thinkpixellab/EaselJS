@@ -71,30 +71,6 @@ Stage._snapToPixelEnabled = false; // snapToPixelEnabled is temporarily copied h
  **/
 Stage.prototype.autoClear = true;
 
-/** The canvas the stage will render to. Multiple stages can share a single canvas, but you must disable autoClear for all but the
- * first stage that will be ticked (or they will clear each other's render).
- * @property canvas
- * @type HTMLCanvasElement
- **/
-Stage.prototype.canvas = null;
-
-/**
- * READ-ONLY. The current mouse X position on the canvas. If the mouse leaves the canvas, this will indicate the most recent
- * position over the canvas, and mouseInBounds will be set to false.
- * @property mouseX
- * @type number
- * @final
- **/
-Stage.prototype.mouseX = null;
-
-/** READ-ONLY. The current mouse Y position on the canvas. If the mouse leaves the canvas, this will indicate the most recent
- * position over the canvas, and mouseInBounds will be set to false.
- * @property mouseY
- * @type number
- * @final
- **/
-Stage.prototype.mouseY = null;
-
 /** The onMouseMove callback is called when the user moves the mouse over the canvas.  The handler is passed a single param
  * containing the corresponding EaselMouseEvent instance.
  * @event onMouseMove
@@ -468,7 +444,7 @@ Stage.prototype._testMouseOver = function() {
       this._mouseOverTarget.onMouseOut(new EaselMouseEvent('onMouseOut', this.mouseX, this.mouseY, this._mouseOverTarget));
     }
     if (target && target.onMouseOver) {
-      target.onMouseOver(new EaselMouseEvent('onMouseOver', this.mouseX, this.mouseY, target));
+      target.onMouseOver(new EaselMouseEvent('onMouseOver', this.mouseX, this.mouseY, target, null));
     }
     this._mouseOverTarget = target;
   }

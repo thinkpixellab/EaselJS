@@ -45,7 +45,7 @@ goog.require('Graphics');
  * positions or transforms. If the vector art will not change between draws, you may want to use the cache() method to reduce the rendering cost.
  * @constructor
  * @extends DisplayObject
- * @param {Graphics} opt_graphics Optional. The graphics instance to display. If null, a new Graphics instance will be created.
+ * @param {Graphics=} opt_graphics Optional. The graphics instance to display. If null, a new Graphics instance will be created.
  **/
 Shape = function(opt_graphics) {
   DisplayObject.call(this);
