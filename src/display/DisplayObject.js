@@ -275,7 +275,7 @@ DisplayObject = function() {
 	* passed a single param containing the corresponding MouseEvent instance. If an onDoubleClick handler is set
 	* on a container, it will receive the event if any of its children are clicked.
 	* @event onDoubleClick
-	* @param {MouseEvent} event MouseEvent with information about the event.
+	* @param {EaselMouseEvent} event MouseEvent with information about the event.
 	**/
 	DisplayObject.prototype.onDoubleClick = null;
 
@@ -283,7 +283,7 @@ DisplayObject = function() {
 	* The onMouseOver callback is called when the user rolls over the display object. You must enable this event using
 	* stage.enableMouseOver(). The handler is passed a single param containing the corresponding MouseEvent instance.
 	* @event onMouseOver
-	* @param {MouseEvent} event MouseEvent with information about the event.
+	* @param {EaselMouseEvent} event MouseEvent with information about the event.
 	**/
 	DisplayObject.prototype.onMouseOver = null;
 
@@ -291,7 +291,7 @@ DisplayObject = function() {
 	* The onMouseOut callback is called when the user rolls off of the display object. You must enable this event using
 	* stage.enableMouseOver(). The handler is passed a single param containing the corresponding MouseEvent instance.
 	* @event onMouseOut
-	* @param {MouseEvent} event MouseEvent with information about the event.
+	* @param {EaselMouseEvent} event MouseEvent with information about the event.
 	**/
 	DisplayObject.prototype.onMouseOut = null;
 

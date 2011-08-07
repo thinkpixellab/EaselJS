@@ -47,7 +47,7 @@ goog.provide('EaselMouseEvent');
 * @param {number} stageX The mouseX position relative to the stage.
 * @param {number} stageY The mouseY position relative to the stage.
 * @param {DisplayObject} target The display object this event relates to.
-* @param {MouseEvent} nativeEvent The native DOM event related to this mouse event.
+* @param {EaselMouseEvent} nativeEvent The native DOM event related to this mouse event.
 **/
 EaselMouseEvent = function(type, stageX, stageY, target, nativeEvent) {
 	this.type = type;
@@ -124,7 +124,7 @@ EaselMouseEvent = function(type, stageX, stageY, target, nativeEvent) {
 	* @return {EaselMouseEvent} a clone of the EaselMouseEvent instance.
 	**/
 	EaselMouseEvent.prototype.clone = function() {
-		return new MouseEvent(this.type, this.stageX, this.stageY, this.target, this.nativeEvent);
+		return new EaselMouseEvent(this.type, this.stageX, this.stageY, this.target, this.nativeEvent);
 	};
 
 	/**
