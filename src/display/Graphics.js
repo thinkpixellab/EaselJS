@@ -76,7 +76,7 @@ Graphics.Command = function(f, params) {
 };
 
 /**
- * @method exec
+
  * @param {Object} scope
  **/
 Graphics.Command.prototype.exec = function(scope) {
@@ -90,7 +90,7 @@ Graphics.Command.prototype.exec = function(scope) {
  * Graphics.getRGB(50, 100, 150, 0.5) will return "rgba(50,100,150,0.5)". It also supports passing a single hex color
  * value as the first param, and an optional alpha value as the second param. For example, Graphics.getRGB(0xFF00FF, 0.2)
  * will return "rgba(255,0,255,0.2)".
- * @method getRGB
+
  * @static
  * @param {Number} r The red component for the color, between 0 and 0xFF (255).
  * @param {Number} g The green component for the color, between 0 and 0xFF (255).
@@ -117,7 +117,7 @@ Graphics.getRGB = function(r, g, b, alpha) {
  * Returns a CSS compatible color string based on the specified HSL numeric color values in the format "hsla(360,100,100,1.0)",
  * or if alpha is null then in the format "hsl(360,100,100)". For example, Graphics.getHSL(150, 100, 70) will return
  * "hsl(150,100,70)".
- * @method getHSL
+
  * @static
  * @param {Number} hue The hue component for the color, between 0 and 360.
  * @param {Number} saturation The saturation component for the color, between 0 and 100.
@@ -253,7 +253,7 @@ Graphics.prototype._dirty = false;
  * Draws the display object into the specified context ignoring it's visible, alpha, shadow, and transform.
  * Returns true if the draw was handled (useful for overriding functionality).
  * NOTE: This method is mainly for internal use, though it may be useful for advanced uses.
- * @method draw
+
  * @param {CanvasRenderingContext2D} ctx The canvas 2D context object to draw into.
  **/
 Graphics.prototype.draw = function(ctx) {
@@ -269,7 +269,7 @@ Graphics.prototype.draw = function(ctx) {
 // public methods that map directly to context 2D calls:
 /**
  * Moves the drawing point to the specified position.
- * @method moveTo
+
  * @param {Number} x The x coordinate the drawing point should move to.
  * @param {Number} y The y coordinate the drawing point should move to.
  * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.).
@@ -284,7 +284,7 @@ Graphics.prototype.moveTo = function(x, y) {
  * For detailed information, read the
  * <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#complex-shapes-(paths)">
  * whatwg spec</a>.
- * @method lineTo
+
  * @param {Number} x The x coordinate the drawing point should draw to.
  * @param {Number} y The y coordinate the drawing point should draw to.
  * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.).
@@ -299,7 +299,7 @@ Graphics.prototype.lineTo = function(x, y) {
  * Draws an arc with the specified control points and radius.  For detailed information, read the
  * <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#dom-context-2d-arcto">
  * whatwg spec</a>.
- * @method arcTo
+
  * @param {Number} x1
  * @param {Number} y1
  * @param {Number} x2
@@ -318,7 +318,7 @@ Graphics.prototype.arcTo = function(x1, y1, x2, y2, radius) {
  * arc(100, 100, 20, 0, Math.PI*2) would draw a full circle with a radius of 20 centered at (100, 100). For detailed
  * information, read the
  * <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#dom-context-2d-arc">whatwg spec</a>.
- * @method arc
+
  * @param {Number} x
  * @param {Number} y
  * @param {Number} radius
@@ -340,7 +340,7 @@ Graphics.prototype.arc = function(x, y, radius, startAngle, endAngle, anticlockw
  * Draws a quadratic curve from the current drawing point to (x, y) using the control point (cpx, cpy).  For detailed information,
  * read the <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#dom-context-2d-quadraticcurveto">
  * whatwg spec</a>.
- * @method quadraticCurveTo
+
  * @param {Number} cpx
  * @param {Number} cpy
  * @param {Number} x
@@ -378,7 +378,7 @@ Graphics.prototype.bezierCurveTo = function(cp1x, cp1y, cp2x, cp2y, x, y) {
  *  For detailed information, read the
  * <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#dom-context-2d-rect">
  * whatwg spec</a>.
- * @method rect
+
  * @param {Number} x
  * @param {Number} y
  * @param {Number} w Width of the rectangle.
@@ -394,7 +394,7 @@ Graphics.prototype.rect = function(x, y, w, h) {
 /**
  * Closes the current path, effectively drawing a line from the current drawing point to the first drawing point specified
  * since the fill or stroke was last set.
- * @method closePath
+
  * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.).
  **/
 Graphics.prototype.closePath = function() {
@@ -408,7 +408,7 @@ Graphics.prototype.closePath = function() {
 // public methods that roughly map to Flash graphics APIs:
 /**
  * Clears all drawing instructions, effectively reseting this Graphics instance.
- * @method clear
+
  * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.).
  **/
 Graphics.prototype.clear = function() {
@@ -422,7 +422,7 @@ Graphics.prototype.clear = function() {
 
 /**
  * Begins a fill with the specified color. This ends the current subpath.
- * @method beginFill
+
  * @param {String} color A CSS compatible color value (ex. "#FF0000" or "rgba(255,0,0,0.5)"). Setting to null will
  * result in no fill.
  * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.).
@@ -439,7 +439,7 @@ Graphics.prototype.beginFill = function(color) {
  * Begins a linear gradient fill defined by the line (x0, y0) to (x1, y1). This ends the current subpath. For example, the
  * following code defines a black to white vertical gradient ranging from 20px to 120px, and draws a square to display it:<br/>
  * myGraphics.beginLinearGradientFill(["#000","#FFF"], [0, 1], 0, 20, 0, 120).drawRect(20, 20, 120, 120);
- * @method beginLinearGradientFill
+
  * @param {Array[String]} colors An array of CSS compatible color values. For example, ["#F00","#00F"] would define a gradient
  * drawing from red to blue.
  * @param {Array[Number]} ratios An array of gradient positions which correspond to the colors. For example, [0.1, 0.9] would draw
@@ -466,7 +466,7 @@ Graphics.prototype.beginLinearGradientFill = function(colors, ratios, x0, y0, x1
  * Begins a radial gradient fill. This ends the current subpath. For example, the following code defines a red to blue radial
  * gradient centered at (100, 100), with a radius of 50, and draws a circle to display it:<br/>
  * myGraphics.beginRadialGradientFill(["#F00","#00F"], [0, 1], 100, 100, 0, 100, 100, 50).drawCircle(100, 100, 50);
- * @method beginRadialGradientFill
+
  * @param {Array[String]} colors An array of CSS compatible color values. For example, ["#F00","#00F"] would define a gradient
  * drawing from red to blue.
  * @param {Array[Number]} ratios An array of gradient positions which correspond to the colors. For example, [0.1, 0.9] would
@@ -493,7 +493,7 @@ Graphics.prototype.beginRadialGradientFill = function(colors, ratios, x0, y0, r0
 
 /**
  * Begins a pattern fill using the specified image. This ends the current subpath.
- * @method beginBitmapFill
+
  * @param image The Image, Canvas, or Video object to use as the pattern.
  * @param {String} repetition Optional. Indicates whether to repeat the image in the fill area. One of "repeat", "repeat-x",
  * "repeat-y", or "no-repeat". Defaults to "repeat".
@@ -616,7 +616,7 @@ Graphics.prototype.beginBitmapStroke = function(image, repetition) {
 
 /**
  * Ends the current subpath, and begins a new one with no stroke. Functionally identical to beginStroke(null).
- * @method endStroke
+
  * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.).
  **/
 Graphics.prototype.endStroke = function() {
@@ -640,7 +640,7 @@ Graphics.prototype.drawRect = Graphics.prototype.rect;
 
 /**
  * Draws a rounded rectangle with all corners with the specified radius.
- * @method drawRoundRect
+
  * @param {Number} x
  * @param {Number} y
  * @param {Number} w
@@ -655,7 +655,7 @@ Graphics.prototype.drawRoundRect = function(x, y, w, h, radius) {
 
 /**
  * Draws a rounded rectangle with different corner radiuses.
- * @method drawRoundRectComplex
+
  * @param {Number} x
  * @param {Number} y
  * @param {Number} w
@@ -688,7 +688,7 @@ Graphics.prototype.drawRoundRectComplex = function(x, y, w, h, radiusTL, radiusT
  *
  *	stage.addChild(s);
  *	stage.update();</code></pre>
- * @method drawCircle
+
  * @param {Number} x x coordinate center point of circle.
  * @param {Number} y y coordinate center point of circle.
  * @param {Number} radius Radius of circle.
@@ -701,7 +701,7 @@ Graphics.prototype.drawCircle = function(x, y, radius) {
 
 /**
  * Draws an ellipse (oval).
- * @method drawEllipse
+
  * @param {Number} x
  * @param {Number} y
  * @param {Number} w
@@ -727,7 +727,7 @@ Graphics.prototype.drawEllipse = function(x, y, w, h) {
  * Draws a star if pointSize is greater than 0 or a regular polygon if pointSize is 0 with the specified number of points.
  * For example, the following code will draw a familiar 5 pointed star shape centered at 100, 100 and with a radius of 50:
  * myGraphics.beginFill("#FF0").drawPolyStar(100, 100, 50, 5, 0.6, -90); // -90 makes the first point vertical
- * @method drawPolyStar
+
  * @param {Number} x Position of the center of the shape.
  * @param {Number} y Position of the center of the shape.
  * @param {Number} radius The outer radius of the shape.
@@ -765,7 +765,7 @@ Graphics.prototype.drawPolyStar = function(x, y, radius, sides, pointSize, angle
 
 /**
  * Returns a clone of this Graphics instance.
- * @method clone
+
  @return {Graphics} A clone of the current Graphics instance.
  **/
 Graphics.prototype.clone = function() {
@@ -789,7 +789,7 @@ Graphics.prototype.clone = function() {
 
 /**
  * Returns a string representation of this object.
- * @method toString
+
  * @return {String} a string representation of the instance.
  **/
 Graphics.prototype.toString = function() {
@@ -981,7 +981,7 @@ Graphics.prototype.dp = Graphics.prototype.drawPolyStar;
 
 // private methods:
 /**
- * @method _updateInstructions
+
  * @protected
  **/
 Graphics.prototype._updateInstructions = function() {
@@ -1009,7 +1009,7 @@ Graphics.prototype._updateInstructions = function() {
 }
 
 /**
- * @method _newPath
+
  * @protected
  **/
 Graphics.prototype._newPath = function() {
@@ -1024,7 +1024,7 @@ Graphics.prototype._newPath = function() {
 // used to create Commands that set properties:
 /**
  * used to create Commands that set properties
- * @method _setProp
+
  * @param {String} name
  * @param {String} value
  * @protected

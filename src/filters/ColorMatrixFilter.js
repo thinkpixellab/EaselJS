@@ -54,7 +54,7 @@ goog.inherits(ColorMatrixFilter, Filter);
 // public methods:
 	/**
 	* Applies the filter to the specified context.
-	* @method applyFilter
+
 	* @param ctx The 2D context to use as the source.
 	* @param x The x position to use for the source rect.
 	* @param y The y position to use for the source rect.
@@ -100,7 +100,7 @@ goog.inherits(ColorMatrixFilter, Filter);
 
 	/**
 	* Returns a string representation of this object.
-	* @method toString
+
 	* @return {String} a string representation of the instance.
 	**/
 	ColorMatrixFilter.prototype.toString = function() {
@@ -110,7 +110,7 @@ goog.inherits(ColorMatrixFilter, Filter);
 
 	/**
 	* Returns a clone of this ColorMatrixFilter instance.
-	* @method clone
+
 	 @return {ColorMatrixFilter} A clone of the current ColorMatrixFilter instance.
 	**/
 	ColorMatrixFilter.prototype.clone = function() {

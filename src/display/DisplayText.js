@@ -143,7 +143,7 @@ DisplayText._workingContext = document.createElement('canvas').getContext('2d');
 	* Returns true or false indicating whether the display object would be visible if drawn to a canvas.
 	* This does not account for whether it would be visible within the boundaries of the stage.
 	* NOTE: This method is mainly for internal use, though it may be useful for advanced uses.
-	* @method isVisible
+
 	* @return {Boolean} Boolean indicating whether the display object would be visible if drawn to a canvas.
 	**/
 	DisplayText.prototype.isVisible = function() {
@@ -162,7 +162,7 @@ DisplayText._workingContext = document.createElement('canvas').getContext('2d');
 	* Draws the DisplayText into the specified context ignoring it's visible, alpha, shadow, and transform.
 	* Returns true if the draw was handled (useful for overriding functionality).
 	* NOTE: This method is mainly for internal use, though it may be useful for advanced uses.
-	* @method draw
+
 	* @param {CanvasRenderingContext2D} ctx The canvas 2D context object to draw into.
 	* @param {Boolean} ignoreCache Indicates whether the draw operation should ignore any current cache.
 	* For example, used for drawing the cache (to prevent it from simply drawing an existing cache back
@@ -209,7 +209,7 @@ DisplayText._workingContext = document.createElement('canvas').getContext('2d');
 
 	/**
 	* Returns the measured, untransformed width of the text.
-	* @method getMeasuredWidth
+
 	* @return {Number} The measured, untransformed width of the text.
 	**/
 	DisplayText.prototype.getMeasuredWidth = function() {
@@ -219,7 +219,7 @@ DisplayText._workingContext = document.createElement('canvas').getContext('2d');
 	/**
 	* Returns an approximate line height of the text, ignoring the lineHeight property. This is based
 	* on the measured width of a "M" character multiplied by 1.2, which approximates em for most fonts.
-	* @method getMeasuredLineHeight
+
 	* @return {Number} an approximate line height of the text, ignoring the lineHeight property. This is
 	* based on the measured width of a "M" character multiplied by 1.2, which approximates em for most fonts.
 	**/
@@ -229,7 +229,7 @@ DisplayText._workingContext = document.createElement('canvas').getContext('2d');
 
 	/**
 	* Returns a clone of the Point instance.
-	* @method clone
+
 	* @return {Point} a clone of the Point instance.
 	**/
 	DisplayText.prototype.clone = function() {
@@ -240,7 +240,7 @@ DisplayText._workingContext = document.createElement('canvas').getContext('2d');
 
 	/**
 	* Returns a string representation of this object.
-	* @method toString
+
 	* @return {String} a string representation of the instance.
 	**/
 	DisplayText.prototype.toString = function() {
@@ -257,7 +257,7 @@ DisplayText._workingContext = document.createElement('canvas').getContext('2d');
 	DisplayText.prototype.DisplayObject_cloneProps = DisplayText.prototype.cloneProps;
 
 	/**
-	 * @method cloneProps
+
 	 * @param {DisplayText} o
 	 * @protected
 	 **/
@@ -272,7 +272,7 @@ DisplayText._workingContext = document.createElement('canvas').getContext('2d');
 	};
 
 	/**
-	 * @method _getWorkingContext
+
 	 * @protected
 	 **/
 	DisplayText.prototype._getWorkingContext = function() {
@@ -284,7 +284,7 @@ DisplayText._workingContext = document.createElement('canvas').getContext('2d');
 	};
 
 	/**
-	 * @method _drawTextLine
+
 	 * @param {CanvasRenderingContext2D} ctx
 	 * @param {DisplayText} text
 	 * @param {Number} y

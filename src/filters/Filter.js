@@ -49,7 +49,7 @@ Filter = function() {
 	* Returns a rectangle with values indicating the margins required to draw the filter.
 	* For example, a filter that will extend the drawing area 4 pixels to the left, and 7 pixels to the right
 	* (but no pixels up or down) would return a rectangle with (x=-4, y=0, width=11, height=0).
-	* @method getBounds
+
 	* @return {Rectangle} a rectangle object indicating the margins required to draw the filter.
 	**/
 	Filter.prototype.getBounds = function() {
@@ -58,7 +58,7 @@ Filter = function() {
 
 	/**
 	* Applies the filter to the specified context.
-	* @method applyFilter
+
 	* @param ctx The 2D context to use as the source.
 	* @param x The x position to use for the source rect.
 	* @param y The y position to use for the source rect.
@@ -72,7 +72,7 @@ Filter = function() {
 
 	/**
 	* Returns a string representation of this object.
-	* @method toString
+
 	* @return {String} a string representation of the instance.
 	**/
 	Filter.prototype.toString = function() {
@@ -82,7 +82,7 @@ Filter = function() {
 
 	/**
 	* Returns a clone of this Filter instance.
-	* @method clone
+
 	 @return {Filter} A clone of the current Filter instance.
 	**/
 	Filter.prototype.clone = function() {

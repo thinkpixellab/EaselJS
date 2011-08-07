@@ -193,7 +193,7 @@ Stage.prototype._mouseOverTarget = null;
 /**
  * Each time the update method is called, the stage will tick any descendants exposing a tick method (ex. BitmapSequence)
  * and render its entire display list to the canvas.
- * @method update
+
  **/
 Stage.prototype.update = function() {
   if (!this.canvas) {
@@ -219,7 +219,7 @@ Stage.prototype.tick = Stage.prototype.update;
 
 /**
  * Clears the target canvas. Useful if autoClear is set to false.
- * @method clear
+
  **/
 Stage.prototype.clear = function() {
   if (!this.canvas) {
@@ -233,7 +233,7 @@ Stage.prototype.clear = function() {
 /**
  * Returns a data url that contains a Base64 encoded image of the contents of the stage. The returned data url can be
  * specified as the src value of an image element.
- * @method toDataURL
+
  * @param {String} backgroundColor The background color to be used for the generated image. The value can be any value HTML color
  * value, including HEX colors, rgb and rgba. The default value is a transparent background.
  * @param {String} mimeType The MIME type of the image format to be create. The default is "image/png". If an unknown MIME type
@@ -290,7 +290,7 @@ Stage.prototype.toDataURL = function(backgroundColor, mimeType) {
  * Enables or disables (by passing a frequency of 0) mouse over handlers (onMouseOver and onMouseOut) for this stage's display
  * list. These events can be expensive to generate, so they are disabled by default, and the frequency of the events
  * can be controlled independently of mouse move events via the frequency parameter.
- * @method enableMouseOver
+
  * @param {Number} frequency The maximum number of times per second to broadcast mouse over/out events. Set to 0 to disable mouse
  * over events completely. Maximum is 50. A lower frequency is less responsive, but uses less CPU.
  **/
@@ -322,7 +322,7 @@ Stage.prototype.clone = function() {
 
 /**
  * Returns a string representation of this object.
- * @method toString
+
  * @return {String} a string representation of the instance.
  **/
 Stage.prototype.toString = function() {
@@ -331,7 +331,7 @@ Stage.prototype.toString = function() {
 
 // private methods:
 /**
- * @method _enableMouseEvents
+
  * @protected
  * @param {Boolean} enabled
  **/
@@ -353,7 +353,7 @@ Stage.prototype._enableMouseEvents = function() {
 };
 
 /**
- * @method _handleMouseMove
+
  * @protected
  * @param {EaselMouseEvent} e
  **/
@@ -384,7 +384,7 @@ Stage.prototype._handleMouseMove = function(e) {
 };
 
 /**
- * @method _updateMousePosition
+
  * @protected
  * @param {Number} pageX
  * @param {Number} pageY
@@ -407,7 +407,7 @@ Stage.prototype._updateMousePosition = function(pageX, pageY) {
 };
 
 /**
- * @method _handleMouseUp
+
  * @protected
  * @param {EaselMouseEvent} e
  **/
@@ -427,7 +427,7 @@ Stage.prototype._handleMouseUp = function(e) {
 };
 
 /**
- * @method _handleMouseDown
+
  * @protected
  * @param {EaselMouseEvent} e
  **/
@@ -449,7 +449,7 @@ Stage.prototype._handleMouseDown = function(e) {
 };
 
 /**
- * @method _testMouseOver
+
  * @protected
  **/
 Stage.prototype._testMouseOver = function() {
@@ -475,7 +475,7 @@ Stage.prototype._testMouseOver = function() {
 };
 
 /**
- * @method _handleDoubleClick
+
  * @protected
  * @param {EaselMouseEvent} e
  **/

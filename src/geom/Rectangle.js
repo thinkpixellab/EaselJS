@@ -84,7 +84,7 @@ Rectangle = function(x, y, width, height) {
 // public methods:
 	/**
 	* Returns a clone of the Rectangle instance.
-	* @method clone
+
 	* @return {Rectangle} a clone of the Rectangle instance.
 	**/
 	Rectangle.prototype.clone = function() {
@@ -93,7 +93,7 @@ Rectangle = function(x, y, width, height) {
 
 	/**
 	* Returns a string representation of this object.
-	* @method toString
+
 	* @return {String} a string representation of the instance.
 	**/
 	Rectangle.prototype.toString = function() {

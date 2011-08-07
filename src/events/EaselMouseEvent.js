@@ -120,7 +120,7 @@ EaselMouseEvent = function(type, stageX, stageY, target, nativeEvent) {
 // public methods:
 	/**
 	* Returns a clone of the EaselMouseEvent instance.
-	* @method clone
+
 	* @return {EaselMouseEvent} a clone of the EaselMouseEvent instance.
 	**/
 	EaselMouseEvent.prototype.clone = function() {
@@ -129,7 +129,7 @@ EaselMouseEvent = function(type, stageX, stageY, target, nativeEvent) {
 
 	/**
 	* Returns a string representation of this object.
-	* @method toString
+
 	* @return {String} a string representation of the instance.
 	**/
 	EaselMouseEvent.prototype.toString = function() {

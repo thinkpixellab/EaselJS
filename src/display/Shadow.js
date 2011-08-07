@@ -86,7 +86,7 @@ Shadow = function(color, offsetX, offsetY, blur) {
 // public methods:
 	/**
 	* Returns a string representation of this object.
-	* @method toString
+
 	* @return {String} a string representation of the instance.
 	**/
 	Shadow.prototype.toString = function() {
@@ -96,7 +96,7 @@ Shadow = function(color, offsetX, offsetY, blur) {
 
 	/**
 	* Returns a clone of this Shadow instance.
-	* @method clone
+
 	 @return {Shadow} A clone of the current Shadow instance.
 	**/
 	Shadow.prototype.clone = function() {

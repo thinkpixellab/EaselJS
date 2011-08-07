@@ -75,7 +75,7 @@ var p = DOMElement.prototype = new DisplayObject();
 
 	/**
 	* Initialization method.
-	* @method initialize
+
 	* @protected
 	*/
 	p.initialize = function(htmlElement) {
@@ -95,7 +95,7 @@ var p = DOMElement.prototype = new DisplayObject();
 	* Returns true or false indicating whether the display object would be visible if drawn to a canvas.
 	* This does not account for whether it would be visible within the boundaries of the stage.
 	* NOTE: This method is mainly for internal use, though it may be useful for advanced uses.
-	* @method isVisible
+
 	* @return {Boolean} Boolean indicating whether the display object would be visible if drawn to a canvas.
 	**/
 	p.isVisible = function() {
@@ -106,7 +106,7 @@ var p = DOMElement.prototype = new DisplayObject();
 	* Draws the display object into the specified context ignoring it's visible, alpha, shadow, and transform.
 	* Returns true if the draw was handled (useful for overriding functionality).
 	* NOTE: This method is mainly for internal use, though it may be useful for advanced uses.
-	* @method draw
+
 	* @param {CanvasRenderingContext2D} ctx The canvas 2D context object to draw into.
 	* @param {Boolean} ignoreCache Indicates whether the draw operation should ignore any current cache.
 	* For example, used for drawing the cache (to prevent it from simply drawing an existing cache back
@@ -127,49 +127,49 @@ var p = DOMElement.prototype = new DisplayObject();
 
 	/**
 	 * Not applicable to DOMElement.
-	 * @method cache
+
 	 */
 	p.cache = function() {}
 
 	/**
 	 * Not applicable to DOMElement.
-	 * @method uncache
+
 	 */
 	p.uncache = function() {}
 
 	/**
 	 * Not applicable to DOMElement.
-	 * @method updateCache
+
 	 */
 	p.updateCache = function() {}
 
 	/**
 	 * Not applicable to DOMElement.
-	 * @method updateCache
+
 	 */
 	p.hitTest = function() {}
 
 	/**
 	 * Not applicable to DOMElement.
-	 * @method localToGlobal
+
 	 */
 	p.localToGlobal = function() {}
 
 	/**
 	 * Not applicable to DOMElement.
-	 * @method globalToLocal
+
 	 */
 	p.globalToLocal = function() {}
 
 	/**
 	 * Not applicable to DOMElement.
-	 * @method localToLocal
+
 	 */
 	p.localToLocal = function() {}
 
 	/**
 	* This presently clones the DOMElement instance, but not the associated HTMLElement.
-	* @method clone
+
 	* @return {DOMElement} a clone of the DOMElement instance.
 	**/
 	p.clone = function() {
@@ -180,7 +180,7 @@ var p = DOMElement.prototype = new DisplayObject();
 
 	/**
 	* Returns a string representation of this object.
-	* @method toString
+
 	* @return {String} a string representation of the instance.
 	**/
 	p.toString = function() {

@@ -345,7 +345,7 @@ DisplayObject = function() {
 	* Returns true or false indicating whether the display object would be visible if drawn to a canvas.
 	* This does not account for whether it would be visible within the boundaries of the stage.
 	* NOTE: This method is mainly for internal use, though it may be useful for advanced uses.
-	* @method isVisible
+
 	* @return {Boolean} Boolean indicating whether the display object would be visible if drawn to a canvas.
 	**/
 	DisplayObject.prototype.isVisible = function() {
@@ -356,7 +356,7 @@ DisplayObject = function() {
 	* Draws the display object into the specified context ignoring it's visible, alpha, shadow, and transform.
 	* Returns true if the draw was handled (useful for overriding functionality).
 	* NOTE: This method is mainly for internal use, though it may be useful for advanced uses.
-	* @method draw
+
 	* @param {CanvasRenderingContext2D} ctx The canvas 2D context object to draw into.
 	* @param {Boolean} ignoreCache Indicates whether the draw operation should ignore any current cache.
 	* For example, used for drawing the cache (to prevent it from simply drawing an existing cache back
@@ -377,7 +377,7 @@ DisplayObject = function() {
 	* and h parameters. This defines the rectangle that will be rendered and cached using this display object's
 	* coordinates. For example if you defined a Shape that drew a circle at 0, 0 with a radius of 25, you could call
 	* myShape.cache(-25, -25, 50, 50) to cache the full shape.
-	* @method cache
+
 	* @param {Number} x The x coordinate origin for the cache region.
 	* @param {Number} y The y coordinate origin for the cache region.
 	* @param {Number} width The width of the cache region.
@@ -401,7 +401,7 @@ DisplayObject = function() {
 	* Redraws the display object to its cache. Calling updateCache without an active cache will throw an error.
 	* If compositeOperation is null the current cache will be cleared prior to drawing. Otherwise the display object
 	* will be drawn over the existing cache using the specified compositeOperation.
-	* @method updateCache
+
 	* @param {String} compositeOperation The compositeOperation to use, or null to clear the cache and redraw it.
 	* <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#compositing">
 	* whatwg spec on compositing</a>.
@@ -419,7 +419,7 @@ DisplayObject = function() {
 
 	/**
 	* Clears the current cache. See cache() for more information.
-	* @method uncache
+
 	**/
 	DisplayObject.prototype.uncache = function() {
 		this.cacheCanvas = null;
@@ -431,7 +431,7 @@ DisplayObject = function() {
 	* to the global (stage) coordinate space. For example, this could be used to position an HTML label
 	* over a specific point on a nested display object. Returns a Point instance with x and y properties
 	* correlating to the transformed coordinates on the stage.
-	* @method localToGlobal
+
 	* @param {Number} x The x position in the source display object to transform.
 	* @param {Number} y The y position in the source display object to transform.
 	* @return {Point} A Point instance with x and y properties correlating to the transformed coordinates
@@ -449,7 +449,7 @@ DisplayObject = function() {
 	* coordinate space of the display object. For example, this could be used to determine
 	* the current mouse position within the display object. Returns a Point instance with x and y properties
 	* correlating to the transformed position in the display object's coordinate space.
-	* @method globalToLocal
+
 	* @param {Number} x The x position on the stage to transform.
 	* @param {Number} y The y position on the stage to transform.
 	* @return {Point} A Point instance with x and y properties correlating to the transformed position in the
@@ -468,7 +468,7 @@ DisplayObject = function() {
 	* coordinate space of the target display object. Returns a Point instance with x and y properties
 	* correlating to the transformed position in the target's coordinate space. Effectively the same as calling
 	* var pt = this.localToGlobal(x, y); pt = target.globalToLocal(pt.x, pt.y);
-	* @method localToLocal
+
 	* @param {Number} x The x position in the source display object to transform.
 	* @param {Number} y The y position on the stage to transform.
 	* @param {DisplayObject} target The target display object to which the coordinates will be transformed.
@@ -483,7 +483,7 @@ DisplayObject = function() {
 	/**
 	* Shortcut method to quickly set the transform properties on the display object. All parameters are optional.
 	* Omitted parameters will have the default value set (ex. 0 for x/y, 1 for scaleX/Y).
-	* @method setTransform
+
 	* @param {Number} x
 	* @param {Number} y
 	* @param {Number} scaleX
@@ -511,7 +511,7 @@ DisplayObject = function() {
 	* the display object and all of its parent Containers up to the highest level ancestor
 	* (usually the stage). This can be used to transform positions between coordinate spaces,
 	* such as with localToGlobal and globalToLocal.
-	* @method getConcatenatedMatrix
+
 	* @param {Matrix2D} mtx Optional. A Matrix2D object to populate with the calculated values. If null, a new
 	* Matrix object is returned.
 	* @return {Matrix2D} a concatenated Matrix2D object representing the combined transform of
@@ -534,7 +534,7 @@ DisplayObject = function() {
 	* Tests whether the display object intersects the specified local point (ie. draws a pixel with alpha > 0 at
 	* the specified position). This ignores the alpha, shadow and compositeOperation of the display object, and all
 	* transform properties including regX/Y.
-	* @method hitTest
+
 	* @param {Number} x The x position to check in the display object's local coordinates.
 	* @param {Number} y The y position to check in the display object's local coordinates.
 	* @return {Boolean} A Boolean indicting whether a visible portion of the DisplayObject intersect the specified
@@ -557,7 +557,7 @@ DisplayObject = function() {
 	/**
 	* Returns a clone of this DisplayObject. Some properties that are specific to this instance's current context are
 	* reverted to their defaults (for example .parent).
-	* @method clone
+
 	 @return {DisplayObject} A clone of the current DisplayObject instance.
 	**/
 	DisplayObject.prototype.clone = function() {
@@ -568,7 +568,7 @@ DisplayObject = function() {
 
 	/**
 	* Returns a string representation of this object.
-	* @method toString
+
 	* @return {String} a string representation of the instance.
 	**/
 	DisplayObject.prototype.toString = function() {
@@ -579,7 +579,7 @@ DisplayObject = function() {
 
 	// separated so it can be used more easily in subclasses:
 	/**
-	* @method cloneProps
+
 	* @protected
 	* @param {DisplayObject} o The DisplayObject instance which will have properties from the current DisplayObject
 	* instance copied into.
@@ -603,7 +603,7 @@ DisplayObject = function() {
 	};
 
 	/**
-	* @method applyShadow
+
 	* @protected
 	* @param {CanvasRenderingContext2D} ctx
 	* @param {Shadow} shadow
@@ -617,7 +617,7 @@ DisplayObject = function() {
 	};
 
 	/**
-	* @method _testHit
+
 	* @protected
 	* @param {CanvasRenderingContext2D} ctx
 	* @return {Boolean}
@@ -635,7 +635,7 @@ DisplayObject = function() {
 	};
 
 	/**
-	* @method _applyFilters
+
 	* @protected
 	**/
 	DisplayObject.prototype._applyFilters = function() {

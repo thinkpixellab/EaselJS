@@ -72,7 +72,7 @@ goog.inherits(Container, DisplayObject);
 	* Returns true or false indicating whether the display object would be visible if drawn to a canvas.
 	* This does not account for whether it would be visible within the boundaries of the stage.
 	* NOTE: This method is mainly for internal use, though it may be useful for advanced uses.
-	* @method isVisible
+
 	* @return {Boolean} Boolean indicating whether the display object would be visible if drawn to a canvas.
 	**/
 	Container.prototype.isVisible = function() {
@@ -83,7 +83,7 @@ goog.inherits(Container, DisplayObject);
 	* Draws the display object into the specified context ignoring it's visible, alpha, shadow, and transform.
 	* Returns true if the draw was handled (useful for overriding functionality).
 	* NOTE: This method is mainly for internal use, though it may be useful for advanced uses.
-	* @method draw
+
 	* @param {CanvasRenderingContext2D} ctx The canvas 2D context object to draw into.
 	* @param {Boolean} ignoreCache Indicates whether the draw operation should ignore any current cache.
 	* For example, used for drawing the cache (to prevent it from simply drawing an existing cache back
@@ -125,7 +125,7 @@ goog.inherits(Container, DisplayObject);
 	/**
 	* Adds a child to the top of the display list. You can also add multiple children, such as "addChild(child1, child2, ...);".
 	* Returns the child that was added, or the last child if multiple children were added.
-	* @method addChild
+
 	* @param {DisplayObject} child The display object to add.
 	* @return {DisplayObject} The child that was added, or the last child if multiple children were added.
 	**/
@@ -147,7 +147,7 @@ goog.inherits(Container, DisplayObject);
 	* index must be between 0 and numChildren. For example, to add myShape under otherShape in the display list, you could use:
 	* container.addChildAt(myShape, container.getChildIndex(otherShape)). This would also bump otherShape's index up by one.
 	* Returns the last child that was added, or the last child if multiple children were added.
-	* @method addChildAt
+
 	* @param {DisplayObject} child The display object to add.
 	* @param {Number} index The index to add the child at.
 	* @return {DisplayObject} The child that was added, or the last child if multiple children were added.
@@ -169,7 +169,7 @@ goog.inherits(Container, DisplayObject);
 	* Removes the specified child from the display list. Note that it is faster to use removeChildAt() if the index is already
 	* known. You can also remove multiple children, such as "removeChild(child1, child2, ...);". Returns true if the child
 	* (or children) was removed, or false if it was not in the display list.
-	* @method removeChild
+
 	* @param {DisplayObject} child The child to remove.
 	* @return {Boolean} true if the child (or children) was removed, or false if it was not in the display list.
 	**/
@@ -209,7 +209,7 @@ goog.inherits(Container, DisplayObject);
 
 	/**
 	* Removes all children from the display list.
-	* @method removeAllChildren
+
 	**/
 	Container.prototype.removeAllChildren = function() {
 		while (this.children.length) { this.removeChildAt(0); }
@@ -217,7 +217,7 @@ goog.inherits(Container, DisplayObject);
 
 	/**
 	* Returns the child at the specified index.
-	* @method getChildAt
+
 	* @param {Number} index The index of the child to return.
 	* @return {DisplayObject} The child at the specified index.
 	**/
@@ -227,7 +227,7 @@ goog.inherits(Container, DisplayObject);
 
 	/**
 	* Performs an array sort operation on the child list.
-	* @method sortChildren
+
 	* @param {Function} sortFunction the function to use to sort the child list. See javascript's Array.sort documentation
 	* for details.
 	**/
@@ -237,7 +237,7 @@ goog.inherits(Container, DisplayObject);
 
 	/**
 	* Returns the index of the specified child in the display list, or -1 if it is not in the display list.
-	* @method getChildIndex
+
 	* @param {DisplayObject} child The child to return the index of.
 	* @return {Number} The index of the specified child. -1 if the child is not found.
 	**/
@@ -247,7 +247,7 @@ goog.inherits(Container, DisplayObject);
 
 	/**
 	* Returns the number of children in the display list.
-	* @method getNumChildren
+
 	* @return {Number} The number of children in the display list.
 	**/
 	Container.prototype.getNumChildren = function() {
@@ -257,7 +257,7 @@ goog.inherits(Container, DisplayObject);
 	/**
 	* Returns true if the specified display object either is this container or is a descendent.
 	* (child, grandchild, etc) of this container.
-	* @method contains
+
 	* @param {DisplayObject} child The DisplayObject to be checked.
 	* @return {Boolean} true if the specified display object either is this container or is a descendent.
 	**/
@@ -273,7 +273,7 @@ goog.inherits(Container, DisplayObject);
 	* Tests whether the display object intersects the specified local point (ie. draws a pixel with alpha > 0 at the specified
 	* position). This ignores the alpha, shadow and compositeOperation of the display object, and all transform properties
 	* including regX/Y.
-	* @method hitTest
+
 	* @param x The x position to check in the display object's local coordinates.
 	* @param y The y position to check in the display object's local coordinates.
 	* @return {Boolean} A Boolean indicating whether there is a visible section of a DisplayObject that overlaps the specified
@@ -290,7 +290,7 @@ goog.inherits(Container, DisplayObject);
 	* depth, with the top-most display object at index 0. This uses shape based hit detection, and can be an expensive operation
 	* to run, so it is best to use it carefully. For example, if testing for objects under the mouse, test on tick (instead of on
 	* mousemove), and only if the mouse's position has changed.
-	* @method getObjectsUnderPoint
+
 	* @param {Number} x The x position in the container to test.
 	* @param {Number} y The y position in the container to test.
 	* @return {Array[DisplayObject]} An Array of DisplayObjects under the specified coordinates.
@@ -305,7 +305,7 @@ goog.inherits(Container, DisplayObject);
 	/**
 	* Similar to getObjectsUnderPoint(), but returns only the top-most display object. This runs significantly faster than
 	* getObjectsUnderPoint(), but is still an expensive operation. See getObjectsUnderPoint() for more information.
-	* @method getObjectUnderPoint
+
 	* @param {Number} x The x position in the container to test.
 	* @param {Number} y The y position in the container to test.
 	* @return {DisplayObject} The top-most display object under the specified coordinates.
@@ -338,7 +338,7 @@ goog.inherits(Container, DisplayObject);
 
 	/**
 	* Returns a string representation of this object.
-	* @method toString
+
 	* @return {String} a string representation of the instance.
 	**/
 	Container.prototype.toString = function() {
@@ -347,7 +347,7 @@ goog.inherits(Container, DisplayObject);
 
 // private properties:
 	/**
-	* @method _tick
+
 	* @protected
 	**/
 	Container.prototype._tick = function() {
@@ -359,7 +359,7 @@ goog.inherits(Container, DisplayObject);
 	};
 
 	/**
-	* @method _getObjectsUnderPoint
+
 	* @param {Number} x
 	* @param {Number} y
 	* @param {Array} arr

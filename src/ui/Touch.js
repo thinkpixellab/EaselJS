@@ -51,7 +51,7 @@ var Touch = function() {
 	* Enables touch interaction for the specified EaselJS stage. This
 	* currently only supports iOS, and simply maps single touch events
 	* to the existing EaselJS mouse events.
-	* @method isSupported
+
 	* @return {Boolean} A boolean indicating whether touch is supported in the current environment.
 	* @static
 	**/
@@ -63,7 +63,7 @@ var Touch = function() {
 	* Enables touch interaction for the specified EaselJS stage. This
 	* currently only supports iOS, and simply maps single touch events
 	* to the existing EaselJS mouse events.
-	* @method enable
+
 	* @param {Stage} stage The stage to enable touch on.
 	* @static
 	**/
@@ -87,7 +87,7 @@ var Touch = function() {
 	}
 
 	/**
-	* @method _handleTouchStart
+
 	* @protected
 	* @param {Stage} stage
 	* @param {TouchEvent} e
@@ -115,7 +115,7 @@ var Touch = function() {
 	}
 
 	/**
-	* @method _handleTouchMove
+
 	* @protected
 	* @param {Stage} stage
 	* @param {TouchEvent} e
@@ -128,7 +128,7 @@ var Touch = function() {
 	}
 
 	/**
-	* @method _handleTouchEnd
+
 	* @protected
 	* @param {Stage} stage
 	* @param {TouchEvent} e
@@ -146,7 +146,7 @@ var Touch = function() {
 	}
 
 	/**
-	* @method _findPrimaryTouch
+
 	* @protected
 	* @param {Stage} stage
 	* @param {Array[Touch]} touches

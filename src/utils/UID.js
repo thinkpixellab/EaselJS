@@ -56,7 +56,7 @@ var UID = function() {
 
 	/**
 	* Returns the next unique id.
-	* @method get
+
 	* @return {Number} The next unique id.
 	* @static
 	**/

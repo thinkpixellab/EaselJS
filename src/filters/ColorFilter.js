@@ -71,7 +71,7 @@ var p = ColorFilter.prototype;
 // public methods:
 	/**
 	* Applies the filter to the specified context.
-	* @method applyFilter
+
 	* @param ctx The 2D context to use as the source.
 	* @param x The x position to use for the source rect.
 	* @param y The y position to use for the source rect.
@@ -106,7 +106,7 @@ var p = ColorFilter.prototype;
 
 	/**
 	* Returns a string representation of this object.
-	* @method toString
+
 	* @return {String} a string representation of the instance.
 	**/
 	p.toString = function() {
@@ -116,7 +116,7 @@ var p = ColorFilter.prototype;
 
 	/**
 	* Returns a clone of this ColorFilter instance.
-	* @method clone
+
 	 @return {ColorFilter} A clone of the current ColorFilter instance.
 	**/
 	p.clone = function() {

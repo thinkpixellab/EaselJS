@@ -142,7 +142,7 @@ Matrix2D = function(a, b, c, d, tx, ty) {
 
 	/**
 	* Initialization method.
-	* @method initialize
+
 	* @protected
 	*/
 	Matrix2D.prototype.initialize = function(a, b, c, d, tx, ty) {
@@ -157,7 +157,7 @@ Matrix2D = function(a, b, c, d, tx, ty) {
 // public methods:
 	/**
 	* Concatenates the specified matrix properties with this matrix. All parameters are required.
-	* @method prepend
+
 	* @param {Number} a
 	* @param {Number} b
 	* @param {Number} c
@@ -181,7 +181,7 @@ Matrix2D = function(a, b, c, d, tx, ty) {
 
 	/**
 	* Appends the specified matrix properties with this matrix. All parameters are required.
-	* @method append
+
 	* @param {Number} a
 	* @param {Number} b
 	* @param {Number} c
@@ -205,7 +205,7 @@ Matrix2D = function(a, b, c, d, tx, ty) {
 
 	/**
 	* Prepends the specified matrix with this matrix.
-	* @method prependMatrix
+
 	* @param {Matrix2D} matrix
 	**/
 	Matrix2D.prototype.prependMatrix = function(matrix) {
@@ -215,7 +215,7 @@ Matrix2D = function(a, b, c, d, tx, ty) {
 
 	/**
 	* Appends the specified matrix with this matrix.
-	* @method appendMatrix
+
 	* @param {Matrix2D} matrix
 	**/
 	Matrix2D.prototype.appendMatrix = function(matrix) {
@@ -227,7 +227,7 @@ Matrix2D = function(a, b, c, d, tx, ty) {
 	* Generates matrix properties from the specified display object transform properties, and prepends them with this matrix.
 	* For example, you can use this to generate a matrix from a display object: var mtx = new Matrix2D();
 	* mtx.prependTransform(o.x, o.y, o.scaleX, o.scaleY, o.rotation);
-	* @method prependTransform
+
 	* @param {Number} x
 	* @param {Number} y
 	* @param {Number} scaleX
@@ -268,7 +268,7 @@ Matrix2D = function(a, b, c, d, tx, ty) {
 	* Generates matrix properties from the specified display object transform properties, and appends them with this matrix.
 	* For example, you can use this to generate a matrix from a display object: var mtx = new Matrix2D();
 	* mtx.appendTransform(o.x, o.y, o.scaleX, o.scaleY, o.rotation);
-	* @method appendTransform
+
 	* @param {Number} x
 	* @param {Number} y
 	* @param {Number} scaleX
@@ -308,7 +308,7 @@ Matrix2D = function(a, b, c, d, tx, ty) {
 
 	/**
 	* Applies a rotation transformation to the matrix.
-	* @method rotate
+
 	* @param {Number} angle The angle in degrees.
 	**/
 	Matrix2D.prototype.rotate = function(angle) {
@@ -329,7 +329,7 @@ Matrix2D = function(a, b, c, d, tx, ty) {
 
 	/**
 	* Applies a skew transformation to the matrix.
-	* @method skew
+
 	* @param {Number} skewX The amount to skew horizontally in degrees.
 	* @param {Number} skewY The amount to skew vertically in degrees.
 	*/
@@ -341,7 +341,7 @@ Matrix2D = function(a, b, c, d, tx, ty) {
 
 	/**
 	* Applies a scale transformation to the matrix.
-	* @method scale
+
 	* @param {Number} x
 	* @param {Number} y
 	**/
@@ -354,7 +354,7 @@ Matrix2D = function(a, b, c, d, tx, ty) {
 
 	/**
 	* Translates the matrix on the x and y axes.
-	* @method translate
+
 	* @param {Number} x
 	* @param {Number} y
 	**/
@@ -365,7 +365,7 @@ Matrix2D = function(a, b, c, d, tx, ty) {
 
 	/**
 	* Sets the properties of the matrix to those of an identity matrix (one that applies a null transformation).
-	* @method identity
+
 	**/
 	Matrix2D.prototype.identity = function() {
 		this.alpha = this.a = this.d = 1;
@@ -375,7 +375,7 @@ Matrix2D = function(a, b, c, d, tx, ty) {
 
 	/**
 	* Inverts the matrix, causing it to perform the opposite transformation.
-	* @method invert
+
 	**/
 	Matrix2D.prototype.invert = function() {
 		var a1 = this.a;
@@ -397,7 +397,7 @@ Matrix2D = function(a, b, c, d, tx, ty) {
 	* Decomposes the matrix into transform properties (x, y, scaleX, scaleY, and rotation). Note that this these values
 	* may not match the transform properties you used to generate the matrix, though they will produce the same visual
 	* results.
-	* @method decompose
+
 	* @param {Object} target The object to apply the transform properties to. If null, then a new object will be returned.
 	*/
 	Matrix2D.prototype.decompose = function(target) {
@@ -427,7 +427,7 @@ Matrix2D = function(a, b, c, d, tx, ty) {
 
 	/**
 	* Reinitializes all matrix properties to those specified.
-	* @method appendProperties
+
 	* @param {Number} a
 	* @param {Number} b
 	* @param {Number} c
@@ -448,7 +448,7 @@ Matrix2D = function(a, b, c, d, tx, ty) {
 
 	/**
 	* Appends the specified visual properties to the current matrix.
-	* @method appendProperties
+
 	* @param {Number} alpha desired alpha value.
 	* @param {Shadow} shadow desired shadow value.
 	* @param {String} compositeOperation desired composite operation value.
@@ -461,7 +461,7 @@ Matrix2D = function(a, b, c, d, tx, ty) {
 
 	/**
 	 * Prepends the specified visual properties to the current matrix.
-	* @method prependProperties
+
 	* @param {Number} alpha desired alpha value.
 	* @param {Shadow} shadow desired shadow value.
 	* @param {String} compositeOperation desired composite operation value.
@@ -474,7 +474,7 @@ Matrix2D = function(a, b, c, d, tx, ty) {
 
 	/**
 	* Returns a clone of the Matrix2D instance.
-	* @method clone
+
 	* @return {Matrix2D} a clone of the Matrix2D instance.
 	**/
 	Matrix2D.prototype.clone = function() {
@@ -487,7 +487,7 @@ Matrix2D = function(a, b, c, d, tx, ty) {
 
 	/**
 	* Returns a string representation of this object.
-	* @method toString
+
 	* @return {String} a string representation of the instance.
 	**/
 	Matrix2D.prototype.toString = function() {

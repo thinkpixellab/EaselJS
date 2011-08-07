@@ -67,7 +67,7 @@ Point = function(x, y) {
 // public methods:
 	/**
 	* Returns a clone of the Point instance.
-	* @method clone
+
 	* @return {Point} a clone of the Point instance.
 	**/
 	Point.prototype.clone = function() {
@@ -76,7 +76,7 @@ Point = function(x, y) {
 
 	/**
 	* Returns a string representation of this object.
-	* @method toString
+
 	* @return {String} a string representation of the instance.
 	**/
 	Point.prototype.toString = function() {
