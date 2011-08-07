@@ -194,42 +194,42 @@ Graphics.strokeCmd = new Graphics.Command(Graphics._ctx.stroke, []);
 /**
  * @property _strokeInstructions
  * @protected
- * @type Array<Graphics.Command>
+ * @type Array.<Graphics.Command>
  **/
 Graphics.prototype._strokeInstructions = null;
 
 /**
  * @property _strokeStyleInstructions
  * @protected
- * @type Array<Graphics.Command>
+ * @type Array.<Graphics.Command>
  **/
 Graphics.prototype._strokeStyleInstructions = null;
 
 /**
  * @property _fillInstructions
  * @protected
- * @type Array<Graphics.Command>
+ * @type Array.<Graphics.Command>
  **/
 Graphics.prototype._fillInstructions = null;
 
 /**
  * @property _instructions
  * @protected
- * @type Array<Graphics.Command>
+ * @type Array.<Graphics.Command>
  **/
 Graphics.prototype._instructions = null;
 
 /**
  * @property _oldInstructions
  * @protected
- * @type Array<Graphics.Command>
+ * @type Array.<Graphics.Command>
  **/
 Graphics.prototype._oldInstructions = null;
 
 /**
  * @property _activeInstructions
  * @protected
- * @type Array<Graphics.Command>
+ * @type Array.<Graphics.Command>
  **/
 Graphics.prototype._activeInstructions = null;
 

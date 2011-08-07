@@ -28,80 +28,47 @@
 */
 
 /**
-* The Easel Javascript library provides a retained graphics mode for canvas
-* including a full, hierarchical display list, a core interaction model, and
-* helper classes to make working with Canvas much easier.
-
-**/
+ * The Easel Javascript library provides a retained graphics mode for canvas
+ * including a full, hierarchical display list, a core interaction model, and
+ * helper classes to make working with Canvas much easier.
+ 
+ **/
 
 goog.provide('Shadow');
 
 /**
-* Encapsulates the properties required to define a shadow to apply to a DisplayObject via it's .shadow property.
-* @class Shadow
-* @constructor
-* @param {string} color The color of the shadow.
-* @param {number} offsetX The x offset of the shadow.
-* @param {number} offsetY The y offset of the shadow.
-* @param {number} blur The size of the blurring effect.
-**/
+ * Encapsulates the properties required to define a shadow to apply to a DisplayObject via it's .shadow property.
+ * @class Shadow
+ * @constructor
+ * @param {string} color The color of the shadow.
+ * @param {number} offsetX The x offset of the shadow.
+ * @param {number} offsetY The y offset of the shadow.
+ * @param {number} blur The size of the blurring effect.
+ **/
 Shadow = function(color, offsetX, offsetY, blur) {
-	this.color = color;
-	this.offsetX = offsetX;
-	this.offsetY = offsetY;
-	this.blur = blur;
+  this.color = color;
+  this.offsetX = offsetX;
+  this.offsetY = offsetY;
+  this.blur = blur;
 };
 
-// static public properties:
-
-// public properties:
-	/** The color of the shadow.
-	* property color
-	* @type string
-	* @default null
-	*/
-	Shadow.prototype.color = null;
-
-	/** The x offset of the shadow.
-	* property offsetX
-	* @type number
-	* @default 0
-	*/
-	Shadow.prototype.offsetX = 0;
-
-	/** The y offset of the shadow.
-	* property offsetY
-	* @type number
-	* @default 0
-	*/
-	Shadow.prototype.offsetY = 0;
-
-	/** The blur of the shadow.
-	* property blur
-	* @type number
-	* @default 0
-	*/
-	Shadow.prototype.blur = 0;
-
 // public methods:
-	/**
-	* Returns a string representation of this object.
+/**
+ * Returns a string representation of this object.
+ * @return {string} a string representation of the instance.
+ **/
+Shadow.prototype.toString = function() {
+  return '[Shadow]';
+};
 
-	* @return {string} a string representation of the instance.
-	**/
-	Shadow.prototype.toString = function() {
-		return '[Shadow]';
-	};
+/**
+ * Returns a clone of this Shadow instance.
+ 
+ @return {Shadow} A clone of the current Shadow instance.
+ **/
+Shadow.prototype.clone = function() {
+  return new Shadow(this.color, this.offsetX, this.offsetY, this.blur);
+};
 
-
-	/**
-	* Returns a clone of this Shadow instance.
-
-	 @return {Shadow} A clone of the current Shadow instance.
-	**/
-	Shadow.prototype.clone = function() {
-		return new Shadow(this.color, this.offsetX, this.offsetY, this.blur);
-	};
-
-	// this has to be populated after the class is defined:
-	Shadow.identity = new Shadow(null, 0, 0, 0);
+// this has to be populated after the class is defined:
+Shadow.identity = new Shadow(null, 0, 0, 0);
