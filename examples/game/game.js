@@ -109,10 +109,10 @@ function restart() {
   stage.addChild(ship);
 
   //start game timer
-  Ticker.addListener(window);
+  Ticker.addListener(goog.global);
 }
 
-window['tick'] = function() {
+goog.global['tick'] = function tick(){
   var index;
   var o;
   
