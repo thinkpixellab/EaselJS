@@ -39,9 +39,9 @@ goog.require('Rectangle');
 * @class BoxBlurFilter
 * @augments Filter
 * @constructor
-* @param {Number} blurX
-* @param {Number} blurY
-* @param {Number} quality
+* @param {number} blurX
+* @param {number} blurY
+* @param {number} quality
 **/
 BoxBlurFilter = function(blurX, blurY, quality ) {
   Filter.call(this);
@@ -234,7 +234,7 @@ var p = BoxBlurFilter.prototype;
 	* Returns a string representation of this object.
 	**/
 	p.toString = function() {
-		return '[BoxBlurFilter (name=' + this.name + ')]';
+		return '[BoxBlurFilter (name='+ this.name + ')]';
 	}
 
 // private methods:

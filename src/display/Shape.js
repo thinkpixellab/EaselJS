@@ -31,7 +31,7 @@
  * The Easel Javascript library provides a retained graphics mode for canvas
  * including a full, hierarchical display list, a core interaction model, and
  * helper classes to make working with Canvas much easier.
- * @module EaselJS
+
  **/
 
 goog.provide('Shape');
@@ -50,7 +50,7 @@ goog.require('Graphics');
 Shape = function(graphics) {
   DisplayObject.call(this, graphics);
   this.graphics = graphics ? graphics : new Graphics();
-};
+}
 goog.inherits(Shape, DisplayObject);
 
 // public properties:
@@ -70,7 +70,7 @@ Shape.prototype.graphics = null;
  **/
 Shape.prototype.isVisible = function() {
   return this.visible && this.alpha > 0 && this.scaleX != 0 && this.scaleY != 0 && this.graphics;
-};
+}
 
 /**
  * Draws the Shape into the specified context ignoring it's visible, alpha, shadow, and transform.
@@ -88,7 +88,7 @@ Shape.prototype.draw = function(ctx, ignoreCache) {
   }
   this.graphics.draw(ctx);
   return true;
-};
+}
 
 /**
  * Returns a clone of this Shape. Some properties that are specific to this instance's current context are reverted to
@@ -101,7 +101,7 @@ Shape.prototype.clone = function(recursive) {
   var o = new Shape((recursive && this.graphics) ? this.graphics.clone() : this.graphics);
   this.cloneProps(o);
   return o;
-};
+}
 
 /**
  * Returns a string representation of this object.
@@ -110,4 +110,4 @@ Shape.prototype.clone = function(recursive) {
  **/
 Shape.prototype.toString = function() {
   return '[Shape (name=' + this.name + ')]';
-};
+}

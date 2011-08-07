@@ -31,7 +31,7 @@
 * The Easel Javascript library provides a retained graphics mode for canvas
 * including a full, hierarchical display list, a core interaction model, and
 * helper classes to make working with Canvas much easier.
-* @module EaselJS
+
 **/
 
 goog.provide('Rectangle');
@@ -40,10 +40,10 @@ goog.provide('Rectangle');
 * Represents a rectangle as defined by the points (x, y) and (x+width, y+height).
 * @class Rectangle
 * @constructor
-* @param {Number} x X position. Default is 0.
-* @param {Number} y Y position. Default is 0.
-* @param {Number} width Width. Default is 0.
-* @param {Number} height Height. Default is 0.
+* @param {number} x X position. Default is 0.
+* @param {number} y Y position. Default is 0.
+* @param {number} width Width. Default is 0.
+* @param {number} height Height. Default is 0.
 **/
 Rectangle = function(x, y, width, height) {
 	this.x = (x == null ? 0 : x);
@@ -56,28 +56,28 @@ Rectangle = function(x, y, width, height) {
 	/**
 	* X position.
 	* @property x
-	* @type Number
+	* @type number
 	**/
 	Rectangle.prototype.x = 0;
 
 	/**
 	* Y position.
 	* @property y
-	* @type Number
+	* @type number
 	**/
 	Rectangle.prototype.y = 0;
 
 	/**
 	* Width.
 	* @property width
-	* @type Number
+	* @type number
 	**/
 	Rectangle.prototype.width = 0;
 
 	/**
 	* Height.
 	* @property height
-	* @type Number
+	* @type number
 	**/
 	Rectangle.prototype.height = 0;
 
@@ -97,5 +97,5 @@ Rectangle = function(x, y, width, height) {
 	* @return {String} a string representation of the instance.
 	**/
 	Rectangle.prototype.toString = function() {
-		return '[Rectangle (x=' + this.x + ' y=' + this.y + ' width=' + this.width + ' height=' + this.height + ')]';
+		return '[Rectangle (x='+ this.x + ' y='+ this.y + ' width='+ this.width + ' height='+ this.height + ')]';
 	};

@@ -35,7 +35,7 @@ goog.require('SpriteSheet');
 * The Easel Javascript library provides a retained graphics mode for canvas
 * including a full, hierarchical display list, a core interaction model, and
 * helper classes to make working with Canvas much easier.
-* @module EaselJS
+
 **/
 
 (function(window) {
@@ -193,13 +193,13 @@ var SpriteSheetUtils = function() {
 				start = end = data;
 				next = n;
 			}
-			str += '\n\t' + n + ', start=' + start + ', end=' + end + ', next=' + next;
+			str += '\n\t'+ n + ', start='+ start + ', end='+ end + ', next='+ next;
 			if (next == false) { str += ' (stop)'; }
 			else if (next == n) { str += ' (loop)'; }
 			if (end > max) { max = end; }
 			if (start < min) { min = start; }
 		}
-		str = count + ' sequences, min=' + min + ', max=' + max + str;
+		str = count + ' sequences, min='+ min + ', max='+ max + str;
 		return str;
 	}
 
@@ -208,7 +208,7 @@ var SpriteSheetUtils = function() {
 
 	* @static
 	* @param {Image} spriteSheet The SpriteSheet instance to extract a frame from.
-	* @param {Number} frame The frame number or sequence name to extract. If a sequence
+	* @param {number} frame The frame number or sequence name to extract. If a sequence
 	* name is specified, only the first frame of the sequence will be extracted.
 	* @return {Image} a single frame of the specified sprite sheet as a new PNG image.
 	*/

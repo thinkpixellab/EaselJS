@@ -31,7 +31,7 @@
 * The Easel Javascript library provides a retained graphics mode for canvas
 * including a full, hierarchical display list, a core interaction model, and
 * helper classes to make working with Canvas much easier.
-* @module EaselJS
+
 **/
 
 goog.provide('Point');
@@ -40,8 +40,8 @@ goog.provide('Point');
 * Represents a point on a 2 dimensional x / y coordinate system.
 * @class Point
 * @constructor
-* @param {Number} x X position. Default is 0.
-* @param {Number} y Y position. Default is 0.
+* @param {number} x X position. Default is 0.
+* @param {number} y Y position. Default is 0.
 **/
 Point = function(x, y) {
 	this.x = (x == null ? 0 : x);
@@ -53,14 +53,14 @@ Point = function(x, y) {
 	/**
 	* X position.
 	* @property x
-	* @type Number
+	* @type number
 	**/
 	Point.prototype.x = 0;
 
 	/**
 	* Y position.
 	* @property y
-	* @type Number
+	* @type number
 	**/
 	Point.prototype.y = 0;
 
@@ -80,5 +80,5 @@ Point = function(x, y) {
 	* @return {String} a string representation of the instance.
 	**/
 	Point.prototype.toString = function() {
-		return '[Point (x=' + this.x + ' y=' + this.y + ')]';
+		return '[Point (x='+ this.x + ' y='+ this.y + ')]';
 	};

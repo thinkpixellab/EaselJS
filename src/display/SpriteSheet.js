@@ -31,7 +31,7 @@
 * The Easel Javascript library provides a retained graphics mode for canvas
 * including a full, hierarchical display list, a core interaction model, and
 * helper classes to make working with Canvas much easier.
-* @module EaselJS
+
 **/
 
 goog.provide('SpriteSheet');
@@ -49,8 +49,8 @@ goog.provide('SpriteSheet');
 * @class SpriteSheet
 * @constructor
 * @param {Image | HTMLCanvasElement | HTMLVideoElement} image The Image, Canvas, or Video instance to use as a sprite sheet.
-* @param {Number} frameWidth The width in pixels of each frame on the sprite sheet.
-* @param {Number} frameHeight The height in pixels of each frame on the sprite sheet.
+* @param {number} frameWidth The width in pixels of each frame on the sprite sheet.
+* @param {number} frameHeight The height in pixels of each frame on the sprite sheet.
 * @param {Object} frameData Defines named frames and frame sequences. See the frameData property for more information.
 **/
 SpriteSheet = function(image, frameWidth, frameHeight, frameData) {
@@ -70,13 +70,13 @@ SpriteSheet = function(image, frameWidth, frameHeight, frameData) {
 
 	/** The width in pixels of each frame on the sprite sheet image.
 	* @property frameWidth
-	* @type Number
+	* @type number
 	**/
 	SpriteSheet.prototype.frameWidth = 0;
 
 	/** The height in pixels of each frame on the sprite sheet image.
 	* @property frameHeight
-	* @type Number
+	* @type number
 	**/
 	SpriteSheet.prototype.frameHeight = 0;
 
@@ -104,7 +104,7 @@ SpriteSheet = function(image, frameWidth, frameHeight, frameData) {
 	* frames (for example, if you have 7 frames in a 2x4 sprite sheet). The total frames will be automatically calculated by
 	* BitmapSequence based on frame and image dimensions if totalFrames is 0.
 	* @property totalFrames
-	* @type Number
+	* @type number
 	**/
 	SpriteSheet.prototype.totalFrames = 0;
 

@@ -31,7 +31,7 @@
 * The Easel Javascript library provides a retained graphics mode for canvas
 * including a full, hierarchical display list, a core interaction model, and
 * helper classes to make working with Canvas much easier.
-* @module EaselJS
+
 **/
 
 goog.provide('BitmapSequence');
@@ -70,7 +70,7 @@ var p = BitmapSequence.prototype;
 	* The frame that will be drawn on the next tick. This can also be set, but it will not update the current
 	* sequence, so it may result in unexpected behavior if you are using frameData.
 	* @property currentFrame
-	* @type Number
+	* @type number
 	* @default -1
 	**/
 	p.currentFrame = -1;
@@ -86,7 +86,7 @@ var p = BitmapSequence.prototype;
 	/**
 	* Returns the last frame of the currently playing sequence when using frameData. READ-ONLY.
 	* @property currentEndFrame
-	* @type Number
+	* @type number
 	* @final
 	**/
 	p.currentEndFrame = null; // READ-ONLY
@@ -94,7 +94,7 @@ var p = BitmapSequence.prototype;
 	/**
 	* Returns the first frame of the currently playing sequence when using frameData. READ-ONLY.
 	* @property currentStartFrame
-	* @type Number
+	* @type number
 	* @final
 	**/
 	p.currentStartFrame = null; // READ-ONLY
@@ -136,7 +136,7 @@ var p = BitmapSequence.prototype;
 	/** Indicates how often the animation frame should move forwards. For example, a value of 1 will cause the playhead to
 	 * move forwards every time tick is called whereas a value of 3 would cause it to advance every third time.
 	 * @property advanceFrequency
-	 * @type Number
+	 * @type number
 	 * @default 1
 	 */
 	p.advanceFrequency = 1;
@@ -146,7 +146,7 @@ var p = BitmapSequence.prototype;
 	 * having advanceOffset set to 1. Both instances would advance every second tick, but they would advance on alternating
 	 * ticks (effectively, one instance would advance on odd ticks, the other on even ticks).
 	 * @property advanceOffset
-	 * @type Number
+	 * @type number
 	 * @default 0
 	 */
 	p.advanceOffset = 0;
@@ -155,7 +155,7 @@ var p = BitmapSequence.prototype;
 		/**
 	* @property _advanceCount
 	* @protected
-	* @type Number
+	* @type number
 	* @default 0
 	**/
 	p._advanceCount = 0;
@@ -297,7 +297,7 @@ var p = BitmapSequence.prototype;
 	* @return {String} a string representation of the instance.
 	**/
 	p.toString = function() {
-		return '[BitmapSequence (name=' + this.name + ')]';
+		return '[BitmapSequence (name='+ this.name + ')]';
 	}
 
 // private methods:

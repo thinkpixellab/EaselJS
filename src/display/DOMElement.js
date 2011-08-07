@@ -34,7 +34,7 @@ goog.provide('DOMElement');
 * The Easel Javascript library provides a retained graphics mode for canvas
 * including a full, hierarchical display list, a core interaction model, and
 * helper classes to make working with Canvas much easier.
-* @module EaselJS
+
 **/
 (function(window) {
 
@@ -117,11 +117,11 @@ var p = DOMElement.prototype = new DisplayObject();
 		if (this.htmlElement == null) { return; }
 		var mtx = this._matrix;
 		var o = this.htmlElement;
-		o.style.opacity = '' + mtx.alpha;
+		o.style.opacity = ''+ mtx.alpha;
 		// this relies on the _tick method because draw isn't called if a parent is not visible.
 		o.style.visibility = this.visible ? 'visible' : 'hidden';
-		o.style.transform = o.style.webkitTransform = o.style.oTransform = ['matrix(' + mtx.a, mtx.b, mtx.c, mtx.d, mtx.tx, mtx.ty + ')'].join(',');
-		o.style.MozTransform = ['matrix(' + mtx.a, mtx.b, mtx.c, mtx.d, mtx.tx + 'px', mtx.ty + 'px)'].join(',');
+		o.style.transform = o.style.webkitTransform = o.style.oTransform = ['matrix('+ mtx.a, mtx.b, mtx.c, mtx.d, mtx.tx, mtx.ty + ')'].join(',');
+		o.style.MozTransform = ['matrix('+ mtx.a, mtx.b, mtx.c, mtx.d, mtx.tx + 'px', mtx.ty + 'px)'].join(',');
 		return true;
 	}
 
@@ -184,7 +184,7 @@ var p = DOMElement.prototype = new DisplayObject();
 	* @return {String} a string representation of the instance.
 	**/
 	p.toString = function() {
-		return '[DOMElement (name=' + this.name + ')]';
+		return '[DOMElement (name='+ this.name + ')]';
 	}
 
 // private methods:

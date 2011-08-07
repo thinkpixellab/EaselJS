@@ -31,7 +31,7 @@
 * The Easel Javascript library provides a retained graphics mode for canvas
 * including a full, hierarchical display list, a core interaction model, and
 * helper classes to make working with Canvas much easier.
-* @module EaselJS
+
 **/
 
 goog.provide('Bitmap');
@@ -141,7 +141,7 @@ goog.inherits(Bitmap, DisplayObject);
 	* @return {String} a string representation of the instance.
 	**/
 	Bitmap.prototype.toString = function() {
-		return '[Bitmap (name=' + this.name + ')]';
+		return '[Bitmap (name='+ this.name + ')]';
 	};
 
 

@@ -31,7 +31,7 @@
 * The Easel Javascript library provides a retained graphics mode for canvas
 * including a full, hierarchical display list, a core interaction model, and
 * helper classes to make working with Canvas much easier.
-* @module EaselJS
+
 **/
 
 goog.provide('EaselMouseEvent');
@@ -44,8 +44,8 @@ goog.provide('EaselMouseEvent');
 * @class EaselMouseEvent
 * @constructor
 * @param {String} type The event type.
-* @param {Number} stageX The mouseX position relative to the stage.
-* @param {Number} stageY The mouseY position relative to the stage.
+* @param {number} stageX The mouseX position relative to the stage.
+* @param {number} stageY The mouseY position relative to the stage.
 * @param {DisplayObject} target The display object this event relates to.
 * @param {MouseEvent} nativeEvent The native DOM event related to this mouse event.
 **/
@@ -62,14 +62,14 @@ EaselMouseEvent = function(type, stageX, stageY, target, nativeEvent) {
 	/**
 	* The mouseX position on the stage.
 	* @property stageX
-	* @type Number
+	* @type number
 	*/
 	EaselMouseEvent.prototype.stageX = 0;
 
 	/**
 	* The mouseY position on the stage.
 	* @property stageY
-	* @type Number
+	* @type number
 	**/
 	EaselMouseEvent.prototype.stageY = 0;
 
@@ -133,5 +133,5 @@ EaselMouseEvent = function(type, stageX, stageY, target, nativeEvent) {
 	* @return {String} a string representation of the instance.
 	**/
 	EaselMouseEvent.prototype.toString = function() {
-		return '[EaselMouseEvent (type=' + this.type + ' stageX=' + this.stageX + ' stageY=' + this.stageY + ')]';
+		return '[EaselMouseEvent (type='+ this.type + ' stageX='+ this.stageX + ' stageY='+ this.stageY + ')]';
 	};

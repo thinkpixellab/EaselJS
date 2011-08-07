@@ -31,7 +31,7 @@
 * The Easel Javascript library provides a retained graphics mode for canvas
 * including a full, hierarchical display list, a core interaction model, and
 * helper classes to make working with Canvas much easier.
-* @module EaselJS
+
 **/
 
 goog.provide('ColorMatrixFilter');
@@ -43,7 +43,7 @@ goog.require('Filter');
 * @class ColorMatrixFilter
 * @constructor
 * @augments Filter
-* @param {Number} blurX
+* @param {number} blurX
 **/
 ColorMatrixFilter = function(matrix) {
   Filter.call(this);

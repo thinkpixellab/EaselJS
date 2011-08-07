@@ -31,7 +31,7 @@
  * The Easel Javascript library provides a retained graphics mode for canvas
  * including a full, hierarchical display list, a core interaction model, and
  * helper classes to make working with Canvas much easier.
- * @module EaselJS
+
  **/
 
 goog.provide('Stage');
@@ -82,7 +82,7 @@ Stage.prototype.canvas = null;
  * READ-ONLY. The current mouse X position on the canvas. If the mouse leaves the canvas, this will indicate the most recent
  * position over the canvas, and mouseInBounds will be set to false.
  * @property mouseX
- * @type Number
+ * @type number
  * @final
  **/
 Stage.prototype.mouseX = null;
@@ -90,7 +90,7 @@ Stage.prototype.mouseX = null;
 /** READ-ONLY. The current mouse Y position on the canvas. If the mouse leaves the canvas, this will indicate the most recent
  * position over the canvas, and mouseInBounds will be set to false.
  * @property mouseY
- * @type Number
+ * @type number
  * @final
  **/
 Stage.prototype.mouseY = null;
@@ -159,21 +159,21 @@ Stage.prototype._activeMouseTarget = null;
 /**
  * @property _mouseOverIntervalID
  * @protected
- * @type Number
+ * @type number
  **/
 Stage.prototype._mouseOverIntervalID = null;
 
 /**
  * @property _mouseOverX
  * @protected
- * @type Number
+ * @type number
  **/
 Stage.prototype._mouseOverX = 0;
 
 /**
  * @property _mouseOverY
  * @protected
- * @type Number
+ * @type number
  **/
 Stage.prototype._mouseOverY = 0;
 
@@ -291,7 +291,7 @@ Stage.prototype.toDataURL = function(backgroundColor, mimeType) {
  * list. These events can be expensive to generate, so they are disabled by default, and the frequency of the events
  * can be controlled independently of mouse move events via the frequency parameter.
 
- * @param {Number} frequency The maximum number of times per second to broadcast mouse over/out events. Set to 0 to disable mouse
+ * @param {number} frequency The maximum number of times per second to broadcast mouse over/out events. Set to 0 to disable mouse
  * over events completely. Maximum is 50. A lower frequency is less responsive, but uses less CPU.
  **/
 Stage.prototype.enableMouseOver = function(frequency) {
@@ -386,8 +386,8 @@ Stage.prototype._handleMouseMove = function(e) {
 /**
 
  * @protected
- * @param {Number} pageX
- * @param {Number} pageY
+ * @param {number} pageX
+ * @param {number} pageY
  **/
 Stage.prototype._updateMousePosition = function(pageX, pageY) {
 

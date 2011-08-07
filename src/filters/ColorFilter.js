@@ -31,7 +31,7 @@
 * The Easel Javascript library provides a retained graphics mode for canvas
 * including a full, hierarchical display list, a core interaction model, and
 * helper classes to make working with Canvas much easier.
-* @module EaselJS
+
 **/
 
 goog.provide('ColorFilter');
@@ -45,14 +45,14 @@ goog.require('Filter');
 * @class ColorFilter
 * @constructor
 * @augments Filter
-* @param {Number} redMultiplier
-* @param {Number} greenMultiplier
-* @param {Number} blueMultiplier
-* @param {Number} alphaMultiplier
-* @param {Number} redOffset
-* @param {Number} greenOffset
-* @param {Number} blueOffset
-* @param {Number} alphaOffset
+* @param {number} redMultiplier
+* @param {number} greenMultiplier
+* @param {number} blueMultiplier
+* @param {number} alphaMultiplier
+* @param {number} redOffset
+* @param {number} greenOffset
+* @param {number} blueOffset
+* @param {number} alphaOffset
 **/
 ColorFilter = function(redMultiplier, greenMultiplier, blueMultiplier, alphaMultiplier, redOffset, greenOffset, blueOffset, alphaOffset) {
   Filter.call(this);

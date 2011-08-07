@@ -31,7 +31,7 @@
 * The Easel Javascript library provides a retained graphics mode for canvas
 * including a full, hierarchical display list, a core interaction model, and
 * helper classes to make working with Canvas much easier.
-* @module EaselJS
+
 **/
 
 goog.provide('Shadow');
@@ -41,9 +41,9 @@ goog.provide('Shadow');
 * @class Shadow
 * @constructor
 * @param {String} color The color of the shadow.
-* @param {Number} offsetX The x offset of the shadow.
-* @param {Number} offsetY The y offset of the shadow.
-* @param {Number} blur The size of the blurring effect.
+* @param {number} offsetX The x offset of the shadow.
+* @param {number} offsetY The y offset of the shadow.
+* @param {number} blur The size of the blurring effect.
 **/
 Shadow = function(color, offsetX, offsetY, blur) {
 	this.color = color;
@@ -64,21 +64,21 @@ Shadow = function(color, offsetX, offsetY, blur) {
 
 	/** The x offset of the shadow.
 	* property offsetX
-	* @type Number
+	* @type number
 	* @default 0
 	*/
 	Shadow.prototype.offsetX = 0;
 
 	/** The y offset of the shadow.
 	* property offsetY
-	* @type Number
+	* @type number
 	* @default 0
 	*/
 	Shadow.prototype.offsetY = 0;
 
 	/** The blur of the shadow.
 	* property blur
-	* @type Number
+	* @type number
 	* @default 0
 	*/
 	Shadow.prototype.blur = 0;

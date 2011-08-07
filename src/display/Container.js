@@ -31,7 +31,7 @@
 * The Easel Javascript library provides a retained graphics mode for canvas
 * including a full, hierarchical display list, a core interaction model, and
 * helper classes to make working with Canvas much easier.
-* @module EaselJS
+
 **/
 
 goog.provide('Container');
@@ -149,7 +149,7 @@ goog.inherits(Container, DisplayObject);
 	* Returns the last child that was added, or the last child if multiple children were added.
 
 	* @param {DisplayObject} child The display object to add.
-	* @param {Number} index The index to add the child at.
+	* @param {number} index The index to add the child at.
 	* @return {DisplayObject} The child that was added, or the last child if multiple children were added.
 	**/
 	Container.prototype.addChildAt = function(child, index) {
@@ -187,7 +187,7 @@ goog.inherits(Container, DisplayObject);
 	* Removes the child at the specified index from the display list, and sets its parent to null. You can also remove multiple
 	* children, such as "removeChildAt(2, 7, ...);". Returns true if the child (or children) was removed, or false if any index
 	* was out of range.
-	* @param {Number} index The index of the child to remove.
+	* @param {number} index The index of the child to remove.
 	* @return true if the child (or children) was removed, or false if any index was out of range.
 	**/
 	Container.prototype.removeChildAt = function(index) {
@@ -218,7 +218,7 @@ goog.inherits(Container, DisplayObject);
 	/**
 	* Returns the child at the specified index.
 
-	* @param {Number} index The index of the child to return.
+	* @param {number} index The index of the child to return.
 	* @return {DisplayObject} The child at the specified index.
 	**/
 	Container.prototype.getChildAt = function(index) {
@@ -239,7 +239,7 @@ goog.inherits(Container, DisplayObject);
 	* Returns the index of the specified child in the display list, or -1 if it is not in the display list.
 
 	* @param {DisplayObject} child The child to return the index of.
-	* @return {Number} The index of the specified child. -1 if the child is not found.
+	* @return {number} The index of the specified child. -1 if the child is not found.
 	**/
 	Container.prototype.getChildIndex = function(child) {
 		return this.children.indexOf(child);
@@ -248,7 +248,7 @@ goog.inherits(Container, DisplayObject);
 	/**
 	* Returns the number of children in the display list.
 
-	* @return {Number} The number of children in the display list.
+	* @return {number} The number of children in the display list.
 	**/
 	Container.prototype.getNumChildren = function() {
 		return this.children.length;
@@ -291,8 +291,8 @@ goog.inherits(Container, DisplayObject);
 	* to run, so it is best to use it carefully. For example, if testing for objects under the mouse, test on tick (instead of on
 	* mousemove), and only if the mouse's position has changed.
 
-	* @param {Number} x The x position in the container to test.
-	* @param {Number} y The y position in the container to test.
+	* @param {number} x The x position in the container to test.
+	* @param {number} y The y position in the container to test.
 	* @return {Array[DisplayObject]} An Array of DisplayObjects under the specified coordinates.
 	**/
 	Container.prototype.getObjectsUnderPoint = function(x, y) {
@@ -306,8 +306,8 @@ goog.inherits(Container, DisplayObject);
 	* Similar to getObjectsUnderPoint(), but returns only the top-most display object. This runs significantly faster than
 	* getObjectsUnderPoint(), but is still an expensive operation. See getObjectsUnderPoint() for more information.
 
-	* @param {Number} x The x position in the container to test.
-	* @param {Number} y The y position in the container to test.
+	* @param {number} x The x position in the container to test.
+	* @param {number} y The y position in the container to test.
 	* @return {DisplayObject} The top-most display object under the specified coordinates.
 	**/
 	Container.prototype.getObjectUnderPoint = function(x, y) {
@@ -342,7 +342,7 @@ goog.inherits(Container, DisplayObject);
 	* @return {String} a string representation of the instance.
 	**/
 	Container.prototype.toString = function() {
-		return '[Container (name=' + this.name + ')]';
+		return '[Container (name='+ this.name + ')]';
 	};
 
 // private properties:
@@ -360,10 +360,10 @@ goog.inherits(Container, DisplayObject);
 
 	/**
 
-	* @param {Number} x
-	* @param {Number} y
+	* @param {number} x
+	* @param {number} y
 	* @param {Array} arr
-	* @param {Number} mouseEvents A bitmask indicating which mouseEvent types to look for. Bit 1 specifies onPress &
+	* @param {number} mouseEvents A bitmask indicating which mouseEvent types to look for. Bit 1 specifies onPress &
 	* onClick & onDoubleClick, bit 2 specifies it should look for onMouseOver and onMouseOut. This implementation may change.
 	* @return {Array[DisplayObject]}
 	* @protected

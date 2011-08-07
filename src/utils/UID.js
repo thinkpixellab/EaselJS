@@ -31,7 +31,7 @@
 * The Easel Javascript library provides a retained graphics mode for canvas
 * including a full, hierarchical display list, a core interaction model, and
 * helper classes to make working with Canvas much easier.
-* @module EaselJS
+
 **/
 
 goog.provide('UID');
@@ -49,7 +49,7 @@ var UID = function() {
 
 	/**
 	* @property _nextID
-	* @type Number
+	* @type number
 	* @protected
 	**/
 	UID._nextID = 0;
@@ -57,7 +57,7 @@ var UID = function() {
 	/**
 	* Returns the next unique id.
 
-	* @return {Number} The next unique id.
+	* @return {number} The next unique id.
 	* @static
 	**/
 	UID.get = function() {

@@ -53,7 +53,7 @@ var Ticker = function() {
  * Event broadcast  once each tick / interval. The interval is specified via the
  * .setInterval(ms) or setFPS methods.
  * @event tick
- * @param {Number} timeElapsed The time elapsed in milliseconds since the last tick event.
+ * @param {number} timeElapsed The time elapsed in milliseconds since the last tick event.
  */
 
 // private static properties:

@@ -31,7 +31,7 @@
 * The Easel Javascript library provides a retained graphics mode for canvas
 * including a full, hierarchical display list, a core interaction model, and
 * helper classes to make working with Canvas much easier.
-* @module EaselJS
+
 **/
 
 goog.provide('DisplayText');
@@ -114,7 +114,7 @@ DisplayText._workingContext = document.createElement('canvas').getContext('2d');
 	* <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#text-0">
 	* whatwg spec</a>.
 	* @property maxWidth
-	* @type Number
+	* @type number
 	*/
 	DisplayText.prototype.maxWidth = null;
 
@@ -127,7 +127,7 @@ DisplayText._workingContext = document.createElement('canvas').getContext('2d');
 	/** Indicates the line height (vertical distance between baselines) for multi-line text. If null,
 	* the value of getMeasuredLineHeight is used.
 	* @property lineHeight
-	* @type Number
+	* @type number
 	**/
 	DisplayText.prototype.lineHeight = null;
 
@@ -135,7 +135,7 @@ DisplayText._workingContext = document.createElement('canvas').getContext('2d');
 	* Indicates the maximum width for a line of text before it is wrapped to multiple lines. If null,
 	* the text will not be wrapped.
 	* @property lineWidth
-	* @type Number
+	* @type number
 	**/
 	DisplayText.prototype.lineWidth = null;
 
@@ -210,7 +210,7 @@ DisplayText._workingContext = document.createElement('canvas').getContext('2d');
 	/**
 	* Returns the measured, untransformed width of the text.
 
-	* @return {Number} The measured, untransformed width of the text.
+	* @return {number} The measured, untransformed width of the text.
 	**/
 	DisplayText.prototype.getMeasuredWidth = function() {
 		return this._getWorkingContext().measureText(this.text).width;
@@ -220,7 +220,7 @@ DisplayText._workingContext = document.createElement('canvas').getContext('2d');
 	* Returns an approximate line height of the text, ignoring the lineHeight property. This is based
 	* on the measured width of a "M" character multiplied by 1.2, which approximates em for most fonts.
 
-	* @return {Number} an approximate line height of the text, ignoring the lineHeight property. This is
+	* @return {number} an approximate line height of the text, ignoring the lineHeight property. This is
 	* based on the measured width of a "M" character multiplied by 1.2, which approximates em for most fonts.
 	**/
 	DisplayText.prototype.getMeasuredLineHeight = function() {
@@ -244,7 +244,7 @@ DisplayText._workingContext = document.createElement('canvas').getContext('2d');
 	* @return {String} a string representation of the instance.
 	**/
 	DisplayText.prototype.toString = function() {
-		return '[DisplayText (text=' + (this.text.length > 20 ? this.text.substr(0, 17) + '...' : this.text) + ')]';
+		return '[DisplayText (text='+ (this.text.length > 20 ? this.text.substr(0, 17) + '...' : this.text) + ')]';
 	};
 
 // private methods:
@@ -287,7 +287,7 @@ DisplayText._workingContext = document.createElement('canvas').getContext('2d');
 
 	 * @param {CanvasRenderingContext2D} ctx
 	 * @param {DisplayText} text
-	 * @param {Number} y
+	 * @param {number} y
 	 * @protected
 	 **/
 	DisplayText.prototype._drawTextLine = function(ctx, text, y) {

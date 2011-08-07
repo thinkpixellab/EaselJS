@@ -31,7 +31,7 @@
 * The Easel Javascript library provides a retained graphics mode for canvas
 * including a full, hierarchical display list, a core interaction model, and
 * helper classes to make working with Canvas much easier.
-* @module EaselJS
+
 **/
 
 goog.provide('DisplayObject');
@@ -86,7 +86,7 @@ DisplayObject = function() {
 	/**
 	* The alpha (transparency) for this display object. 0 is fully transparent, 1 is fully opaque.
 	* @property alpha
-	* @type Number
+	* @type number
 	* @default 1
 	**/
 	DisplayObject.prototype.alpha = 1;
@@ -103,7 +103,7 @@ DisplayObject = function() {
 	/**
 	* Unique ID for this display object. Makes display objects easier for some uses.
 	* @property id
-	* @type Number
+	* @type number
 	* @default -1
 	**/
 	DisplayObject.prototype.id = -1;
@@ -140,7 +140,7 @@ DisplayObject = function() {
 	* The x offset for this display object's registration point. For example, to make a 100x100px Bitmap rotate around
 	* it's center, you would set regX and regY to 50.
 	* @property regX
-	* @type Number
+	* @type number
 	* @default 0
 	**/
 	DisplayObject.prototype.regX = 0;
@@ -149,7 +149,7 @@ DisplayObject = function() {
 	* The y offset for this display object's registration point. For example, to make a 100x100px Bitmap rotate around
 	* it's center, you would set regX and regY to 50.
 	* @property regY
-	* @type Number
+	* @type number
 	* @default 0
 	**/
 	DisplayObject.prototype.regY = 0;
@@ -157,7 +157,7 @@ DisplayObject = function() {
 	/**
 	* The rotation in degrees for this display object.
 	* @property rotation
-	* @type Number
+	* @type number
 	* @default 0
 	**/
 	DisplayObject.prototype.rotation = 0;
@@ -166,7 +166,7 @@ DisplayObject = function() {
 	* The factor to stretch this display object horizontally. For example, setting scaleX to 2 will stretch the display
 	* object to twice it's nominal width.
 	* @property scaleX
-	* @type Number
+	* @type number
 	* @default 1
 	**/
 	DisplayObject.prototype.scaleX = 1;
@@ -175,7 +175,7 @@ DisplayObject = function() {
 	* The factor to stretch this display object vertically. For example, setting scaleY to 0.5 will stretch the display
 	* object to half it's nominal height.
 	* @property scaleY
-	* @type Number
+	* @type number
 	* @default 1
 	**/
 	DisplayObject.prototype.scaleY = 1;
@@ -183,7 +183,7 @@ DisplayObject = function() {
 	/**
 	* The factor to skew this display object horizontally.
 	* @property skewX
-	* @type Number
+	* @type number
 	* @default 0
 	**/
 	DisplayObject.prototype.skewX = 0;
@@ -191,7 +191,7 @@ DisplayObject = function() {
 	/**
 	* The factor to skew this display object vertically.
 	* @property skewY
-	* @type Number
+	* @type number
 	* @default 0
 	**/
 	DisplayObject.prototype.skewY = 0;
@@ -217,14 +217,14 @@ DisplayObject = function() {
 	/**
 	* The x (horizontal) position of the display object, relative to its parent.
 	* @property x
-	* @type Number
+	* @type number
 	* @default 0
 	**/
 	DisplayObject.prototype.x = 0;
 
 	/** The y (vertical) position of the display object, relative to its parent.
 	* @property y
-	* @type Number
+	* @type number
 	* @default 0
 	**/
 	DisplayObject.prototype.y = 0;
@@ -316,7 +316,7 @@ DisplayObject = function() {
 	/**
 	* @property _cacheOffsetX
 	* @protected
-	* @type Number
+	* @type number
 	* @default 0
 	**/
 	DisplayObject.prototype._cacheOffsetX = 0;
@@ -324,7 +324,7 @@ DisplayObject = function() {
 	/**
 	* @property _cacheOffsetY
 	* @protected
-	* @type Number
+	* @type number
 	* @default 0
 	**/
 	DisplayObject.prototype._cacheOffsetY = 0;
@@ -378,10 +378,10 @@ DisplayObject = function() {
 	* coordinates. For example if you defined a Shape that drew a circle at 0, 0 with a radius of 25, you could call
 	* myShape.cache(-25, -25, 50, 50) to cache the full shape.
 
-	* @param {Number} x The x coordinate origin for the cache region.
-	* @param {Number} y The y coordinate origin for the cache region.
-	* @param {Number} width The width of the cache region.
-	* @param {Number} height The height of the cache region.
+	* @param {number} x The x coordinate origin for the cache region.
+	* @param {number} y The y coordinate origin for the cache region.
+	* @param {number} width The width of the cache region.
+	* @param {number} height The height of the cache region.
 	**/
 	DisplayObject.prototype.cache = function(x, y, width, height) {
 		// draw to canvas.
@@ -432,8 +432,8 @@ DisplayObject = function() {
 	* over a specific point on a nested display object. Returns a Point instance with x and y properties
 	* correlating to the transformed coordinates on the stage.
 
-	* @param {Number} x The x position in the source display object to transform.
-	* @param {Number} y The y position in the source display object to transform.
+	* @param {number} x The x position in the source display object to transform.
+	* @param {number} y The y position in the source display object to transform.
 	* @return {Point} A Point instance with x and y properties correlating to the transformed coordinates
 	* on the stage.
 	**/
@@ -450,8 +450,8 @@ DisplayObject = function() {
 	* the current mouse position within the display object. Returns a Point instance with x and y properties
 	* correlating to the transformed position in the display object's coordinate space.
 
-	* @param {Number} x The x position on the stage to transform.
-	* @param {Number} y The y position on the stage to transform.
+	* @param {number} x The x position on the stage to transform.
+	* @param {number} y The y position on the stage to transform.
 	* @return {Point} A Point instance with x and y properties correlating to the transformed position in the
 	* display object's coordinate space.
 	**/
@@ -469,8 +469,8 @@ DisplayObject = function() {
 	* correlating to the transformed position in the target's coordinate space. Effectively the same as calling
 	* var pt = this.localToGlobal(x, y); pt = target.globalToLocal(pt.x, pt.y);
 
-	* @param {Number} x The x position in the source display object to transform.
-	* @param {Number} y The y position on the stage to transform.
+	* @param {number} x The x position in the source display object to transform.
+	* @param {number} y The y position on the stage to transform.
 	* @param {DisplayObject} target The target display object to which the coordinates will be transformed.
 	* @return {Point} Returns a Point instance with x and y properties correlating to the transformed position
 	* in the target's coordinate space.
@@ -484,15 +484,15 @@ DisplayObject = function() {
 	* Shortcut method to quickly set the transform properties on the display object. All parameters are optional.
 	* Omitted parameters will have the default value set (ex. 0 for x/y, 1 for scaleX/Y).
 
-	* @param {Number} x
-	* @param {Number} y
-	* @param {Number} scaleX
-	* @param {Number} scaleY
-	* @param {Number} rotation
-	* @param {Number} skewX
-	* @param {Number} skewY
-	* @param {Number} regX
-	* @param {Number} regY
+	* @param {number} x
+	* @param {number} y
+	* @param {number} scaleX
+	* @param {number} scaleY
+	* @param {number} rotation
+	* @param {number} skewX
+	* @param {number} skewY
+	* @param {number} regX
+	* @param {number} regY
 	*/
 	DisplayObject.prototype.setTransform = function(x, y, scaleX, scaleY, rotation, skewX, skewY, regX, regY) {
 		this.x = x || 0;
@@ -535,8 +535,8 @@ DisplayObject = function() {
 	* the specified position). This ignores the alpha, shadow and compositeOperation of the display object, and all
 	* transform properties including regX/Y.
 
-	* @param {Number} x The x position to check in the display object's local coordinates.
-	* @param {Number} y The y position to check in the display object's local coordinates.
+	* @param {number} x The x position to check in the display object's local coordinates.
+	* @param {number} y The y position to check in the display object's local coordinates.
 	* @return {Boolean} A Boolean indicting whether a visible portion of the DisplayObject intersect the specified
 	* local Point.
 	*/
@@ -572,7 +572,7 @@ DisplayObject = function() {
 	* @return {String} a string representation of the instance.
 	**/
 	DisplayObject.prototype.toString = function() {
-		return '[DisplayObject (name=' + this.name + ')]';
+		return '[DisplayObject (name='+ this.name + ')]';
 	};
 
 // private methods:

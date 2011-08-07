@@ -31,7 +31,7 @@
 * The Easel Javascript library provides a retained graphics mode for canvas
 * including a full, hierarchical display list, a core interaction model, and
 * helper classes to make working with Canvas much easier.
-* @module EaselJS
+
 **/
 
 goog.provide('Matrix2D');
@@ -40,12 +40,12 @@ goog.provide('Matrix2D');
 * Represents an affine transformation matrix, and provides tools for constructing and concatenating matrixes.
 * @class Matrix2D
 * @constructor
-* @param {Number} a Specifies the a property for the new matrix.
-* @param {Number} b Specifies the b property for the new matrix.
-* @param {Number} c Specifies the c property for the new matrix.
-* @param {Number} d Specifies the d property for the new matrix.
-* @param {Number} tx Specifies the tx property for the new matrix.
-* @param {Number} ty Specifies the ty property for the new matrix.
+* @param {number} a Specifies the a property for the new matrix.
+* @param {number} b Specifies the b property for the new matrix.
+* @param {number} c Specifies the c property for the new matrix.
+* @param {number} d Specifies the d property for the new matrix.
+* @param {number} tx Specifies the tx property for the new matrix.
+* @param {number} ty Specifies the ty property for the new matrix.
 **/
 Matrix2D = function(a, b, c, d, tx, ty) {
 	this.initialize(a, b, c, d, tx, ty);
@@ -66,7 +66,7 @@ Matrix2D = function(a, b, c, d, tx, ty) {
 	* @property DEG_TO_RAD
 	* @static
 	* @final
-	* @type Number
+	* @type number
 	**/
 	Matrix2D.DEG_TO_RAD = Math.PI / 180;
 
@@ -75,42 +75,42 @@ Matrix2D = function(a, b, c, d, tx, ty) {
 	/**
 	* Position (0, 0) in a 3x3 affine transformation matrix.
 	* @property a
-	* @type Number
+	* @type number
 	**/
 	Matrix2D.prototype.a = 1;
 
 	/**
 	* Position (0, 1) in a 3x3 affine transformation matrix.
 	* @property b
-	* @type Number
+	* @type number
 	**/
 	Matrix2D.prototype.b = 0;
 
 	/**
 	* Position (1, 0) in a 3x3 affine transformation matrix.
 	* @property c
-	* @type Number
+	* @type number
 	**/
 	Matrix2D.prototype.c = 0;
 
 	/**
 	* Position (1, 1) in a 3x3 affine transformation matrix.
 	* @property d
-	* @type Number
+	* @type number
 	**/
 	Matrix2D.prototype.d = 1;
 
 	/**
 	* Position (2, 0) in a 3x3 affine transformation matrix.
 	* @property atx
-	* @type Number
+	* @type number
 	**/
 	Matrix2D.prototype.tx = 0;
 
 	/**
 	* Position (2, 1) in a 3x3 affine transformation matrix.
 	* @property ty
-	* @type Number
+	* @type number
 	**/
 	Matrix2D.prototype.ty = 0;
 
@@ -118,7 +118,7 @@ Matrix2D = function(a, b, c, d, tx, ty) {
 	* Property representing the alpha that will be applied to a display object. This is not part of matrix
 	* operations, but is used for operations like getConcatenatedMatrix to provide concatenated alpha values.
 	* @property alpha
-	* @type Number
+	* @type number
 	**/
 	Matrix2D.prototype.alpha = 1;
 
@@ -158,12 +158,12 @@ Matrix2D = function(a, b, c, d, tx, ty) {
 	/**
 	* Concatenates the specified matrix properties with this matrix. All parameters are required.
 
-	* @param {Number} a
-	* @param {Number} b
-	* @param {Number} c
-	* @param {Number} d
-	* @param {Number} tx
-	* @param {Number} ty
+	* @param {number} a
+	* @param {number} b
+	* @param {number} c
+	* @param {number} d
+	* @param {number} tx
+	* @param {number} ty
 	**/
 	Matrix2D.prototype.prepend = function(a, b, c, d, tx, ty) {
 		var tx1 = this.tx;
@@ -182,12 +182,12 @@ Matrix2D = function(a, b, c, d, tx, ty) {
 	/**
 	* Appends the specified matrix properties with this matrix. All parameters are required.
 
-	* @param {Number} a
-	* @param {Number} b
-	* @param {Number} c
-	* @param {Number} d
-	* @param {Number} tx
-	* @param {Number} ty
+	* @param {number} a
+	* @param {number} b
+	* @param {number} c
+	* @param {number} d
+	* @param {number} tx
+	* @param {number} ty
 	**/
 	Matrix2D.prototype.append = function(a, b, c, d, tx, ty) {
 		var a1 = this.a;
@@ -228,15 +228,15 @@ Matrix2D = function(a, b, c, d, tx, ty) {
 	* For example, you can use this to generate a matrix from a display object: var mtx = new Matrix2D();
 	* mtx.prependTransform(o.x, o.y, o.scaleX, o.scaleY, o.rotation);
 
-	* @param {Number} x
-	* @param {Number} y
-	* @param {Number} scaleX
-	* @param {Number} scaleY
-	* @param {Number} rotation
-	* @param {Number} skewX
-	* @param {Number} skewY
-	* @param {Number} regX Optional.
-	* @param {Number} regY Optional.
+	* @param {number} x
+	* @param {number} y
+	* @param {number} scaleX
+	* @param {number} scaleY
+	* @param {number} rotation
+	* @param {number} skewX
+	* @param {number} skewY
+	* @param {number} regX Optional.
+	* @param {number} regY Optional.
 	**/
 	Matrix2D.prototype.prependTransform = function(x, y, scaleX, scaleY, rotation, skewX, skewY, regX, regY) {
 		if (rotation % 360) {
@@ -269,15 +269,15 @@ Matrix2D = function(a, b, c, d, tx, ty) {
 	* For example, you can use this to generate a matrix from a display object: var mtx = new Matrix2D();
 	* mtx.appendTransform(o.x, o.y, o.scaleX, o.scaleY, o.rotation);
 
-	* @param {Number} x
-	* @param {Number} y
-	* @param {Number} scaleX
-	* @param {Number} scaleY
-	* @param {Number} rotation
-	* @param {Number} skewX
-	* @param {Number} skewY
-	* @param {Number} regX Optional.
-	* @param {Number} regY Optional.
+	* @param {number} x
+	* @param {number} y
+	* @param {number} scaleX
+	* @param {number} scaleY
+	* @param {number} rotation
+	* @param {number} skewX
+	* @param {number} skewY
+	* @param {number} regX Optional.
+	* @param {number} regY Optional.
 	**/
 	Matrix2D.prototype.appendTransform = function(x, y, scaleX, scaleY, rotation, skewX, skewY, regX, regY) {
 		if (rotation % 360) {
@@ -309,7 +309,7 @@ Matrix2D = function(a, b, c, d, tx, ty) {
 	/**
 	* Applies a rotation transformation to the matrix.
 
-	* @param {Number} angle The angle in degrees.
+	* @param {number} angle The angle in degrees.
 	**/
 	Matrix2D.prototype.rotate = function(angle) {
 		var cos = Math.cos(angle);
@@ -330,8 +330,8 @@ Matrix2D = function(a, b, c, d, tx, ty) {
 	/**
 	* Applies a skew transformation to the matrix.
 
-	* @param {Number} skewX The amount to skew horizontally in degrees.
-	* @param {Number} skewY The amount to skew vertically in degrees.
+	* @param {number} skewX The amount to skew horizontally in degrees.
+	* @param {number} skewY The amount to skew vertically in degrees.
 	*/
 	Matrix2D.prototype.skew = function(skewX, skewY) {
 		skewX = skewX * Matrix2D.DEG_TO_RAD;
@@ -342,8 +342,8 @@ Matrix2D = function(a, b, c, d, tx, ty) {
 	/**
 	* Applies a scale transformation to the matrix.
 
-	* @param {Number} x
-	* @param {Number} y
+	* @param {number} x
+	* @param {number} y
 	**/
 	Matrix2D.prototype.scale = function(x, y) {
 		this.a *= x;
@@ -355,8 +355,8 @@ Matrix2D = function(a, b, c, d, tx, ty) {
 	/**
 	* Translates the matrix on the x and y axes.
 
-	* @param {Number} x
-	* @param {Number} y
+	* @param {number} x
+	* @param {number} y
 	**/
 	Matrix2D.prototype.translate = function(x, y) {
 		this.tx += x;
@@ -428,13 +428,13 @@ Matrix2D = function(a, b, c, d, tx, ty) {
 	/**
 	* Reinitializes all matrix properties to those specified.
 
-	* @param {Number} a
-	* @param {Number} b
-	* @param {Number} c
-	* @param {Number} d
-	* @param {Number} tx
-	* @param {Number} ty
-	* @param {Number} alpha desired alpha value.
+	* @param {number} a
+	* @param {number} b
+	* @param {number} c
+	* @param {number} d
+	* @param {number} tx
+	* @param {number} ty
+	* @param {number} alpha desired alpha value.
 	* @param {Shadow} shadow desired shadow value.
 	* @param {String} compositeOperation desired composite operation value.
 	*/
@@ -449,7 +449,7 @@ Matrix2D = function(a, b, c, d, tx, ty) {
 	/**
 	* Appends the specified visual properties to the current matrix.
 
-	* @param {Number} alpha desired alpha value.
+	* @param {number} alpha desired alpha value.
 	* @param {Shadow} shadow desired shadow value.
 	* @param {String} compositeOperation desired composite operation value.
 	*/
@@ -462,7 +462,7 @@ Matrix2D = function(a, b, c, d, tx, ty) {
 	/**
 	 * Prepends the specified visual properties to the current matrix.
 
-	* @param {Number} alpha desired alpha value.
+	* @param {number} alpha desired alpha value.
 	* @param {Shadow} shadow desired shadow value.
 	* @param {String} compositeOperation desired composite operation value.
 	*/
@@ -491,7 +491,7 @@ Matrix2D = function(a, b, c, d, tx, ty) {
 	* @return {String} a string representation of the instance.
 	**/
 	Matrix2D.prototype.toString = function() {
-		return '[Matrix2D (a=' + this.a + ' b=' + this.b + ' c=' + this.c + ' d=' + this.d + ' tx=' + this.tx + ' ty=' + this.ty + ')]';
+		return '[Matrix2D (a='+ this.a + ' b='+ this.b + ' c='+ this.c + ' d='+ this.d + ' tx='+ this.tx + ' ty='+ this.ty + ')]';
 	};
 
 	// this has to be populated after the class is defined:
