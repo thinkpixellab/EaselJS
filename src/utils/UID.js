@@ -28,38 +28,37 @@
 */
 
 /**
-* The Easel Javascript library provides a retained graphics mode for canvas
-* including a full, hierarchical display list, a core interaction model, and
-* helper classes to make working with Canvas much easier.
-
-**/
+ * The Easel Javascript library provides a retained graphics mode for canvas
+ * including a full, hierarchical display list, a core interaction model, and
+ * helper classes to make working with Canvas much easier.
+ 
+ **/
 
 goog.provide('UID');
 
-
 /**
-* Global utility for generating sequential unique ID numbers.
-* The UID class uses a static interface (ex. UID.get()) and should not be instantiated.
-* @class UID
-* @static
-**/
+ * Global utility for generating sequential unique ID numbers.
+ * The UID class uses a static interface (ex. UID.get()) and should not be instantiated.
+ * @class UID
+ * @static
+ **/
 var UID = function() {
-	throw 'UID cannot be instantiated';
+  throw 'UID cannot be instantiated';
 };
 
-	/**
-	* @property _nextID
-	* @type number
-	* @protected
-	**/
-	UID._nextID = 0;
+/**
+ * @property _nextID
+ * @type number
+ * @protected
+ **/
+UID._nextID = 0;
 
-	/**
-	* Returns the next unique id.
-
-	* @return {number} The next unique id.
-	* @static
-	**/
-	UID.get = function() {
-		return UID._nextID++;
-	};
+/**
+ * Returns the next unique id.
+ 
+ * @return {number} The next unique id.
+ * @static
+ **/
+UID.get = function() {
+  return UID._nextID++;
+};

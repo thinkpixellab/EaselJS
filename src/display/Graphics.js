@@ -171,7 +171,7 @@ Graphics._ctx = document.createElement('canvas').getContext('2d');
  * @property beginCmd
  * @static
  * @protected
- * @type Command
+ * @type Graphics.Command
  **/
 Graphics.beginCmd = new Graphics.Command(Graphics._ctx.beginPath, []);
 
@@ -179,7 +179,7 @@ Graphics.beginCmd = new Graphics.Command(Graphics._ctx.beginPath, []);
  * @property fillCmd
  * @static
  * @protected
- * @type Command
+ * @type Graphics.Command
  **/
 Graphics.fillCmd = new Graphics.Command(Graphics._ctx.fill, []);
 
@@ -187,7 +187,7 @@ Graphics.fillCmd = new Graphics.Command(Graphics._ctx.fill, []);
  * @property strokeCmd
  * @static
  * @protected
- * @type Command
+ * @type Graphics.Command
  **/
 Graphics.strokeCmd = new Graphics.Command(Graphics._ctx.stroke, []);
 

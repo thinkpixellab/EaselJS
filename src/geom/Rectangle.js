@@ -28,74 +28,74 @@
 */
 
 /**
-* The Easel Javascript library provides a retained graphics mode for canvas
-* including a full, hierarchical display list, a core interaction model, and
-* helper classes to make working with Canvas much easier.
-
-**/
+ * The Easel Javascript library provides a retained graphics mode for canvas
+ * including a full, hierarchical display list, a core interaction model, and
+ * helper classes to make working with Canvas much easier.
+ 
+ **/
 
 goog.provide('Rectangle');
 
 /**
-* Represents a rectangle as defined by the points (x, y) and (x+width, y+height).
-* @class Rectangle
-* @constructor
-* @param {number} x X position. Default is 0.
-* @param {number} y Y position. Default is 0.
-* @param {number} width Width. Default is 0.
-* @param {number} height Height. Default is 0.
-**/
+ * Represents a rectangle as defined by the points (x, y) and (x+width, y+height).
+ * @class Rectangle
+ * @constructor
+ * @param {number} x X position. Default is 0.
+ * @param {number} y Y position. Default is 0.
+ * @param {number} width Width. Default is 0.
+ * @param {number} height Height. Default is 0.
+ **/
 Rectangle = function(x, y, width, height) {
-	this.x = (x == null ? 0 : x);
-	this.y = (y == null ? 0 : y);
-	this.width = (width == null ? 0 : width);
-	this.height = (height == null ? 0 : height);
+  this.x = (x == null ? 0 : x);
+  this.y = (y == null ? 0 : y);
+  this.width = (width == null ? 0 : width);
+  this.height = (height == null ? 0 : height);
 };
 
 // public properties:
-	/**
-	* X position.
-	* @property x
-	* @type number
-	**/
-	Rectangle.prototype.x = 0;
+/**
+ * X position.
+ * @property x
+ * @type number
+ **/
+Rectangle.prototype.x = 0;
 
-	/**
-	* Y position.
-	* @property y
-	* @type number
-	**/
-	Rectangle.prototype.y = 0;
+/**
+ * Y position.
+ * @property y
+ * @type number
+ **/
+Rectangle.prototype.y = 0;
 
-	/**
-	* Width.
-	* @property width
-	* @type number
-	**/
-	Rectangle.prototype.width = 0;
+/**
+ * Width.
+ * @property width
+ * @type number
+ **/
+Rectangle.prototype.width = 0;
 
-	/**
-	* Height.
-	* @property height
-	* @type number
-	**/
-	Rectangle.prototype.height = 0;
+/**
+ * Height.
+ * @property height
+ * @type number
+ **/
+Rectangle.prototype.height = 0;
 
 // public methods:
-	/**
-	* Returns a clone of the Rectangle instance.
+/**
+ * Returns a clone of the Rectangle instance.
+ 
+ * @return {Rectangle} a clone of the Rectangle instance.
+ **/
+Rectangle.prototype.clone = function() {
+  return new Rectangle(this.x, this.y, this.width, this.height);
+};
 
-	* @return {Rectangle} a clone of the Rectangle instance.
-	**/
-	Rectangle.prototype.clone = function() {
-		return new Rectangle(this.x, this.y, this.width, this.height);
-	};
-
-	/**
-	* Returns a string representation of this object.
-
-	* @return {string} a string representation of the instance.
-	**/
-	Rectangle.prototype.toString = function() {
-		return '[Rectangle (x='+ this.x + ' y='+ this.y + ' width='+ this.width + ' height='+ this.height + ')]';
-	};
+/**
+ * Returns a string representation of this object.
+ 
+ * @return {string} a string representation of the instance.
+ **/
+Rectangle.prototype.toString = function() {
+  return '[Rectangle (x=' + this.x + ' y=' + this.y + ' width=' + this.width + ' height=' + this.height + ')]';
+};

@@ -43,14 +43,14 @@ goog.require('Graphics');
  * A Shape allows you to display vector art in the display list. It composites a Graphics instance which exposes all of the vector
  * drawing methods. The Graphics instance can be shared between multiple Shape instances to display the same vector graphics with different
  * positions or transforms. If the vector art will not change between draws, you may want to use the cache() method to reduce the rendering cost.
- * @class Shape
+ * @constructor
  * @extends DisplayObject
- * @param {Graphics} graphics Optional. The graphics instance to display. If null, a new Graphics instance will be created.
+ * @param {Graphics} opt_graphics Optional. The graphics instance to display. If null, a new Graphics instance will be created.
  **/
-Shape = function(graphics) {
-  DisplayObject.call(this, graphics);
-  this.graphics = graphics ? graphics : new Graphics();
-}
+Shape = function(opt_graphics) {
+  DisplayObject.call(this);
+  this.graphics = opt_graphics ? opt_graphics : new Graphics();
+};
 goog.inherits(Shape, DisplayObject);
 
 // public properties:
@@ -70,7 +70,7 @@ Shape.prototype.graphics = null;
  **/
 Shape.prototype.isVisible = function() {
   return this.visible && this.alpha > 0 && this.scaleX != 0 && this.scaleY != 0 && this.graphics;
-}
+};
 
 /**
  * Draws the Shape into the specified context ignoring it's visible, alpha, shadow, and transform.
@@ -88,7 +88,7 @@ Shape.prototype.draw = function(ctx, ignoreCache) {
   }
   this.graphics.draw(ctx);
   return true;
-}
+};
 
 /**
  * Returns a clone of this Shape. Some properties that are specific to this instance's current context are reverted to
@@ -101,7 +101,7 @@ Shape.prototype.clone = function(recursive) {
   var o = new Shape((recursive && this.graphics) ? this.graphics.clone() : this.graphics);
   this.cloneProps(o);
   return o;
-}
+};
 
 /**
  * Returns a string representation of this object.
@@ -110,4 +110,4 @@ Shape.prototype.clone = function(recursive) {
  **/
 Shape.prototype.toString = function() {
   return '[Shape (name=' + this.name + ')]';
-}
+};
