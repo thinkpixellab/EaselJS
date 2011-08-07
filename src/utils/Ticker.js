@@ -250,10 +250,10 @@ Ticker._tick = function() {
   for (var i = 0; i < l; i++) {
     var p = pauseable[i];
     var listener = listeners[i];
-    if (listener == null || (paused && p) || listener.tick == null) {
+    if (listener == null || (paused && p) || listener['tick'] == null) {
       continue;
     }
-    listener.tick(elapsedTime);
+    listener['tick'](elapsedTime);
   }
 
   Ticker._times.unshift(time);
