@@ -28,57 +28,55 @@
 */
 
 /**
-* The Easel Javascript library provides a retained graphics mode for canvas
-* including a full, hierarchical display list, a core interaction model, and
-* helper classes to make working with Canvas much easier.
-
-**/
+ * The Easel Javascript library provides a retained graphics mode for canvas
+ * including a full, hierarchical display list, a core interaction model, and
+ * helper classes to make working with Canvas much easier.
+ 
+ **/
 
 goog.provide('Point');
 
 /**
-* Represents a point on a 2 dimensional x / y coordinate system.
-* @class Point
-* @constructor
-* @param {number} x X position. Default is 0.
-* @param {number} y Y position. Default is 0.
-**/
+ * Represents a point on a 2 dimensional x / y coordinate system.
+ * @constructor
+ * @param {number} x X position. Default is 0.
+ * @param {number} y Y position. Default is 0.
+ **/
 Point = function(x, y) {
-	this.x = (x == null ? 0 : x);
-	this.y = (y == null ? 0 : y);
+  this.x = (x == null ? 0 : x);
+  this.y = (y == null ? 0 : y);
 };
 
 // public properties:
+/**
+ * X position.
+ * @property x
+ * @type number
+ **/
+Point.prototype.x = 0;
 
-	/**
-	* X position.
-	* @property x
-	* @type number
-	**/
-	Point.prototype.x = 0;
-
-	/**
-	* Y position.
-	* @property y
-	* @type number
-	**/
-	Point.prototype.y = 0;
+/**
+ * Y position.
+ * @property y
+ * @type number
+ **/
+Point.prototype.y = 0;
 
 // public methods:
-	/**
-	* Returns a clone of the Point instance.
+/**
+ * Returns a clone of the Point instance.
+ 
+ * @return {Point} a clone of the Point instance.
+ **/
+Point.prototype.clone = function() {
+  return new Point(this.x, this.y);
+};
 
-	* @return {Point} a clone of the Point instance.
-	**/
-	Point.prototype.clone = function() {
-		return new Point(this.x, this.y);
-	};
-
-	/**
-	* Returns a string representation of this object.
-
-	* @return {string} a string representation of the instance.
-	**/
-	Point.prototype.toString = function() {
-		return '[Point (x='+ this.x + ' y='+ this.y + ')]';
-	};
+/**
+ * Returns a string representation of this object.
+ 
+ * @return {string} a string representation of the instance.
+ **/
+Point.prototype.toString = function() {
+  return '[Point (x=' + this.x + ' y=' + this.y + ')]';
+};

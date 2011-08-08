@@ -43,7 +43,6 @@ goog.require('DisplayObject');
  * Line wrapping support (using the lineWidth is very basic, wrapping on spaces and tabs only. Note
  * that as an alternative to DisplayText, you can position HTML text above or below the canvas relative to
  * items in the display list using the localToGlobal() method.
- * @class DisplayText
  * @extends DisplayObject
  * @constructor
  * @param {string} text Optional. The text to display.

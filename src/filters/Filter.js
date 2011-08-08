@@ -28,63 +28,60 @@
 */
 
 /**
-* The Easel Javascript library provides a retained graphics mode for canvas
-* including a full, hierarchical display list, a core interaction model, and
-* helper classes to make working with Canvas much easier.
-
-**/
+ * The Easel Javascript library provides a retained graphics mode for canvas
+ * including a full, hierarchical display list, a core interaction model, and
+ * helper classes to make working with Canvas much easier.
+ 
+ **/
 
 goog.provide('Filter');
 
 /**
-* Base class that all filters should inherit from.
-* @class Filter
-* @constructor
-**/
-Filter = function() {
-};
+ * Base class that all filters should inherit from.
+ * @constructor
+ **/
+Filter = function() {};
 
 // public methods:
-	/**
-	* Returns a rectangle with values indicating the margins required to draw the filter.
-	* For example, a filter that will extend the drawing area 4 pixels to the left, and 7 pixels to the right
-	* (but no pixels up or down) would return a rectangle with (x=-4, y=0, width=11, height=0).
+/**
+ * Returns a rectangle with values indicating the margins required to draw the filter.
+ * For example, a filter that will extend the drawing area 4 pixels to the left, and 7 pixels to the right
+ * (but no pixels up or down) would return a rectangle with (x=-4, y=0, width=11, height=0).
+ 
+ * @return {Rectangle} a rectangle object indicating the margins required to draw the filter.
+ **/
+Filter.prototype.getBounds = function() {
+  return new Rectangle(0, 0, 0, 0);
+};
 
-	* @return {Rectangle} a rectangle object indicating the margins required to draw the filter.
-	**/
-	Filter.prototype.getBounds = function() {
-		return new Rectangle(0, 0, 0, 0);
-	};
+/**
+ * Applies the filter to the specified context.
+ 
+ * @param ctx The 2D context to use as the source.
+ * @param x The x position to use for the source rect.
+ * @param y The y position to use for the source rect.
+ * @param width The width to use for the source rect.
+ * @param height The height to use for the source rect.
+ * @param targetCtx Optional. The 2D context to draw the result to. Defaults to the context passed to ctx.
+ * @param targetX Optional. The x position to draw the result to. Defaults to the value passed to x.
+ * @param targetY Optional. The y position to draw the result to. Defaults to the value passed to y.
+ **/
+Filter.prototype.applyFilter = function(ctx, x, y, width, height, targetCtx, targetX, targetY) {};
 
-	/**
-	* Applies the filter to the specified context.
+/**
+ * Returns a string representation of this object.
+ 
+ * @return {string} a string representation of the instance.
+ **/
+Filter.prototype.toString = function() {
+  return '[Filter]';
+};
 
-	* @param ctx The 2D context to use as the source.
-	* @param x The x position to use for the source rect.
-	* @param y The y position to use for the source rect.
-	* @param width The width to use for the source rect.
-	* @param height The height to use for the source rect.
-	* @param targetCtx Optional. The 2D context to draw the result to. Defaults to the context passed to ctx.
-	* @param targetX Optional. The x position to draw the result to. Defaults to the value passed to x.
-	* @param targetY Optional. The y position to draw the result to. Defaults to the value passed to y.
-	**/
-	Filter.prototype.applyFilter = function(ctx, x, y, width, height, targetCtx, targetX, targetY) {};
-
-	/**
-	* Returns a string representation of this object.
-
-	* @return {string} a string representation of the instance.
-	**/
-	Filter.prototype.toString = function() {
-		return '[Filter]';
-	};
-
-
-	/**
-	* Returns a clone of this Filter instance.
-
-	 @return {Filter} A clone of the current Filter instance.
-	**/
-	Filter.prototype.clone = function() {
-		return new Filter();
-	};
+/**
+ * Returns a clone of this Filter instance.
+ 
+ @return {Filter} A clone of the current Filter instance.
+ **/
+Filter.prototype.clone = function() {
+  return new Filter();
+};

@@ -59,15 +59,13 @@ goog.provide('Graphics.Command');
  * <pre><code>myGraphics.beginStroke("#F00").beginFill("#00F").drawRect(20, 20, 100, 50).draw(myContext2D);
  * @constructor
  **/
-Graphics = function(instructions) {
+Graphics = function() {
   this.clear();
   this._ctx = Graphics._ctx;
 }
 
 /**
  * Inner class used by the Graphics class. Used to create the instruction lists used in Graphics:
- * @class Command
- * @for Graphics
  * @constructor
  **/
 Graphics.Command = function(f, params) {

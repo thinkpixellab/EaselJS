@@ -42,9 +42,7 @@ goog.require('Filter');
 
 /**
 * Applies color transforms.
-* @class ColorFilter
 * @constructor
-* @augments Filter
 * @param {number} redMultiplier
 * @param {number} greenMultiplier
 * @param {number} blueMultiplier

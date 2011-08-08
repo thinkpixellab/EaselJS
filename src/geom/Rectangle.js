@@ -38,7 +38,6 @@ goog.provide('Rectangle');
 
 /**
  * Represents a rectangle as defined by the points (x, y) and (x+width, y+height).
- * @class Rectangle
  * @constructor
  * @param {number} x X position. Default is 0.
  * @param {number} y Y position. Default is 0.

@@ -38,7 +38,6 @@ goog.provide('Shadow');
 
 /**
  * Encapsulates the properties required to define a shadow to apply to a DisplayObject via it's .shadow property.
- * @class Shadow
  * @constructor
  * @param {string} color The color of the shadow.
  * @param {number} offsetX The x offset of the shadow.

@@ -38,7 +38,6 @@ goog.provide('Matrix2D');
 
 /**
  * Represents an affine transformation matrix, and provides tools for constructing and concatenating matrixes.
- * @class Matrix2D
  * @constructor
  * @param {number} a Specifies the a property for the new matrix.
  * @param {number} b Specifies the b property for the new matrix.

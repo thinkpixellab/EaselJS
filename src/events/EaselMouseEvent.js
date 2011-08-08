@@ -41,7 +41,6 @@ goog.provide('EaselMouseEvent');
  * DisplayObject instances.
  * By default, mouse events are disabled for performance reasons. In order to enabled them for a specified stage
  * set mouseEventsEnabled to true on your stage instance.
- * @class EaselMouseEvent
  * @constructor
  * @param {string} type The event type.
  * @param {number} stageX The mouseX position relative to the stage.

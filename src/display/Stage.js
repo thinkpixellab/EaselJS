@@ -41,7 +41,6 @@ goog.require('Container');
 /**
  * A stage is the root level Container for a display list. Each time its tick method is called, it will render its display
  * list to its target canvas.
- * @class Stage
  * @extends Container
  * @constructor
  * @param {HTMLCanvasElement} canvas The canvas the stage will render to.

@@ -46,7 +46,6 @@ goog.require('DisplayObject');
  * parent Container. For example, a Shape with x=100 and alpha=0.5, placed in a Container with
  * x=50 and alpha=0.7 will be rendered to the canvas at x=150 and alpha=0.35. Containers have some
  * overhead, so you generally shouldn't create a Container to hold a single child.
- * @class Container
  * @extends DisplayObject
  * @constructor
  **/

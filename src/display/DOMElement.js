@@ -31,169 +31,172 @@ goog.require('DisplayObject');
 goog.provide('DOMElement');
 
 /**
-* The Easel Javascript library provides a retained graphics mode for canvas
-* including a full, hierarchical display list, a core interaction model, and
-* helper classes to make working with Canvas much easier.
-
-**/
+ * The Easel Javascript library provides a retained graphics mode for canvas
+ * including a full, hierarchical display list, a core interaction model, and
+ * helper classes to make working with Canvas much easier.
+ 
+ **/
 (function(window) {
 
-/**
-* A DOMElement allows you to associate a HTMLElement with the display list. It will be transformed
-* within the DOM as though it is child of the Container it is added to. However, it is not rendered
-* to canvas, and as such will retain whatever z-index it has relative to the canvas (ie. it will be
-* drawn in front of or behind the canvas).<br/><br/>
-* The position of a DOMElement is relative to their parent node in the DOM. It is recommended that
-* the DOM Object be added to a div that also contains the canvas so that they share the same position
-* on the page.<br/><br/>
-* DOMElement is useful for positioning HTML elements over top of canvas content, and for elements
-* that you want to display outside the bounds of the canvas. For example, a tooltip with rich HTML
-* content.<br/><br/>
-* DOMElement instances are not full EaselJS display objects, and do not participate in EaselJS mouse
-* events or support methods like hitTest.
-* @class DOMElement
-* @extends DisplayObject
-* @constructor
-* @param {HTMLElement} htmlElement The DOM object to manage.
-**/
-var DOMElement = function(htmlElement) {
-  this.initialize(htmlElement);
-}
-var p = DOMElement.prototype = new DisplayObject();
+  /**
+   * A DOMElement allows you to associate a HTMLElement with the display list. It will be transformed
+   * within the DOM as though it is child of the Container it is added to. However, it is not rendered
+   * to canvas, and as such will retain whatever z-index it has relative to the canvas (ie. it will be
+   * drawn in front of or behind the canvas).<br/><br/>
+   * The position of a DOMElement is relative to their parent node in the DOM. It is recommended that
+   * the DOM Object be added to a div that also contains the canvas so that they share the same position
+   * on the page.<br/><br/>
+   * DOMElement is useful for positioning HTML elements over top of canvas content, and for elements
+   * that you want to display outside the bounds of the canvas. For example, a tooltip with rich HTML
+   * content.<br/><br/>
+   * DOMElement instances are not full EaselJS display objects, and do not participate in EaselJS mouse
+   * events or support methods like hitTest.
+   * @extends DisplayObject
+   * @constructor
+   * @param {HTMLElement} htmlElement The DOM object to manage.
+   **/
+  var DOMElement = function(htmlElement) {
+    this.initialize(htmlElement);
+  }
+  var p = DOMElement.prototype = new DisplayObject();
 
-// public properties:
-	// TODO: check the type on this.
-	/**
-	* The DOM object to manage.
-	* @property htmlElement
-	* @type Object
-	**/
-	p.htmlElement = null;
+  // public properties:
+  // TODO: check the type on this.
+  /**
+   * The DOM object to manage.
+   * @property htmlElement
+   * @type Object
+   **/
+  p.htmlElement = null;
 
-// private properties:
-	p._style = null;
+  // private properties:
+  p._style = null;
 
-	/**
-	* Initialization method.
+  /**
+   * Initialization method.
+   
+   * @protected
+   */
+  p.initialize = function(htmlElement) {
+    DisplayObject.call(this);
+    this.mouseEnabled = false;
+    this.htmlElement = htmlElement;
+    if (htmlElement) {
+      this._style = htmlElement.style;
+      this._style.position = 'absolute';
+      this._style.transformOrigin = this._style.webkitTransformOrigin = this._style.MozTransformOrigin = '0px 0px';
+    }
+  }
 
-	* @protected
-	*/
-	p.initialize = function(htmlElement) {
-	    DisplayObject.call(this);
-		this.mouseEnabled = false;
-		this.htmlElement = htmlElement;
-		if (htmlElement) {
-			this._style = htmlElement.style;
-			this._style.position = 'absolute';
-			this._style.transformOrigin = this._style.webkitTransformOrigin = this._style.MozTransformOrigin = '0px 0px';
-		}
-	}
+  // public methods:
+  // TODO: fix this. Right now it's used internally to determine if it should be drawn, but DOMElement always needs to be drawn.
+  /**
+   * Returns true or false indicating whether the display object would be visible if drawn to a canvas.
+   * This does not account for whether it would be visible within the boundaries of the stage.
+   * NOTE: This method is mainly for internal use, though it may be useful for advanced uses.
+   
+   * @return {boolean} Boolean indicating whether the display object would be visible if drawn to a canvas.
+   **/
+  p.isVisible = function() {
+    return this.htmlElement != null;
+  }
 
-// public methods:
-	// TODO: fix this. Right now it's used internally to determine if it should be drawn, but DOMElement always needs to be drawn.
-	/**
-	* Returns true or false indicating whether the display object would be visible if drawn to a canvas.
-	* This does not account for whether it would be visible within the boundaries of the stage.
-	* NOTE: This method is mainly for internal use, though it may be useful for advanced uses.
+  /**
+   * Draws the display object into the specified context ignoring it's visible, alpha, shadow, and transform.
+   * Returns true if the draw was handled (useful for overriding functionality).
+   * NOTE: This method is mainly for internal use, though it may be useful for advanced uses.
+   
+   * @param {CanvasRenderingContext2D} ctx The canvas 2D context object to draw into.
+   * @param {boolean} ignoreCache Indicates whether the draw operation should ignore any current cache.
+   * For example, used for drawing the cache (to prevent it from simply drawing an existing cache back
+   * into itself).
+   **/
+  p.draw = function(ctx, ignoreCache) {
+    // TODO: possibly save out previous matrix values, to compare against new ones (so layout doesn't need to fire if no change)
+    if (this.htmlElement == null) {
+      return;
+    }
+    var mtx = this._matrix;
+    var o = this.htmlElement;
+    o.style.opacity = '' + mtx.alpha;
+    // this relies on the _tick method because draw isn't called if a parent is not visible.
+    o.style.visibility = this.visible ? 'visible' : 'hidden';
+    o.style.transform = o.style.webkitTransform = o.style.oTransform = ['matrix(' + mtx.a, mtx.b, mtx.c, mtx.d, mtx.tx, mtx.ty + ')'].join(',');
+    o.style.MozTransform = ['matrix(' + mtx.a, mtx.b, mtx.c, mtx.d, mtx.tx + 'px', mtx.ty + 'px)'].join(',');
+    return true;
+  }
 
-	* @return {boolean} Boolean indicating whether the display object would be visible if drawn to a canvas.
-	**/
-	p.isVisible = function() {
-		return this.htmlElement != null;
-	}
+  /**
+   * Not applicable to DOMElement.
+   
+   */
+  p.cache = function() {}
 
-	/**
-	* Draws the display object into the specified context ignoring it's visible, alpha, shadow, and transform.
-	* Returns true if the draw was handled (useful for overriding functionality).
-	* NOTE: This method is mainly for internal use, though it may be useful for advanced uses.
+  /**
+   * Not applicable to DOMElement.
+   
+   */
+  p.uncache = function() {}
 
-	* @param {CanvasRenderingContext2D} ctx The canvas 2D context object to draw into.
-	* @param {boolean} ignoreCache Indicates whether the draw operation should ignore any current cache.
-	* For example, used for drawing the cache (to prevent it from simply drawing an existing cache back
-	* into itself).
-	**/
-	p.draw = function(ctx, ignoreCache) {
-		// TODO: possibly save out previous matrix values, to compare against new ones (so layout doesn't need to fire if no change)
-		if (this.htmlElement == null) { return; }
-		var mtx = this._matrix;
-		var o = this.htmlElement;
-		o.style.opacity = ''+ mtx.alpha;
-		// this relies on the _tick method because draw isn't called if a parent is not visible.
-		o.style.visibility = this.visible ? 'visible' : 'hidden';
-		o.style.transform = o.style.webkitTransform = o.style.oTransform = ['matrix('+ mtx.a, mtx.b, mtx.c, mtx.d, mtx.tx, mtx.ty + ')'].join(',');
-		o.style.MozTransform = ['matrix('+ mtx.a, mtx.b, mtx.c, mtx.d, mtx.tx + 'px', mtx.ty + 'px)'].join(',');
-		return true;
-	}
+  /**
+   * Not applicable to DOMElement.
+   
+   */
+  p.updateCache = function() {}
 
-	/**
-	 * Not applicable to DOMElement.
+  /**
+   * Not applicable to DOMElement.
+   
+   */
+  p.hitTest = function() {}
 
-	 */
-	p.cache = function() {}
+  /**
+   * Not applicable to DOMElement.
+   
+   */
+  p.localToGlobal = function() {}
 
-	/**
-	 * Not applicable to DOMElement.
+  /**
+   * Not applicable to DOMElement.
+   
+   */
+  p.globalToLocal = function() {}
 
-	 */
-	p.uncache = function() {}
+  /**
+   * Not applicable to DOMElement.
+   
+   */
+  p.localToLocal = function() {}
 
-	/**
-	 * Not applicable to DOMElement.
+  /**
+   * This presently clones the DOMElement instance, but not the associated HTMLElement.
+   
+   * @return {DOMElement} a clone of the DOMElement instance.
+   **/
+  p.clone = function() {
+    var o = new DOMElement();
+    this.cloneProps(o);
+    return o;
+  }
 
-	 */
-	p.updateCache = function() {}
+  /**
+   * Returns a string representation of this object.
+   
+   * @return {string} a string representation of the instance.
+   **/
+  p.toString = function() {
+    return '[DOMElement (name=' + this.name + ')]';
+  }
 
-	/**
-	 * Not applicable to DOMElement.
+  // private methods:
+  p._tick = function() {
+    if (this.htmlElement == null) {
+      return;
+    }
+    this.htmlElement.style.visibility = 'hidden';
+  }
 
-	 */
-	p.hitTest = function() {}
-
-	/**
-	 * Not applicable to DOMElement.
-
-	 */
-	p.localToGlobal = function() {}
-
-	/**
-	 * Not applicable to DOMElement.
-
-	 */
-	p.globalToLocal = function() {}
-
-	/**
-	 * Not applicable to DOMElement.
-
-	 */
-	p.localToLocal = function() {}
-
-	/**
-	* This presently clones the DOMElement instance, but not the associated HTMLElement.
-
-	* @return {DOMElement} a clone of the DOMElement instance.
-	**/
-	p.clone = function() {
-		var o = new DOMElement();
-		this.cloneProps(o);
-		return o;
-	}
-
-	/**
-	* Returns a string representation of this object.
-
-	* @return {string} a string representation of the instance.
-	**/
-	p.toString = function() {
-		return '[DOMElement (name='+ this.name + ')]';
-	}
-
-// private methods:
-	p._tick = function() {
-		if (this.htmlElement == null) { return; }
-		this.htmlElement.style.visibility = 'hidden';
-	}
-
-	/* Not needed with current setup:
+  /* Not needed with current setup:
 	p._calculateVisible = function() {
 		var p = this;
 		while (p) {
@@ -203,5 +206,5 @@ var p = DOMElement.prototype = new DisplayObject();
 		return true;
 	}
 	*/
-window.DOMElement = DOMElement;
-}(window));
+  window.DOMElement = DOMElement;
+} (window));
