@@ -45,42 +45,12 @@ goog.provide('Rectangle');
  * @param {number} height Height. Default is 0.
  **/
 Rectangle = function(x, y, width, height) {
-  this.x = (x == null ? 0 : x);
-  this.y = (y == null ? 0 : y);
-  this.width = (width == null ? 0 : width);
-  this.height = (height == null ? 0 : height);
+  this.x = x || 0;
+  this.y = y || 0;
+  this.width = width || 0;
+  this.height = height || 0;
 };
 
-// public properties:
-/**
- * X position.
- * @property x
- * @type number
- **/
-Rectangle.prototype.x = 0;
-
-/**
- * Y position.
- * @property y
- * @type number
- **/
-Rectangle.prototype.y = 0;
-
-/**
- * Width.
- * @property width
- * @type number
- **/
-Rectangle.prototype.width = 0;
-
-/**
- * Height.
- * @property height
- * @type number
- **/
-Rectangle.prototype.height = 0;
-
-// public methods:
 /**
  * Returns a clone of the Rectangle instance.
  
