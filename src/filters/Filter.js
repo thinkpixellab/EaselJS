@@ -36,6 +36,8 @@
 
 goog.provide('Filter');
 
+goog.require('goog.math.Rect');
+
 /**
  * Base class that all filters should inherit from.
  * @constructor
@@ -48,10 +50,10 @@ Filter = function() {};
  * For example, a filter that will extend the drawing area 4 pixels to the left, and 7 pixels to the right
  * (but no pixels up or down) would return a rectangle with (x=-4, y=0, width=11, height=0).
  
- * @return {Rectangle} a rectangle object indicating the margins required to draw the filter.
+ * @return {goog.math.Rect} a rectangle object indicating the margins required to draw the filter.
  **/
 Filter.prototype.getBounds = function() {
-  return new Rectangle(0, 0, 0, 0);
+  return new goog.math.Rect(0, 0, 0, 0);
 };
 
 /**

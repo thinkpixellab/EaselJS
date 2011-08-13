@@ -41,6 +41,7 @@ goog.require('Matrix2D');
 goog.require('goog.math.Coordinate');
 goog.require('goog.math.Rect');
 goog.require('Shadow');
+goog.require('Filter');
 
 /**
  * DisplayObject is an abstract class that should not be constructed directly. Instead construct subclasses such as
@@ -168,7 +169,7 @@ DisplayObject = function() {
    * behind it. If null, this property is inherited from the parent container. For more information, read the
    * <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#compositing">
    * whatwg spec on compositing</a>.
-   * @type {string}
+   * @type {?string}
    **/
   this.compositeOperation = null;
 

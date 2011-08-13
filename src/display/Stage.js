@@ -48,7 +48,7 @@ goog.require('Container');
 Stage = function(canvas) {
   Container.call(this);
   this.canvas = canvas;
-  this._enableMouseEvents(true);
+  this._enableMouseEvents();
 };
 goog.inherits(Stage, Container);
 
@@ -211,6 +211,7 @@ Stage.prototype.toDataURL = function(backgroundColor, mimeType) {
   var h = this.canvas.height;
 
   var data;
+  var compositeOperation = null;
 
   if (backgroundColor) {
 
@@ -218,7 +219,7 @@ Stage.prototype.toDataURL = function(backgroundColor, mimeType) {
     data = ctx.getImageData(0, 0, w, h);
 
     //store the current globalCompositeOperation
-    var compositeOperation = ctx.globalCompositeOperation;
+    compositeOperation = ctx.globalCompositeOperation;
 
     //set to draw behind current content
     ctx.globalCompositeOperation = 'destination-over';
@@ -294,7 +295,6 @@ Stage.prototype.toString = function() {
 /**
 
  * @protected
- * @param {boolean} enabled
  **/
 Stage.prototype._enableMouseEvents = function() {
   var o = this;

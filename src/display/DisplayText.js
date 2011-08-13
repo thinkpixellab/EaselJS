@@ -49,14 +49,14 @@ goog.require('DisplayObject');
  * @param {string} text Optional. The text to display.
  * @param {string} font Optional. The font style to use. Any valid value for the CSS font attribute is
  * acceptable (ex. "36px bold Arial").
- * @param {string} color Optional. The color to draw the text in. Any valid value for the CSS color attribute
+ * @param {string=} opt_color Optional. The color to draw the text in. Any valid value for the CSS color attribute
  * is acceptable (ex. "#F00").
  **/
-DisplayText = function(text, font, color) {
+DisplayText = function(text, font, opt_color) {
   DisplayObject.call(this);
   this.text = text;
   this.font = font;
-  this.color = color ? color : '#000';
+  this.color = opt_color || '#000';
 };
 goog.inherits(DisplayText, DisplayObject);
 
@@ -160,9 +160,7 @@ DisplayText.prototype.getMeasuredLineHeight = function() {
 };
 
 /**
- * Returns a clone of the Point instance.
- 
- * @return {goog.math.Coordinate} a clone of the Point instance.
+ * @return {!DisplayText}
  **/
 DisplayText.prototype.clone = function() {
   var o = new DisplayText(this.text, this.font, this.color);
@@ -216,8 +214,8 @@ DisplayText.prototype._getWorkingContext = function() {
 
 /**
  
- * @param {CanvasRenderingContext2D} ctx
- * @param {DisplayText} text
+ * @param {!CanvasRenderingContext2D} ctx
+ * @param {!string} text
  * @param {number} y
  * @protected
  **/
