@@ -55,7 +55,7 @@ window['init'] = function() {
   messageField.y = canvas.height / 2;
 
   watchRestart();
-}
+};
 
 
 
@@ -250,7 +250,7 @@ goog.global['tick'] = function tick(){
   //call sub ticks
   ship.tick();
   stage.update();
-}
+};
 
 
 
@@ -311,7 +311,7 @@ function getSpaceRock(size) {
     }
   }
 
-  if (len == 0) {
+  if (len === 0) {
     rockBelt[0] = new SpaceRock(size);
   }
 
@@ -338,7 +338,7 @@ function getBullet() {
     }
   }
 
-  if (len == 0) {
+  if (len === 0) {
     bulletStream[0] = new Shape();
   }
 
