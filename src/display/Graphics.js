@@ -322,14 +322,12 @@ Graphics.prototype.arcTo = function(x1, y1, x2, y2, radius) {
  * @param {number} radius
  * @param {number} startAngle Measured in radians.
  * @param {number} endAngle Measured in radians.
- * @param {boolean} anticlockwise
+ * @param {boolean=} anticlockwise
  * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.).
  **/
 Graphics.prototype.arc = function(x, y, radius, startAngle, endAngle, anticlockwise) {
   this._dirty = this._active = true;
-  if (anticlockwise == null) {
-    anticlockwise = false;
-  }
+  anticlockwise = !!anticlockwise;
   this._activeInstructions.push(new Graphics.Command(this._ctx.arc, [x, y, radius, startAngle, endAngle, anticlockwise]));
   return this;
 }
@@ -421,7 +419,7 @@ Graphics.prototype.clear = function() {
 /**
  * Begins a fill with the specified color. This ends the current subpath.
 
- * @param {string} color A CSS compatible color value (ex. "#FF0000" or "rgba(255,0,0,0.5)"). Setting to null will
+ * @param {?string} color A CSS compatible color value (ex. "#FF0000" or "rgba(255,0,0,0.5)"). Setting to null will
  * result in no fill.
  * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.).
  **/
@@ -522,7 +520,6 @@ Graphics.prototype.endFill = function() {
  * @param thickness The width of the stroke.
  * @param caps Optional. Indicates the type of caps to use at the end of lines. One of butt, round, or square. Defaults to "butt". Also accepts the values 0 (butt), 1 (round), and 2 (square) for use with the tiny API.
  * @param joints Optional. Specifies the type of joints that should be used where two lines meet. One of bevel, round, or miter. Defaults to "miter". Also accepts the values 0 (miter), 1 (round), and 2 (bevel) for use with the tiny API.
- * @param miter Optional. If joints is set to "miter", then you can specify a miter limit ratio which controls at what point a mitered joint will be clipped.
  * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.).
  **/
 Graphics.prototype.setStrokeStyle = function(thickness, caps, joints, miterLimit) {

@@ -41,7 +41,7 @@ document.onkeyup = handleKeyUp;
 
 window['init'] = function() {
   //associate the canvas with the stage
-  canvas = document.getElementById("testCanvas");
+  canvas = /** @type {!HTMLCanvasElement} */ document.getElementById("testCanvas");
   stage = new Stage(canvas);
 
   scoreField = new DisplayText("0", "bold 12px Arial", "#FFFFFF");

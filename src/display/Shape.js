@@ -65,11 +65,10 @@ Shape.prototype.graphics = null;
  * Returns true or false indicating whether the Shape would be visible if drawn to a canvas.
  * This does not account for whether it would be visible within the boundaries of the stage.
  * NOTE: This method is mainly for internal use, though it may be useful for advanced uses.
-
  * @return {boolean} Boolean indicating whether the Shape would be visible if drawn to a canvas.
  **/
 Shape.prototype.isVisible = function() {
-  return this.visible && this.alpha > 0 && this.scaleX != 0 && this.scaleY != 0 && this.graphics;
+  return this.visible && this.alpha > 0 && this.scaleX !== 0 && this.scaleY !== 0 && !!this.graphics;
 };
 
 /**
@@ -77,7 +76,7 @@ Shape.prototype.isVisible = function() {
  * Returns true if the draw was handled (useful for overriding functionality).
  * NOTE: This method is mainly for internal use, though it may be useful for advanced uses.
 
- * @param {CanvasRenderingContext2D} ctx The canvas 2D context object to draw into.
+ * @param {!CanvasRenderingContext2D} ctx The canvas 2D context object to draw into.
  * @param {boolean} ignoreCache Indicates whether the draw operation should ignore any current cache.
  * For example, used for drawing the cache (to prevent it from simply drawing an existing cache back
  * into itself).
