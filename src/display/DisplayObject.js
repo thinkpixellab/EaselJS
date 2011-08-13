@@ -38,8 +38,8 @@ goog.provide('DisplayObject');
 
 goog.require('EaselMouseEvent');
 goog.require('Matrix2D');
-goog.require('Point');
-goog.require('Rectangle');
+goog.require('goog.math.Coordinate');
+goog.require('goog.math.Rect');
 goog.require('Shadow');
 
 /**
@@ -382,7 +382,7 @@ DisplayObject.prototype.uncache = function() {
  
  * @param {number} x The x position in the source display object to transform.
  * @param {number} y The y position in the source display object to transform.
- * @return {Point} A Point instance with x and y properties correlating to the transformed coordinates
+ * @return {goog.math.Coordinate} A Point instance with x and y properties correlating to the transformed coordinates
  * on the stage.
  **/
 DisplayObject.prototype.localToGlobal = function(x, y) {
@@ -391,7 +391,7 @@ DisplayObject.prototype.localToGlobal = function(x, y) {
     return null;
   }
   mtx.append(1, 0, 0, 1, x, y);
-  return new Point(mtx.tx, mtx.ty);
+  return new goog.math.Coordinate(mtx.tx, mtx.ty);
 };
 
 /**
@@ -402,7 +402,7 @@ DisplayObject.prototype.localToGlobal = function(x, y) {
  
  * @param {number} x The x position on the stage to transform.
  * @param {number} y The y position on the stage to transform.
- * @return {Point} A Point instance with x and y properties correlating to the transformed position in the
+ * @return {goog.math.Coordinate} A Point instance with x and y properties correlating to the transformed position in the
  * display object's coordinate space.
  **/
 DisplayObject.prototype.globalToLocal = function(x, y) {
@@ -412,7 +412,7 @@ DisplayObject.prototype.globalToLocal = function(x, y) {
   }
   mtx.invert();
   mtx.append(1, 0, 0, 1, x, y);
-  return new Point(mtx.tx, mtx.ty);
+  return new goog.math.Coordinate(mtx.tx, mtx.ty);
 };
 
 /**
@@ -424,7 +424,7 @@ DisplayObject.prototype.globalToLocal = function(x, y) {
  * @param {number} x The x position in the source display object to transform.
  * @param {number} y The y position on the stage to transform.
  * @param {DisplayObject} target The target display object to which the coordinates will be transformed.
- * @return {Point} Returns a Point instance with x and y properties correlating to the transformed position
+ * @return {goog.math.Coordinate} Returns a Point instance with x and y properties correlating to the transformed position
  * in the target's coordinate space.
  **/
 DisplayObject.prototype.localToLocal = function(x, y, target) {

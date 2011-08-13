@@ -43,6 +43,7 @@ goog.require('DisplayObject');
  * Line wrapping support (using the lineWidth is very basic, wrapping on spaces and tabs only. Note
  * that as an alternative to DisplayText, you can position HTML text above or below the canvas relative to
  * items in the display list using the localToGlobal() method.
+ * @class DisplayText
  * @extends DisplayObject
  * @constructor
  * @param {string} text Optional. The text to display.
@@ -161,7 +162,7 @@ DisplayText.prototype.getMeasuredLineHeight = function() {
 /**
  * Returns a clone of the Point instance.
  
- * @return {Point} a clone of the Point instance.
+ * @return {goog.math.Coordinate} a clone of the Point instance.
  **/
 DisplayText.prototype.clone = function() {
   var o = new DisplayText(this.text, this.font, this.color);

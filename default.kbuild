@@ -1,9 +1,9 @@
-base_path: examples/base.js
+base_path: lib/base.js
 inputs:
   - examples/game/game.js
 js_paths:
   - src
-  - examples/base.js
+  - lib
   - examples/game
 deps_path: examples/deps.js
 compile_path: examples/game/compiled.js

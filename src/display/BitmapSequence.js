@@ -28,359 +28,349 @@
 */
 
 /**
- * The Easel Javascript library provides a retained graphics mode for canvas
- * including a full, hierarchical display list, a core interaction model, and
- * helper classes to make working with Canvas much easier.
- 
- **/
+* The Easel Javascript library provides a retained graphics mode for canvas
+* including a full, hierarchical display list, a core interaction model, and
+* helper classes to make working with Canvas much easier.
+
+**/
 
 goog.provide('BitmapSequence');
 
 (function(window) {
 
-  /**
-   * Displays frames or sequences of frames from a sprite sheet image. A sprite sheet is a series of images
-   * (usually animation frames) combined into a single image on a regular grid. For example, an animation
-   * consisting of 8 100x100 images could be combined into a 400x200 sprite sheet (4 frames across by 2 high).
-   * You can display individual frames, play sequential frames as an animation, and even sequence animations
-   * together. See the SpriteSheet class for more information on setting up frames and animation.
-   * @extends DisplayObject
-   * @constructor
-   * @param {SpriteSheet} spriteSheet The SpriteSheet instance to play back. This includes the source image, frame
-   * dimensions, and frame data. See SpriteSheet for more information.
-   **/
-  BitmapSequence = function(spriteSheet) {
-    DisplayObject.call(this);
-    this.spriteSheet = spriteSheet;
-  }
-  goog.inherits(BitmapSequence, DisplayObject);
-  var p = BitmapSequence.prototype;
+/**
+* Displays frames or sequences of frames from a sprite sheet image. A sprite sheet is a series of images
+* (usually animation frames) combined into a single image on a regular grid. For example, an animation
+* consisting of 8 100x100 images could be combined into a 400x200 sprite sheet (4 frames across by 2 high).
+* You can display individual frames, play sequential frames as an animation, and even sequence animations
+* together. See the SpriteSheet class for more information on setting up frames and animation.
+* @class BitmapSequence
+* @extends DisplayObject
+* @constructor
+* @param {SpriteSheet} spriteSheet The SpriteSheet instance to play back. This includes the source image, frame
+* dimensions, and frame data. See SpriteSheet for more information.
+**/
+BitmapSequence = function(spriteSheet) {
+  DisplayObject.call(this);
+	this.spriteSheet = spriteSheet;
+}
+goog.inherits(BitmapSequence, DisplayObject);
+var p = BitmapSequence.prototype;
 
-  // public properties:
-  /**
-   * Specifies a function to call whenever any sequence reaches its end.
-   * @property callback
-   * @type Function
-   **/
-  p.callback = null;
+// public properties:
 
-  /**
-   * The frame that will be drawn on the next tick. This can also be set, but it will not update the current
-   * sequence, so it may result in unexpected behavior if you are using frameData.
-   * @property currentFrame
-   * @type number
-   * @default -1
-   **/
-  p.currentFrame = -1;
+	/**
+	* Specifies a function to call whenever any sequence reaches its end.
+	* @property callback
+	* @type Function
+	**/
+	p.callback = null;
 
-  /**
-   * Returns the currently playing sequence when using frameData. READ-ONLY.
-   * @property currentSequence
-   * @type string
-   * @final
-   **/
-  p.currentSequence = null; // READ-ONLY
-  /**
-   * Returns the last frame of the currently playing sequence when using frameData. READ-ONLY.
-   * @property currentEndFrame
-   * @type number
-   * @final
-   **/
-  p.currentEndFrame = null; // READ-ONLY
-  /**
-   * Returns the first frame of the currently playing sequence when using frameData. READ-ONLY.
-   * @property currentStartFrame
-   * @type number
-   * @final
-   **/
-  p.currentStartFrame = null; // READ-ONLY
-  /**
-   * Returns the name of the next sequence that will be played, or null if it will stop playing after the
-   * current sequence. READ-ONLY.
-   * @property nextSequence
-   * @type string
-   * @final
-   **/
-  p.nextSequence = null;
+	/**
+	* The frame that will be drawn on the next tick. This can also be set, but it will not update the current
+	* sequence, so it may result in unexpected behavior if you are using frameData.
+	* @property currentFrame
+	* @type number
+	* @default -1
+	**/
+	p.currentFrame = -1;
 
-  /**
-   * Prevents the animation from advancing each tick automatically. For example, you could create a sprite
-   * sheet of icons, set paused to true, and display the appropriate icon by setting currentFrame.
-   * @property paused
-   * @type boolean
-   * @default false
-   **/
-  p.paused = false;
+	/**
+	* Returns the currently playing sequence when using frameData. READ-ONLY.
+	* @property currentSequence
+	* @type string
+	* @final
+	**/
+	p.currentSequence = null; // READ-ONLY
 
-  /**
-   * The SpriteSheet instance to play back. This includes the source image, frame dimensions, and frame
-   * data. See SpriteSheet for more information.
-   * @property spriteSheet
-   * @type SpriteSheet
-   **/
-  p.spriteSheet = null;
+	/**
+	* Returns the last frame of the currently playing sequence when using frameData. READ-ONLY.
+	* @property currentEndFrame
+	* @type number
+	* @final
+	**/
+	p.currentEndFrame = null; // READ-ONLY
 
-  /**
-   * Whether or not the Bitmap should be draw to the canvas at whole pixel coordinates.
-   * @property snapToPixel
-   * @type boolean
-   * @default true
-   **/
-  p.snapToPixel = true;
+	/**
+	* Returns the first frame of the currently playing sequence when using frameData. READ-ONLY.
+	* @property currentStartFrame
+	* @type number
+	* @final
+	**/
+	p.currentStartFrame = null; // READ-ONLY
 
-  /** Indicates how often the animation frame should move forwards. For example, a value of 1 will cause the playhead to
-   * move forwards every time tick is called whereas a value of 3 would cause it to advance every third time.
-   * @property advanceFrequency
-   * @type number
-   * @default 1
-   */
-  p.advanceFrequency = 1;
+	/**
+	* Returns the name of the next sequence that will be played, or null if it will stop playing after the
+	* current sequence. READ-ONLY.
+	* @property nextSequence
+	* @type string
+	* @final
+	**/
+	p.nextSequence = null;
 
-  /** When used in conjunction with an advanceFrequency greater than 1, this lets you offset which tick the playhead will
-   * advance on. For example, you could create two BitmapSequences, both with advanceFrequency set to 2, but one
-   * having advanceOffset set to 1. Both instances would advance every second tick, but they would advance on alternating
-   * ticks (effectively, one instance would advance on odd ticks, the other on even ticks).
-   * @property advanceOffset
-   * @type number
-   * @default 0
-   */
-  p.advanceOffset = 0;
+	/**
+	* Prevents the animation from advancing each tick automatically. For example, you could create a sprite
+	* sheet of icons, set paused to true, and display the appropriate icon by setting currentFrame.
+	* @property paused
+	* @type boolean
+	* @default false
+	**/
+	p.paused = false;
 
-  // private properties:
-  /**
-   * @property _advanceCount
-   * @protected
-   * @type number
-   * @default 0
-   **/
-  p._advanceCount = 0;
+	/**
+	* The SpriteSheet instance to play back. This includes the source image, frame dimensions, and frame
+	* data. See SpriteSheet for more information.
+	* @property spriteSheet
+	* @type SpriteSheet
+	**/
+	p.spriteSheet = null;
 
-  /**
-   * Returns true or false indicating whether the display object would be visible if drawn to a canvas.
-   * This does not account for whether it would be visible within the boundaries of the stage.
-   * NOTE: This method is mainly for internal use, though it may be useful for advanced uses.
-   
-   * @return {boolean} Boolean indicating whether the display object would be visible if drawn to a canvas.
-   **/
-  p.isVisible = function() {
-    var image = this.spriteSheet ? this.spriteSheet.image : null;
-    return this.visible && this.alpha > 0 && this.scaleX != 0 && this.scaleY != 0 && image && this.currentFrame >= 0 && (image.complete || image.getContext);
-  }
+	/**
+	* Whether or not the Bitmap should be draw to the canvas at whole pixel coordinates.
+	* @property snapToPixel
+	* @type boolean
+	* @default true
+	**/
+	p.snapToPixel = true;
 
-  /**
-   * @property DisplayObject_draw
-   * @type Function
-   * @private
-   **/
-  p.DisplayObject_draw = p.draw;
+	/** Indicates how often the animation frame should move forwards. For example, a value of 1 will cause the playhead to
+	 * move forwards every time tick is called whereas a value of 3 would cause it to advance every third time.
+	 * @property advanceFrequency
+	 * @type number
+	 * @default 1
+	 */
+	p.advanceFrequency = 1;
 
-  /**
-   * Draws the display object into the specified context ignoring it's visible, alpha, shadow, and transform.
-   * Returns true if the draw was handled (useful for overriding functionality).
-   * NOTE: This method is mainly for internal use, though it may be useful for advanced uses.
-   
-   * @param {CanvasRenderingContext2D} ctx The canvas 2D context object to draw into.
-   * @param {boolean} ignoreCache Indicates whether the draw operation should ignore any current cache.
-   * For example, used for drawing the cache (to prevent it from simply drawing an existing cache back
-   * into itself).
-   **/
-  p.draw = function(ctx, ignoreCache) {
-    if (this.DisplayObject_draw(ctx, ignoreCache)) {
-      return true;
-    }
+	/** When used in conjunction with an advanceFrequency greater than 1, this lets you offset which tick the playhead will
+	 * advance on. For example, you could create two BitmapSequences, both with advanceFrequency set to 2, but one
+	 * having advanceOffset set to 1. Both instances would advance every second tick, but they would advance on alternating
+	 * ticks (effectively, one instance would advance on odd ticks, the other on even ticks).
+	 * @property advanceOffset
+	 * @type number
+	 * @default 0
+	 */
+	p.advanceOffset = 0;
 
-    var image = this.spriteSheet.image;
-    var frameWidth = this.spriteSheet.frameWidth;
-    var frameHeight = this.spriteSheet.frameHeight;
-    var cols = image.width / frameWidth | 0;
-    var rows = image.height / frameHeight | 0;
+// private properties:
+		/**
+	* @property _advanceCount
+	* @protected
+	* @type number
+	* @default 0
+	**/
+	p._advanceCount = 0;
 
-    if (this.currentEndFrame != null) {
-      // use sequencing.
-      if (this.currentFrame > this.currentEndFrame) {
-        if (this.nextSequence) {
-          this._goto(this.nextSequence);
-        } else {
-          this.paused = true;
-          this.currentFrame = this.currentEndFrame;
-        }
-        if (this.callback) {
-          this.callback(this);
-        }
-      }
-    } else {
-      // use simple mode.
-      var ttlFrames = this.spriteSheet.totalFrames || cols * rows;
-      if (this.currentFrame >= ttlFrames) {
-        if (this.spriteSheet.loop) {
-          this.currentFrame = 0;
-        } else {
-          this.currentFrame = ttlFrames - 1;
-          this.paused = true;
-        }
-        if (this.callback) {
-          this.callback(this);
-        }
-      }
-    }
-    if (this.currentFrame >= 0) {
-      var col = this.currentFrame % cols;
-      var row = this.currentFrame / cols | 0;
-      ctx.drawImage(image, frameWidth * col, frameHeight * row, frameWidth, frameHeight, 0, 0, frameWidth, frameHeight);
-    }
-    return true;
-  }
+	/**
+	* Returns true or false indicating whether the display object would be visible if drawn to a canvas.
+	* This does not account for whether it would be visible within the boundaries of the stage.
+	* NOTE: This method is mainly for internal use, though it may be useful for advanced uses.
 
-  //Note, the doc sections below document using the specified APIs (from DisplayObject)  from
-  //Bitmap. This is why they have no method implementations.
-  /**
-   * Because the content of a Bitmap is already in a simple format, cache is unnecessary for Bitmap instances.
-   * You should not cache Bitmap instances as it can degrade performance.
-   
-   **/
+	* @return {boolean} Boolean indicating whether the display object would be visible if drawn to a canvas.
+	**/
+	p.isVisible = function() {
+		var image = this.spriteSheet ? this.spriteSheet.image : null;
+		return this.visible && this.alpha > 0 && this.scaleX != 0 && this.scaleY != 0 && image && this.currentFrame >= 0 && (image.complete || image.getContext);
+	}
 
-  /**
-   * Because the content of a Bitmap is already in a simple format, cache is unnecessary for Bitmap instances.
-   * You should not cache Bitmap instances as it can degrade performance.
-   
-   **/
+	/**
+	* @property DisplayObject_draw
+	* @type Function
+	* @private
+	**/
+	p.DisplayObject_draw = p.draw;
 
-  /**
-   * Because the content of a Bitmap is already in a simple format, cache is unnecessary for Bitmap instances.
-   * You should not cache Bitmap instances as it can degrade performance.
-   
-   **/
+	/**
+	* Draws the display object into the specified context ignoring it's visible, alpha, shadow, and transform.
+	* Returns true if the draw was handled (useful for overriding functionality).
+	* NOTE: This method is mainly for internal use, though it may be useful for advanced uses.
 
-  /**
-   * Sets paused to false and plays the specified sequence name, named frame, or frame number.
-   
-   * @param {String|Number} frameOrSequence The frame number or sequence that the playhead should move to
-   * and begin playing.
-   **/
-  p.gotoAndPlay = function(frameOrSequence) {
-    this.paused = false;
-    this._goto(frameOrSequence);
-  }
+	* @param {CanvasRenderingContext2D} ctx The canvas 2D context object to draw into.
+	* @param {boolean} ignoreCache Indicates whether the draw operation should ignore any current cache.
+	* For example, used for drawing the cache (to prevent it from simply drawing an existing cache back
+	* into itself).
+	**/
+	p.draw = function(ctx, ignoreCache) {
+		if (this.DisplayObject_draw(ctx, ignoreCache)) { return true; }
 
-  /**
-   * Sets paused to true and seeks to the specified sequence name, named frame, or frame number.
-   
-   * @param {String|Number} frameOrSequence The frame number or sequence that the playhead should move to
-   * and stop.
-   **/
-  p.gotoAndStop = function(frameOrSequence) {
-    this.paused = true;
-    this._goto(frameOrSequence);
-  }
+		var image = this.spriteSheet.image;
+		var frameWidth = this.spriteSheet.frameWidth;
+		var frameHeight = this.spriteSheet.frameHeight;
+		var cols = image.width / frameWidth | 0;
+		var rows = image.height / frameHeight | 0;
 
-  /**
-   * Advances the playhead. This occurs automatically each tick by default.
-   
-   */
-  p.advance = function() {
-    this.currentFrame++;
-  }
+		if (this.currentEndFrame != null) {
+			// use sequencing.
+			if (this.currentFrame > this.currentEndFrame) {
+				if (this.nextSequence) {
+					this._goto(this.nextSequence);
+				} else {
+					this.paused = true;
+					this.currentFrame = this.currentEndFrame;
+				}
+				if (this.callback) { this.callback(this); }
+			}
+		} else {
+			// use simple mode.
+			var ttlFrames = this.spriteSheet.totalFrames || cols * rows;
+			if (this.currentFrame >= ttlFrames) {
+				if (this.spriteSheet.loop) { this.currentFrame = 0; }
+				else {
+					this.currentFrame = ttlFrames - 1;
+					this.paused = true;
+				}
+				if (this.callback) { this.callback(this); }
+			}
+		}
+		if (this.currentFrame >= 0) {
+			var col = this.currentFrame % cols;
+			var row = this.currentFrame / cols | 0;
+			ctx.drawImage(image, frameWidth * col, frameHeight * row, frameWidth, frameHeight, 0, 0, frameWidth, frameHeight);
+		}
+		return true;
+	}
 
-  /**
-   * Returns a clone of the Point instance.
-   
-   * @return {Point} a clone of the Point instance.
-   **/
-  p.clone = function() {
-    var o = new BitmapSequence(this.spriteSheet);
-    this.cloneProps(o);
-    return o;
-  }
+	//Note, the doc sections below document using the specified APIs (from DisplayObject)  from
+	//Bitmap. This is why they have no method implementations.
 
-  /**
-   * Returns a string representation of this object.
-   
-   * @return {string} a string representation of the instance.
-   **/
-  p.toString = function() {
-    return '[BitmapSequence (name=' + this.name + ')]';
-  }
+	/**
+	* Because the content of a Bitmap is already in a simple format, cache is unnecessary for Bitmap instances.
+	* You should not cache Bitmap instances as it can degrade performance.
 
-  // private methods:
-  /**
-   * Advances the currentFrame if paused is not true. This is called automatically when the Stage ticks.
-   * @protected
-   
-   **/
-  p._tick = function() {
-    if (this.currentFrame == -1 && this.spriteSheet.frameData) {
-      // sequence data is set, but we haven't actually played a sequence yet:
-      this.paused = true;
-    }
-    if (this.paused || ((++this._advanceCount) + this.advanceOffset) % this.advanceFrequency != 0) {
-      return;
-    }
-    this.currentFrame++;
-  }
+	**/
 
-  /**
-   * @property DisplayObject_cloneProps
-   * @private
-   * @type Function
-   **/
-  p.DisplayObject_cloneProps = p.cloneProps;
+	/**
+	* Because the content of a Bitmap is already in a simple format, cache is unnecessary for Bitmap instances.
+	* You should not cache Bitmap instances as it can degrade performance.
 
-  /**
-   
-   * @param {DisplayText} o
-   * @protected
-   **/
-  p.cloneProps = function(o) {
-    this.DisplayObject_cloneProps(o);
-    o.callback = this.callback;
-    o.currentFrame = this.currentFrame;
-    o.currentStartFrame = this.currentStartFrame;
-    o.currentEndFrame = this.currentEndFrame;
-    o.currentSequence = this.currentSequence;
-    o.nextSequence = this.nextSequence;
-    o.paused = this.paused;
-    o.frameData = this.frameData;
-  }
+	**/
 
-  /**
-   * Moves the playhead to the specified frame number of sequence.
-   
-   * @param {String|Number} frameOrSequence The frame number of sequence that the playhead should move to.
-   * @protected
-   **/
-  p._goto = function(frameOrSequence) {
-    if (isNaN(frameOrSequence)) {
-      if (frameOrSequence == this.currentSequence) {
-        this.currentFrame = this.currentStartFrame;
-        return;
-      }
-      var data = this.spriteSheet.frameData[frameOrSequence];
-      if (data instanceof Array) {
-        this.currentFrame = this.currentStartFrame = data[0];
-        this.currentSequence = frameOrSequence;
-        this.currentEndFrame = data[1];
-        if (this.currentEndFrame == null) {
-          this.currentEndFrame = this.currentStartFrame;
-        }
-        if (this.currentEndFrame == null) {
-          this.currentEndFrame = this.currentFrame;
-        }
-        this.nextSequence = data[2];
-        if (this.nextSequence == null) {
-          this.nextSequence = this.currentSequence;
-        } else if (this.nextSequence == false) {
-          this.nextSequence = null;
-        }
-      } else {
-        this.currentSequence = this.nextSequence = null;
-        this.currentEndFrame = this.currentFrame = this.currentStartFrame = data;
-      }
-    } else {
-      this.currentSequence = this.nextSequence = this.currentEndFrame = null;
-      this.currentStartFrame = 0;
-      this.currentFrame = frameOrSequence;
-    }
-  }
+	/**
+	* Because the content of a Bitmap is already in a simple format, cache is unnecessary for Bitmap instances.
+	* You should not cache Bitmap instances as it can degrade performance.
 
-  window.BitmapSequence = BitmapSequence;
-} (window));
+	**/
+
+	/**
+	* Sets paused to false and plays the specified sequence name, named frame, or frame number.
+
+	* @param {String|Number} frameOrSequence The frame number or sequence that the playhead should move to
+	* and begin playing.
+	**/
+	p.gotoAndPlay = function(frameOrSequence) {
+		this.paused = false;
+		this._goto(frameOrSequence);
+	}
+
+	/**
+	* Sets paused to true and seeks to the specified sequence name, named frame, or frame number.
+
+	* @param {String|Number} frameOrSequence The frame number or sequence that the playhead should move to
+	* and stop.
+	**/
+	p.gotoAndStop = function(frameOrSequence) {
+		this.paused = true;
+		this._goto(frameOrSequence);
+	}
+
+	/**
+	* Advances the playhead. This occurs automatically each tick by default.
+
+	*/
+	p.advance = function() {
+		this.currentFrame++;
+	}
+
+	/**
+	* Returns a clone of the Point instance.
+
+	* @return {goog.math.Coordinate} a clone of the Point instance.
+	**/
+	p.clone = function() {
+		var o = new BitmapSequence(this.spriteSheet);
+		this.cloneProps(o);
+		return o;
+	}
+
+	/**
+	* Returns a string representation of this object.
+
+	* @return {string} a string representation of the instance.
+	**/
+	p.toString = function() {
+		return '[BitmapSequence (name='+ this.name + ')]';
+	}
+
+// private methods:
+	/**
+	* Advances the currentFrame if paused is not true. This is called automatically when the Stage ticks.
+	* @protected
+
+	**/
+	p._tick = function() {
+		if (this.currentFrame == -1 && this.spriteSheet.frameData) {
+			// sequence data is set, but we haven't actually played a sequence yet:
+			this.paused = true;
+		}
+		if (this.paused || ((++this._advanceCount) + this.advanceOffset) % this.advanceFrequency != 0) { return; }
+		this.currentFrame++;
+	}
+
+	/**
+	* @property DisplayObject_cloneProps
+	* @private
+	* @type Function
+	**/
+	p.DisplayObject_cloneProps = p.cloneProps;
+
+	/**
+
+	* @param {DisplayText} o
+	* @protected
+	**/
+	p.cloneProps = function(o) {
+		this.DisplayObject_cloneProps(o);
+		o.callback = this.callback;
+		o.currentFrame = this.currentFrame;
+		o.currentStartFrame = this.currentStartFrame;
+		o.currentEndFrame = this.currentEndFrame;
+		o.currentSequence = this.currentSequence;
+		o.nextSequence = this.nextSequence;
+		o.paused = this.paused;
+		o.frameData = this.frameData;
+	}
+
+	/**
+	* Moves the playhead to the specified frame number of sequence.
+
+	* @param {String|Number} frameOrSequence The frame number of sequence that the playhead should move to.
+	* @protected
+	**/
+	p._goto = function(frameOrSequence) {
+		if (isNaN(frameOrSequence)) {
+			if (frameOrSequence == this.currentSequence) {
+				this.currentFrame = this.currentStartFrame;
+				return;
+			}
+			var data = this.spriteSheet.frameData[frameOrSequence];
+			if (data instanceof Array) {
+				this.currentFrame = this.currentStartFrame = data[0];
+				this.currentSequence = frameOrSequence;
+				this.currentEndFrame = data[1];
+				if (this.currentEndFrame == null) { this.currentEndFrame = this.currentStartFrame; }
+				if (this.currentEndFrame == null) { this.currentEndFrame = this.currentFrame; }
+				this.nextSequence = data[2];
+				if (this.nextSequence == null) { this.nextSequence = this.currentSequence; }
+				else if (this.nextSequence == false) { this.nextSequence = null; }
+			} else {
+				this.currentSequence = this.nextSequence = null;
+				this.currentEndFrame = this.currentFrame = this.currentStartFrame = data;
+			}
+		} else {
+			this.currentSequence = this.nextSequence = this.currentEndFrame = null;
+			this.currentStartFrame = 0;
+			this.currentFrame = frameOrSequence;
+		}
+	}
+
+window.BitmapSequence = BitmapSequence;
+}(window));

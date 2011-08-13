@@ -21,7 +21,6 @@
 <!-- End EaselJS Imports -->
 
 <script>
-goog.require('Point');
 goog.require('Stage');
 goog.require('Bitmap');
 goog.require('Ticker');
@@ -34,7 +33,7 @@ var dragStarted;	// indicates whether we are currently in a drag operation
 var update = true;
 
 function init() {
-  var offset = new Point();
+  var offset = new Coordinate();
 	
 	//Make sure the browser supports the canvas element
 	if(!Modernizr.canvas)
