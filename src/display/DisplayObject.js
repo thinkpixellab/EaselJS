@@ -52,6 +52,166 @@ goog.require('UID');
 DisplayObject = function() {
   this.id = UID.get();
   this._matrix = new Matrix2D();
+
+  /**
+   * The alpha (transparency) for this display object. 0 is fully transparent, 1 is fully opaque.
+   * @property alpha
+   * @type number
+   * @default 1
+   **/
+  this.alpha = 1;
+
+  /**
+   * If a cache is active, this returns the canvas that holds the cached version of this display object. See cache()
+   * for more information. READ-ONLY.
+   * @property cacheCanvas
+   * @type HTMLCanvasElement
+   * @default null
+   **/
+  this.cacheCanvas = null;
+
+  /**
+   * Indicates whether to include this object when running Stage.getObjectsUnderPoint(). Setting this to true for
+   * Sprites will cause the Sprite to be returned (not its children) regardless of whether it's mouseChildren property
+   * is true.
+   * @property mouseEnabled
+   * @type boolean
+   * @default true
+   **/
+  this.mouseEnabled = true;
+
+  /**
+   * An optional name for this display object. Included in toString(). Useful for debugging.
+   * @property name
+   * @type string
+   * @default null
+   **/
+  this.name = null;
+
+  /**
+   * A reference to the Sprite or Stage object that contains this display object, or null if it has not been added to
+   * one. READ-ONLY.
+   * @property parent
+   * @final
+   * @type DisplayObject
+   * @default null
+   **/
+  this.parent = null;
+
+  /**
+   * The x offset for this display object's registration point. For example, to make a 100x100px Bitmap rotate around
+   * it's center, you would set regX and regY to 50.
+   * @property regX
+   * @type number
+   * @default 0
+   **/
+  this.regX = 0;
+
+  /**
+   * The y offset for this display object's registration point. For example, to make a 100x100px Bitmap rotate around
+   * it's center, you would set regX and regY to 50.
+   * @property regY
+   * @type number
+   * @default 0
+   **/
+  this.regY = 0;
+
+  /**
+   * The rotation in degrees for this display object.
+   * @property rotation
+   * @type number
+   * @default 0
+   **/
+  this.rotation = 0;
+
+  /**
+   * The factor to stretch this display object horizontally. For example, setting scaleX to 2 will stretch the display
+   * object to twice it's nominal width.
+   * @property scaleX
+   * @type number
+   * @default 1
+   **/
+  this.scaleX = 1;
+
+  /**
+   * The factor to stretch this display object vertically. For example, setting scaleY to 0.5 will stretch the display
+   * object to half it's nominal height.
+   * @property scaleY
+   * @type number
+   * @default 1
+   **/
+  this.scaleY = 1;
+
+  /**
+   * The factor to skew this display object horizontally.
+   * @property skewX
+   * @type number
+   * @default 0
+   **/
+  this.skewX = 0;
+
+  /**
+   * The factor to skew this display object vertically.
+   * @property skewY
+   * @type number
+   * @default 0
+   **/
+  this.skewY = 0;
+
+  /**
+   * A shadow object that defines the shadow to render on this display object. Set to null to remove a shadow. If
+   * null, this property is inherited from the parent container.
+   * @property shadow
+   * @type Shadow
+   * @default null
+   **/
+  this.shadow = null;
+
+  /**
+   * Indicates whether this display object should be rendered to the canvas and included when running
+   * Stage.getObjectsUnderPoint().
+   * @property visible
+   * @type boolean
+   * @default true
+   **/
+  this.visible = true;
+
+  /**
+   * The x (horizontal) position of the display object, relative to its parent.
+   * @property x
+   * @type number
+   * @default 0
+   **/
+  this.x = 0;
+
+  /** The y (vertical) position of the display object, relative to its parent.
+   * @property y
+   * @type number
+   * @default 0
+   **/
+  this.y = 0;
+
+  /**
+   * The composite operation indicates how the pixels of this display object will be composited with the elements
+   * behind it. If null, this property is inherited from the parent container. For more information, read the
+   * <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#compositing">
+   * whatwg spec on compositing</a>.
+   * @property compositeOperation
+   * @type string
+   * @default null
+   **/
+  this.compositeOperation = null;
+
+  /**
+   * Indicates whether the display object should have it's x & y position rounded prior to drawing it to stage.
+   * This only applies if the enclosing stage has snapPixelsEnabled set to true, and the display object's composite
+   * transform does not include any scaling, rotation, or skewing. The snapToPixel property is true by default for
+   * Bitmap and BitmapSequence instances, and false for all other display objects.
+   * @property snapToPixel
+   * @type boolean
+   * @default false
+   **/
+  this.snapToPixel = false;
 };
 
 /**
@@ -80,174 +240,6 @@ DisplayObject._hitTestCanvas.width = DisplayObject._hitTestCanvas.height = 1;
  * @protected
  **/
 DisplayObject._hitTestContext = DisplayObject._hitTestCanvas.getContext('2d');
-
-/**
- * The alpha (transparency) for this display object. 0 is fully transparent, 1 is fully opaque.
- * @property alpha
- * @type number
- * @default 1
- **/
-DisplayObject.prototype.alpha = 1;
-
-/**
- * If a cache is active, this returns the canvas that holds the cached version of this display object. See cache()
- * for more information. READ-ONLY.
- * @property cacheCanvas
- * @type HTMLCanvasElement
- * @default null
- **/
-DisplayObject.prototype.cacheCanvas = null;
-
-/**
- * Unique ID for this display object. Makes display objects easier for some uses.
- * @property id
- * @type number
- * @default -1
- **/
-DisplayObject.prototype.id = -1;
-
-/**
- * Indicates whether to include this object when running Stage.getObjectsUnderPoint(). Setting this to true for
- * Sprites will cause the Sprite to be returned (not its children) regardless of whether it's mouseChildren property
- * is true.
- * @property mouseEnabled
- * @type boolean
- * @default true
- **/
-DisplayObject.prototype.mouseEnabled = true;
-
-/**
- * An optional name for this display object. Included in toString(). Useful for debugging.
- * @property name
- * @type string
- * @default null
- **/
-DisplayObject.prototype.name = null;
-
-/**
- * A reference to the Sprite or Stage object that contains this display object, or null if it has not been added to
- * one. READ-ONLY.
- * @property parent
- * @final
- * @type DisplayObject
- * @default null
- **/
-DisplayObject.prototype.parent = null;
-
-/**
- * The x offset for this display object's registration point. For example, to make a 100x100px Bitmap rotate around
- * it's center, you would set regX and regY to 50.
- * @property regX
- * @type number
- * @default 0
- **/
-DisplayObject.prototype.regX = 0;
-
-/**
- * The y offset for this display object's registration point. For example, to make a 100x100px Bitmap rotate around
- * it's center, you would set regX and regY to 50.
- * @property regY
- * @type number
- * @default 0
- **/
-DisplayObject.prototype.regY = 0;
-
-/**
- * The rotation in degrees for this display object.
- * @property rotation
- * @type number
- * @default 0
- **/
-DisplayObject.prototype.rotation = 0;
-
-/**
- * The factor to stretch this display object horizontally. For example, setting scaleX to 2 will stretch the display
- * object to twice it's nominal width.
- * @property scaleX
- * @type number
- * @default 1
- **/
-DisplayObject.prototype.scaleX = 1;
-
-/**
- * The factor to stretch this display object vertically. For example, setting scaleY to 0.5 will stretch the display
- * object to half it's nominal height.
- * @property scaleY
- * @type number
- * @default 1
- **/
-DisplayObject.prototype.scaleY = 1;
-
-/**
- * The factor to skew this display object horizontally.
- * @property skewX
- * @type number
- * @default 0
- **/
-DisplayObject.prototype.skewX = 0;
-
-/**
- * The factor to skew this display object vertically.
- * @property skewY
- * @type number
- * @default 0
- **/
-DisplayObject.prototype.skewY = 0;
-
-/**
- * A shadow object that defines the shadow to render on this display object. Set to null to remove a shadow. If
- * null, this property is inherited from the parent container.
- * @property shadow
- * @type Shadow
- * @default null
- **/
-DisplayObject.prototype.shadow = null;
-
-/**
- * Indicates whether this display object should be rendered to the canvas and included when running
- * Stage.getObjectsUnderPoint().
- * @property visible
- * @type boolean
- * @default true
- **/
-DisplayObject.prototype.visible = true;
-
-/**
- * The x (horizontal) position of the display object, relative to its parent.
- * @property x
- * @type number
- * @default 0
- **/
-DisplayObject.prototype.x = 0;
-
-/** The y (vertical) position of the display object, relative to its parent.
- * @property y
- * @type number
- * @default 0
- **/
-DisplayObject.prototype.y = 0;
-
-/**
- * The composite operation indicates how the pixels of this display object will be composited with the elements
- * behind it. If null, this property is inherited from the parent container. For more information, read the
- * <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#compositing">
- * whatwg spec on compositing</a>.
- * @property compositeOperation
- * @type string
- * @default null
- **/
-DisplayObject.prototype.compositeOperation = null;
-
-/**
- * Indicates whether the display object should have it's x & y position rounded prior to drawing it to stage.
- * This only applies if the enclosing stage has snapPixelsEnabled set to true, and the display object's composite
- * transform does not include any scaling, rotation, or skewing. The snapToPixel property is true by default for
- * Bitmap and BitmapSequence instances, and false for all other display objects.
- * @property snapToPixel
- * @type boolean
- * @default false
- **/
-DisplayObject.prototype.snapToPixel = false;
 
 /**
  * The onPress callback is called when the user presses down on their mouse over this display object. The handler
@@ -308,31 +300,6 @@ DisplayObject.prototype.tick = null;
  * @default null
  **/
 DisplayObject.prototype.filters = null;
-
-// private properties:
-/**
- * @property _cacheOffsetX
- * @protected
- * @type number
- * @default 0
- **/
-DisplayObject.prototype._cacheOffsetX = 0;
-
-/**
- * @property _cacheOffsetY
- * @protected
- * @type number
- * @default 0
- **/
-DisplayObject.prototype._cacheOffsetY = 0;
-
-/**
- * @property _matrix
- * @protected
- * @type Matrix2D
- * @default 1
- **/
-DisplayObject.prototype._matrix = null;
 
 // constructor:
 // separated so it can be easily addressed in subclasses:
@@ -637,7 +604,7 @@ DisplayObject.prototype.applyShadow = function(ctx, opt_shadow) {
 DisplayObject.prototype._testHit = function(ctx) {
   var hit;
   try {
-    var hit = ctx.getImageData(0, 0, 1, 1).data[3] > 1;
+    hit = ctx.getImageData(0, 0, 1, 1).data[3] > 1;
   } catch(e) {
     if (!DisplayObject.suppressCrossDomainErrors) {
       throw 'An error has occured. This is most likely due to security restrictions on reading canvas pixel ' + 'data with local or cross-domain images.';
