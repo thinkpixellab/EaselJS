@@ -82,7 +82,6 @@ DisplayObject = function() {
   /**
    * A reference to the Sprite or Stage object that contains this display object, or null if it has not been added to
    * one. READ-ONLY.
-   * @final
    * @type {DisplayObject}
    * @default null
    **/
@@ -186,29 +185,23 @@ DisplayObject = function() {
 /**
  * Suppresses errors generated when using features like hitTest, onPress/onClick, and getObjectsUnderPoint with cross
  * domain content
- * @property suppressCrossDomainErrors
- * @static
- * @type boolean
+ * @type {boolean}
  * @default false
  **/
 DisplayObject.suppressCrossDomainErrors = false;
 
 /**
- * @property _hitTestCanvas
- * @type HTMLCanvasElement
- * @static
+ * @type {!HTMLCanvasElement}
  * @protected
  **/
-DisplayObject._hitTestCanvas = document.createElement('canvas');
+DisplayObject._hitTestCanvas = /** @type {!HTMLCanvasElement} */ document.createElement('canvas');
 DisplayObject._hitTestCanvas.width = DisplayObject._hitTestCanvas.height = 1;
 
 /**
- * @property _hitTestContext
- * @type CanvasRenderingContext2D
- * @static
+ * @type {!CanvasRenderingContext2D}
  * @protected
  **/
-DisplayObject._hitTestContext = DisplayObject._hitTestCanvas.getContext('2d');
+DisplayObject._hitTestContext = /** @type {!CanvasRenderingContext2D} */ DisplayObject._hitTestCanvas.getContext('2d');
 
 /**
  * The onPress callback is called when the user presses down on their mouse over this display object. The handler
@@ -264,9 +257,7 @@ DisplayObject.prototype.tick = null;
 /**
  * An array of Filter objects to apply to this display object. Filters are only applied / updated when cache() or
  * updateCache() is called on the display object, and only apply to the area that is cached.
- * @property filters
- * @type {!Array.<!Filter>}
- * @default null
+ * @type {Array.<!Filter>}
  **/
 DisplayObject.prototype.filters = null;
 
@@ -320,12 +311,10 @@ DisplayObject.prototype.draw = function(ctx, opt_ignoreCache) {
 DisplayObject.prototype.cache = function(x, y, width, height) {
   // draw to canvas.
   if (this.cacheCanvas == null) {
-    this.cacheCanvas = document.createElement('canvas');
+    this.cacheCanvas = /** @type {!HTMLCanvasElement} */ document.createElement('canvas');
   }
-  /**
-   *@type {!CanvasRenderingContext2D}
-   **/
-  var ctx = this.cacheCanvas.getContext('2d');
+
+  var ctx = /** @type {!CanvasRenderingContext2D} */ this.cacheCanvas.getContext('2d');
   this.cacheCanvas.width = width;
   this.cacheCanvas.height = height;
   ctx.setTransform(1, 0, 0, 1, -x, -y);
@@ -349,10 +338,8 @@ DisplayObject.prototype.updateCache = function(compositeOperation) {
   if (this.cacheCanvas == null) {
     throw 'cache() must be called before updateCache()';
   }
-  /**
-   *@type {!CanvasRenderingContext2D}
-   **/
-  var ctx = this.cacheCanvas.getContext('2d');
+  var ctx = /** @type {!CanvasRenderingContext2D} */
+  this.cacheCanvas.getContext('2d');
   ctx.setTransform(1, 0, 0, 1, -this._cacheOffsetX, -this._cacheOffsetY);
   if (!compositeOperation) {
     ctx.clearRect(0, 0, this.cacheCanvas.width + 1, this.cacheCanvas.height + 1);
@@ -512,10 +499,10 @@ DisplayObject.prototype.hitTest = function(x, y) {
 /**
  * Returns a clone of this DisplayObject. Some properties that are specific to this instance's current context are
  * reverted to their defaults (for example .parent).
- 
+ * @param {boolean=} recursive Ignored for this class, but used in other places 
  @return {DisplayObject} A clone of the current DisplayObject instance.
  **/
-DisplayObject.prototype.clone = function() {
+DisplayObject.prototype.clone = function(recursive) {
   var o = new DisplayObject();
   this.cloneProps(o);
   return o;

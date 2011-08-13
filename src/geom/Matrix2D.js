@@ -437,7 +437,7 @@ Matrix2D.prototype.decompose = function(target) {
  * @param {number} ty
  * @param {number} alpha desired alpha value.
  * @param {Shadow} shadow desired shadow value.
- * @param {string} compositeOperation desired composite operation value.
+ * @param {?string} compositeOperation desired composite operation value.
  */
 Matrix2D.prototype.reinitialize = function(a, b, c, d, tx, ty, alpha, shadow, compositeOperation) {
   this.initialize(a, b, c, d, tx, ty);

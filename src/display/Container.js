@@ -74,7 +74,7 @@ Container.prototype.children = null;
  * @return {boolean} Boolean indicating whether the display object would be visible if drawn to a canvas.
  **/
 Container.prototype.isVisible = function() {
-  return this.visible && this.alpha > 0 && this.children.length && this.scaleX != 0 && this.scaleY != 0;
+  return this.visible && !!this.alpha > 0 && !!this.children.length && this.scaleX != 0 && this.scaleY != 0;
 };
 
 /**
@@ -82,8 +82,9 @@ Container.prototype.isVisible = function() {
  * Returns true if the draw was handled (useful for overriding functionality).
  * NOTE: This method is mainly for internal use, though it may be useful for advanced uses.
  
- * @param {CanvasRenderingContext2D} ctx The canvas 2D context object to draw into.
+ * @param {!CanvasRenderingContext2D} ctx The canvas 2D context object to draw into.
  * @param {boolean} ignoreCache Indicates whether the draw operation should ignore any current cache.
+ * @param {Matrix2D=} _mtx
  * For example, used for drawing the cache (to prevent it from simply drawing an existing cache back
  * into itself).
  **/
@@ -152,24 +153,13 @@ Container.prototype.addChild = function(child) {
 
 /**
  * Adds a child to the display list at the specified index, bumping children at equal or greater indexes up one, and setting
- * its parent to this Container. You can also add multiple children, such as "addChildAt(child1, child2, ..., index);". The
- * index must be between 0 and numChildren. For example, to add myShape under otherShape in the display list, you could use:
- * container.addChildAt(myShape, container.getChildIndex(otherShape)). This would also bump otherShape's index up by one.
- * Returns the last child that was added, or the last child if multiple children were added.
- 
+ * its parent to this Container.
+
  * @param {DisplayObject} child The display object to add.
  * @param {number} index The index to add the child at.
  * @return {DisplayObject} The child that was added, or the last child if multiple children were added.
  **/
 Container.prototype.addChildAt = function(child, index) {
-  var l = arguments.length;
-  if (l > 2) {
-    index = arguments[i - 1];
-    for (var i = 0; i < l - 1; i++) {
-      this.addChildAt(arguments[i], index + i);
-    }
-    return arguments[l - 2];
-  }
   if (child.parent) {
     child.parent.removeChild(child);
   }
@@ -348,7 +338,7 @@ Container.prototype.getObjectUnderPoint = function(x, y) {
 /**
  * Returns a clone of this Container. Some properties that are specific to this instance's current context are reverted to
  * their defaults (for example .parent).
- * @param {boolean} recursive If true, all of the descendants of this container will be cloned recursively. If false, the
+ * @param {boolean=} recursive If true, all of the descendants of this container will be cloned recursively. If false, the
  * properties of the container will be cloned, but the new instance will not have any children.
  * @return {Container} A clone of the current Container instance.
  **/
@@ -396,13 +386,14 @@ Container.prototype._tick = function() {
  
  * @param {number} x
  * @param {number} y
- * @param {Array} arr
- * @param {number} mouseEvents A bitmask indicating which mouseEvent types to look for. Bit 1 specifies onPress &
+ * @param {Array=} arr
+ * @param {number=} mouseEvents A bitmask indicating which mouseEvent types to look for. Bit 1 specifies onPress &
  * onClick & onDoubleClick, bit 2 specifies it should look for onMouseOver and onMouseOut. This implementation may change.
  * @return {DisplayObject}
  * @protected
  **/
 Container.prototype._getObjectsUnderPoint = function(x, y, arr, mouseEvents) {
+  mouseEvents = mouseEvents || 0;
   var ctx = DisplayObject._hitTestContext;
   var canvas = DisplayObject._hitTestCanvas;
   var mtx = this._matrix;
@@ -413,7 +404,7 @@ Container.prototype._getObjectsUnderPoint = function(x, y, arr, mouseEvents) {
     this.getConcatenatedMatrix(mtx);
     ctx.setTransform(mtx.a, mtx.b, mtx.c, mtx.d, mtx.tx - x, mtx.ty - y);
     ctx.globalAlpha = mtx.alpha;
-    this.draw(ctx);
+    this.draw(ctx, false);
     if (this._testHit(ctx)) {
       canvas.width = 0;
       canvas.width = 1;

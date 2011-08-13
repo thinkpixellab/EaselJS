@@ -60,13 +60,13 @@ Filter.prototype.getBounds = function() {
  * Applies the filter to the specified context.
  
  * @param ctx The 2D context to use as the source.
- * @param x The x position to use for the source rect.
- * @param y The y position to use for the source rect.
- * @param width The width to use for the source rect.
- * @param height The height to use for the source rect.
- * @param targetCtx Optional. The 2D context to draw the result to. Defaults to the context passed to ctx.
- * @param targetX Optional. The x position to draw the result to. Defaults to the value passed to x.
- * @param targetY Optional. The y position to draw the result to. Defaults to the value passed to y.
+ * @param {number} x The x position to use for the source rect.
+ * @param {number} y The y position to use for the source rect.
+ * @param {number} width The width to use for the source rect.
+ * @param {number} height The height to use for the source rect.
+ * @param {CanvasRenderingContext2D=} targetCtx Optional. The 2D context to draw the result to. Defaults to the context passed to ctx.
+ * @param {number=} targetX Optional. The x position to draw the result to. Defaults to the value passed to x.
+ * @param {number=} targetY Optional. The y position to draw the result to. Defaults to the value passed to y.
  **/
 Filter.prototype.applyFilter = function(ctx, x, y, width, height, targetCtx, targetX, targetY) {};
 

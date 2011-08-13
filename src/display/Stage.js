@@ -43,7 +43,7 @@ goog.require('Container');
  * list to its target canvas.
  * @extends Container
  * @constructor
- * @param {HTMLCanvasElement} canvas The canvas the stage will render to.
+ * @param {!HTMLCanvasElement} canvas The canvas the stage will render to.
  **/
 Stage = function(canvas) {
   Container.call(this);
@@ -169,7 +169,8 @@ Stage.prototype.update = function() {
   if (this.tickOnUpdate) {
     this._tick();
   }
-  this.draw(this.canvas.getContext('2d'), false, this.getConcatenatedMatrix(this._matrix));
+  var ctx = /** @type {!CanvasRenderingContext2D} */ this.canvas.getContext('2d');
+  this.draw(ctx, false, this.getConcatenatedMatrix(this._matrix));
 };
 
 /**
@@ -252,7 +253,6 @@ Stage.prototype.toDataURL = function(backgroundColor, mimeType) {
  * Enables or disables (by passing a frequency of 0) mouse over handlers (onMouseOver and onMouseOut) for this stage's display
  * list. These events can be expensive to generate, so they are disabled by default, and the frequency of the events
  * can be controlled independently of mouse move events via the frequency parameter.
-
  * @param {number} frequency The maximum number of times per second to broadcast mouse over/out events. Set to 0 to disable mouse
  * over events completely. Maximum is 50. A lower frequency is less responsive, but uses less CPU.
  **/
@@ -273,18 +273,7 @@ Stage.prototype.enableMouseOver = function(frequency) {
 };
 
 /**
- * Returns a clone of this Stage.
- * @return {Stage} A clone of the current Container instance.
- **/
-Stage.prototype.clone = function() {
-  var o = new Stage(null);
-  this.cloneProps(o);
-  return o;
-};
-
-/**
  * Returns a string representation of this object.
-
  * @return {string} a string representation of the instance.
  **/
 Stage.prototype.toString = function() {
@@ -345,7 +334,6 @@ Stage.prototype._handleMouseMove = function(e) {
 };
 
 /**
-
  * @protected
  * @param {number} pageX
  * @param {number} pageY
@@ -380,7 +368,7 @@ Stage.prototype._handleMouseUp = function(e) {
   if (this._activeMouseEvent && this._activeMouseEvent.onMouseUp) {
     this._activeMouseEvent.onMouseUp(evt);
   }
-  if (this._activeMouseTarget && this._activeMouseTarget.onClick && this._getObjectsUnderPoint(this.mouseX, this.mouseY, null, true, (this._mouseOverIntervalID ? 3 : 1)) == this._activeMouseTarget) {
+  if (this._activeMouseTarget && this._activeMouseTarget.onClick && this._getObjectsUnderPoint(this.mouseX, this.mouseY, null, (this._mouseOverIntervalID ? 3 : 1)) == this._activeMouseTarget) {
 
     this._activeMouseTarget.onClick(new EaselMouseEvent('onClick', this.mouseX, this.mouseY, this._activeMouseTarget, e));
   }
@@ -426,7 +414,7 @@ Stage.prototype._testMouseOver = function() {
 
   if (this._mouseOverTarget != target) {
     if (this._mouseOverTarget && this._mouseOverTarget.onMouseOut) {
-      this._mouseOverTarget.onMouseOut(new EaselMouseEvent('onMouseOut', this.mouseX, this.mouseY, this._mouseOverTarget));
+      this._mouseOverTarget.onMouseOut(new EaselMouseEvent('onMouseOut', this.mouseX, this.mouseY, this._mouseOverTarget, null));
     }
     if (target && target.onMouseOver) {
       target.onMouseOver(new EaselMouseEvent('onMouseOver', this.mouseX, this.mouseY, target, null));
