@@ -41,7 +41,6 @@ goog.require('Matrix2D');
 goog.require('Point');
 goog.require('Rectangle');
 goog.require('Shadow');
-goog.require('UID');
 
 /**
  * DisplayObject is an abstract class that should not be constructed directly. Instead construct subclasses such as
@@ -50,23 +49,18 @@ goog.require('UID');
  * @constructor
  **/
 DisplayObject = function() {
-  this.id = UID.get();
   this._matrix = new Matrix2D();
 
   /**
    * The alpha (transparency) for this display object. 0 is fully transparent, 1 is fully opaque.
-   * @property alpha
-   * @type number
-   * @default 1
+   * @type {number}
    **/
   this.alpha = 1;
 
   /**
    * If a cache is active, this returns the canvas that holds the cached version of this display object. See cache()
    * for more information. READ-ONLY.
-   * @property cacheCanvas
-   * @type HTMLCanvasElement
-   * @default null
+   * @type {?HTMLCanvasElement}
    **/
   this.cacheCanvas = null;
 
@@ -74,26 +68,21 @@ DisplayObject = function() {
    * Indicates whether to include this object when running Stage.getObjectsUnderPoint(). Setting this to true for
    * Sprites will cause the Sprite to be returned (not its children) regardless of whether it's mouseChildren property
    * is true.
-   * @property mouseEnabled
-   * @type boolean
-   * @default true
+   * @type {boolean}
    **/
   this.mouseEnabled = true;
 
   /**
    * An optional name for this display object. Included in toString(). Useful for debugging.
-   * @property name
-   * @type string
-   * @default null
+   * @type {?string}
    **/
   this.name = null;
 
   /**
    * A reference to the Sprite or Stage object that contains this display object, or null if it has not been added to
    * one. READ-ONLY.
-   * @property parent
    * @final
-   * @type DisplayObject
+   * @type {DisplayObject}
    * @default null
    **/
   this.parent = null;
@@ -101,8 +90,7 @@ DisplayObject = function() {
   /**
    * The x offset for this display object's registration point. For example, to make a 100x100px Bitmap rotate around
    * it's center, you would set regX and regY to 50.
-   * @property regX
-   * @type number
+   * @type {number}
    * @default 0
    **/
   this.regX = 0;
@@ -110,16 +98,14 @@ DisplayObject = function() {
   /**
    * The y offset for this display object's registration point. For example, to make a 100x100px Bitmap rotate around
    * it's center, you would set regX and regY to 50.
-   * @property regY
-   * @type number
+   * @type {number}
    * @default 0
    **/
   this.regY = 0;
 
   /**
    * The rotation in degrees for this display object.
-   * @property rotation
-   * @type number
+   * @type {number}
    * @default 0
    **/
   this.rotation = 0;
@@ -127,8 +113,7 @@ DisplayObject = function() {
   /**
    * The factor to stretch this display object horizontally. For example, setting scaleX to 2 will stretch the display
    * object to twice it's nominal width.
-   * @property scaleX
-   * @type number
+   * @type {number}
    * @default 1
    **/
   this.scaleX = 1;
@@ -136,58 +121,45 @@ DisplayObject = function() {
   /**
    * The factor to stretch this display object vertically. For example, setting scaleY to 0.5 will stretch the display
    * object to half it's nominal height.
-   * @property scaleY
-   * @type number
+   * @type {number}
    * @default 1
    **/
   this.scaleY = 1;
 
   /**
    * The factor to skew this display object horizontally.
-   * @property skewX
-   * @type number
-   * @default 0
+   * @type {number}
    **/
   this.skewX = 0;
 
   /**
    * The factor to skew this display object vertically.
-   * @property skewY
-   * @type number
-   * @default 0
+   * @type {number}
    **/
   this.skewY = 0;
 
   /**
    * A shadow object that defines the shadow to render on this display object. Set to null to remove a shadow. If
    * null, this property is inherited from the parent container.
-   * @property shadow
-   * @type Shadow
-   * @default null
+   * @type {Shadow}
    **/
   this.shadow = null;
 
   /**
    * Indicates whether this display object should be rendered to the canvas and included when running
    * Stage.getObjectsUnderPoint().
-   * @property visible
-   * @type boolean
-   * @default true
+   * @type {boolean}
    **/
   this.visible = true;
 
   /**
    * The x (horizontal) position of the display object, relative to its parent.
-   * @property x
-   * @type number
-   * @default 0
+   * @type {number}
    **/
   this.x = 0;
 
   /** The y (vertical) position of the display object, relative to its parent.
-   * @property y
-   * @type number
-   * @default 0
+   * @type {number}
    **/
   this.y = 0;
 
@@ -196,9 +168,7 @@ DisplayObject = function() {
    * behind it. If null, this property is inherited from the parent container. For more information, read the
    * <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#compositing">
    * whatwg spec on compositing</a>.
-   * @property compositeOperation
-   * @type string
-   * @default null
+   * @type {string}
    **/
   this.compositeOperation = null;
 
@@ -207,9 +177,7 @@ DisplayObject = function() {
    * This only applies if the enclosing stage has snapPixelsEnabled set to true, and the display object's composite
    * transform does not include any scaling, rotation, or skewing. The snapToPixel property is true by default for
    * Bitmap and BitmapSequence instances, and false for all other display objects.
-   * @property snapToPixel
-   * @type boolean
-   * @default false
+   * @type {boolean}
    **/
   this.snapToPixel = false;
 };
@@ -296,7 +264,7 @@ DisplayObject.prototype.tick = null;
  * An array of Filter objects to apply to this display object. Filters are only applied / updated when cache() or
  * updateCache() is called on the display object, and only apply to the area that is cached.
  * @property filters
- * @type Array[Filter]
+ * @type {!Array.<!Filter>}
  * @default null
  **/
 DisplayObject.prototype.filters = null;
@@ -320,13 +288,13 @@ DisplayObject.prototype.isVisible = function() {
  * Returns true if the draw was handled (useful for overriding functionality).
  * NOTE: This method is mainly for internal use, though it may be useful for advanced uses.
  
- * @param {CanvasRenderingContext2D} ctx The canvas 2D context object to draw into.
- * @param {boolean} ignoreCache Indicates whether the draw operation should ignore any current cache.
+ * @param {!CanvasRenderingContext2D} ctx The canvas 2D context object to draw into.
+ * @param {boolean=} opt_ignoreCache Indicates whether the draw operation should ignore any current cache.
  * For example, used for drawing the cache (to prevent it from simply drawing an existing cache back
  * into itself).
  **/
-DisplayObject.prototype.draw = function(ctx, ignoreCache) {
-  if (ignoreCache || !this.cacheCanvas) {
+DisplayObject.prototype.draw = function(ctx, opt_ignoreCache) {
+  if (opt_ignoreCache || !this.cacheCanvas) {
     return false;
   }
   ctx.drawImage(this.cacheCanvas, this._cacheOffsetX, this._cacheOffsetY);
@@ -353,6 +321,9 @@ DisplayObject.prototype.cache = function(x, y, width, height) {
   if (this.cacheCanvas == null) {
     this.cacheCanvas = document.createElement('canvas');
   }
+  /**
+   *@type {!CanvasRenderingContext2D}
+   **/
   var ctx = this.cacheCanvas.getContext('2d');
   this.cacheCanvas.width = width;
   this.cacheCanvas.height = height;
@@ -377,6 +348,9 @@ DisplayObject.prototype.updateCache = function(compositeOperation) {
   if (this.cacheCanvas == null) {
     throw 'cache() must be called before updateCache()';
   }
+  /**
+   *@type {!CanvasRenderingContext2D}
+   **/
   var ctx = this.cacheCanvas.getContext('2d');
   ctx.setTransform(1, 0, 0, 1, -this._cacheOffsetX, -this._cacheOffsetY);
   if (!compositeOperation) {

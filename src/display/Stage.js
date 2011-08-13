@@ -54,7 +54,6 @@ goog.inherits(Stage, Container);
 
 // static properties:
 /**
- * @property _snapToPixelEnabled
  * @protected
  * @type boolean
  * @default false
@@ -64,7 +63,6 @@ Stage._snapToPixelEnabled = false; // snapToPixelEnabled is temporarily copied h
 /**
  * Indicates whether the stage should automatically clear the canvas before each render. You can set this to false to manually
  * control clearing (for generative art, or when pointing multiple stages at the same canvas for example).
- * @property autoClear
  * @type boolean
  * @default true
  **/
@@ -95,14 +93,12 @@ Stage.prototype.onMouseDown = null;
 
 /**
  * Indicates whether this stage should use the snapToPixel property of display objects when rendering them.
- * @property snapToPixelEnabled
  * @type boolean
  * @default false
  **/
 Stage.prototype.snapToPixelEnabled = false;
 
 /** Indicates whether the mouse is currently within the bounds of the canvas.
- * @property mouseInBounds
  * @type boolean
  * @default false
  **/
@@ -110,7 +106,6 @@ Stage.prototype.mouseInBounds = false;
 
 // private properties:
 /** If false, tick callbacks will be called on all display objects on the stage prior to rendering to the canvas.
- * @property tickOnUpdate
  * @type boolean
  * @default false
  **/
@@ -118,44 +113,38 @@ Stage.prototype.tickOnUpdate = true;
 
 // private properties:
 /**
- * @property _activeEaselMouseEvent
  * @protected
- * @type EaselMouseEvent
+ * @type {?EaselMouseEvent}
  **/
 Stage.prototype._activeEaselMouseEvent = null;
 
 /**
- * @property _activeMouseTarget
  * @protected
- * @type DisplayObject
+ * @type {?DisplayObject}
  **/
 Stage.prototype._activeMouseTarget = null;
 
 /**
- * @property _mouseOverIntervalID
  * @protected
- * @type number
+ * @type {?number}
  **/
 Stage.prototype._mouseOverIntervalID = null;
 
 /**
- * @property _mouseOverX
  * @protected
- * @type number
+ * @type {number}
  **/
 Stage.prototype._mouseOverX = 0;
 
 /**
- * @property _mouseOverY
  * @protected
  * @type number
  **/
 Stage.prototype._mouseOverY = 0;
 
 /**
- * @property _mouseOverTarget
  * @protected
- * @type DisplayObject
+ * @type {?DisplayObject}
  **/
 Stage.prototype._mouseOverTarget = null;
 
@@ -168,7 +157,6 @@ Stage.prototype._mouseOverTarget = null;
 /**
  * Each time the update method is called, the stage will tick any descendants exposing a tick method (ex. BitmapSequence)
  * and render its entire display list to the canvas.
-
  **/
 Stage.prototype.update = function() {
   if (!this.canvas) {
@@ -186,7 +174,6 @@ Stage.prototype.update = function() {
 
 /**
  * Calls the update method. Useful for adding stage as a listener to Ticker directly.
- * @property tick
  * @private
  * @type Function
  **/
@@ -194,7 +181,6 @@ Stage.prototype.tick = Stage.prototype.update;
 
 /**
  * Clears the target canvas. Useful if autoClear is set to false.
-
  **/
 Stage.prototype.clear = function() {
   if (!this.canvas) {

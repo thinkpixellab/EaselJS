@@ -39,12 +39,12 @@ goog.provide('Matrix2D');
 /**
  * Represents an affine transformation matrix, and provides tools for constructing and concatenating matrixes.
  * @constructor
- * @param {number} a Specifies the a property for the new matrix.
- * @param {number} b Specifies the b property for the new matrix.
- * @param {number} c Specifies the c property for the new matrix.
- * @param {number} d Specifies the d property for the new matrix.
- * @param {number} tx Specifies the tx property for the new matrix.
- * @param {number} ty Specifies the ty property for the new matrix.
+ * @param {number=} a Specifies the a property for the new matrix.
+ * @param {number=} b Specifies the b property for the new matrix.
+ * @param {number=} c Specifies the c property for the new matrix.
+ * @param {number=} d Specifies the d property for the new matrix.
+ * @param {number=} tx Specifies the tx property for the new matrix.
+ * @param {number=} ty Specifies the ty property for the new matrix.
  **/
 Matrix2D = function(a, b, c, d, tx, ty) {
   this.initialize(a, b, c, d, tx, ty);
@@ -142,12 +142,12 @@ Matrix2D.prototype.compositeOperation = null;
  * @protected
  */
 Matrix2D.prototype.initialize = function(a, b, c, d, tx, ty) {
-  if (a != null) {
+  if (a !== undefined) {
     this.a = a;
   }
   this.b = b || 0;
   this.c = c || 0;
-  if (d != null) {
+  if (d !== undefined) {
     this.d = d;
   }
   this.tx = tx || 0;
