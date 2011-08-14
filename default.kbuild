@@ -1,4 +1,4 @@
-base_path: lib/base.js
+base_path: lib/
 inputs:
   - examples/game/game.js
 js_paths:

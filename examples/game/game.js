@@ -4,203 +4,181 @@ goog.require('Ship');
 goog.require('SpaceRock');
 goog.require('Stage');
 
-var DIFFICULTY = 2; //how fast the game gets mor difficult
-var ROCK_TIME = 110; //aprox tick count untill a new asteroid gets introduced
-var SUB_ROCK_COUNT = 4; //how many small rocks to make on rock death
-var BULLET_TIME = 5; //ticks between bullets
-var BULLET_ENTROPY = 100; //how much energy a bullet has before it runs out.
-var TURN_FACTOR = 7; //how far the ship turns per frame
-var BULLET_SPEED = 17; //how fast the bullets move
-var KEYCODE_SPACE = 32; //usefull keycode
-var KEYCODE_UP = 38; //usefull keycode
-var KEYCODE_LEFT = 37; //usefull keycode
-var KEYCODE_RIGHT = 39; //usefull keycode
-var KEYCODE_W = 87; //usefull keycode
-var KEYCODE_A = 65; //usefull keycode
-var KEYCODE_D = 68; //usefull keycode
-var shootHeld; //is the user holding a shoot command
-var lfHeld; //is the user holding a turn left command
-var rtHeld; //is the user holding a turn right command
-var fwdHeld; //is the user holding a forward command
-var timeToRock; //difficulty adjusted version of ROCK_TIME
-var nextRock; //ticks left untill a new space rock arrives
-var nextBullet; //ticks left untill the next shot is fired
-var rockBelt; //space rock array
-var bulletStream; //bullet array
-var canvas; //Main canvas
-var stage; //Main display stage
-var ship; //the actual ship
-var alive; //wheter the player is alive
-var messageField; //Message display field
-var scoreField; //score Field
-//register key functions
-document.onkeydown = handleKeyDown;
-document.onkeyup = handleKeyUp;
+/**
+ * @constructor
+ **/
+var Game = function() {
+  this.canvas = /** @type {!HTMLCanvasElement} */ document.getElementById("testCanvas");
+  this.stage = new Stage(this.canvas);
 
+  this.scoreField = new DisplayText("0", "bold 12px Arial", "#FFFFFF");
+  this.scoreField.textAlign = "right";
+  this.scoreField.x = this.canvas.width - 10;
+  this.scoreField.y = 22;
 
+  this.messageField = new DisplayText("Welcome:  Click to play", "bold 24px Arial", "#FFFFFF");
+  this.messageField.textAlign = "center";
+  this.messageField.x = this.canvas.width / 2;
+  this.messageField.y = this.canvas.height / 2;
 
-window['init'] = function() {
-  //associate the canvas with the stage
-  canvas = /** @type {!HTMLCanvasElement} */ document.getElementById("testCanvas");
-  stage = new Stage(canvas);
+  this.canvas.onclick = goog.bind(Game.prototype.handleClick, this);
+  document.onkeydown = goog.bind(this.handleKeyDown, this);
+  document.onkeyup = goog.bind(this.handleKeyUp, this);
 
-  scoreField = new DisplayText("0", "bold 12px Arial", "#FFFFFF");
-  scoreField.textAlign = "right";
-  scoreField.x = canvas.width - 10;
-  scoreField.y = 22;
-
-  messageField = new DisplayText("Welcome:  Click to play", "bold 24px Arial", "#FFFFFF");
-  messageField.textAlign = "center";
-  messageField.x = canvas.width / 2;
-  messageField.y = canvas.height / 2;
-
-  watchRestart();
+  this.watchRestart();
 };
 
+Game.DIFFICULTY = 2; //how fast the game gets mor difficult
+Game.ROCK_TIME = 110; //aprox tick count untill a new asteroid gets introduced
+Game.SUB_ROCK_COUNT = 4; //how many small rocks to make on rock death
+Game.BULLET_TIME = 5; //ticks between bullets
+Game.BULLET_ENTROPY = 100; //how much energy a bullet has before it runs out.
+Game.TURN_FACTOR = 7; //how far the ship turns per frame
+Game.BULLET_SPEED = 17; //how fast the bullets move
+Game.KEYCODE_SPACE = 32; //usefull keycode
+Game.KEYCODE_UP = 38; //usefull keycode
+Game.KEYCODE_LEFT = 37; //usefull keycode
+Game.KEYCODE_RIGHT = 39; //usefull keycode
+Game.KEYCODE_W = 87; //usefull keycode
+Game.KEYCODE_A = 65; //usefull keycode
+Game.KEYCODE_D = 68; //usefull keycode
 
+Game.prototype.watchRestart = function() {
+  this.stage.addChild(this.messageField);
+  this.stage.update(); //update the stage to show text
+};
 
-function watchRestart() {
-  //watch for clicks
-  stage.addChild(messageField);
-  stage.update(); //update the stage to show text
-  canvas.onclick = handleClick;
-}
-
-
-
-function handleClick() {
-  //prevent extra clicks and hide text
-  canvas.onclick = null;
-  stage.removeChild(messageField);
-
-  restart();
-}
+Game.prototype.handleClick = function() {
+  this.stage.removeChild(this.messageField);
+  this.restart();
+};
 
 //reset all game logic
-function restart() {
+Game.prototype.restart = function() {
   //hide anything on stage and show the score
-  stage.removeAllChildren();
-  scoreField.text = (0).toString();
-  stage.addChild(scoreField);
+  this.stage.removeAllChildren();
+  this.scoreField.text = (0).toString();
+  this.stage.addChild(this.scoreField);
 
   //new arrays to dump old data
-  rockBelt = [];
-  bulletStream = [];
+  this.rockBelt = [];
+  this.bulletStream = [];
 
   //create the player
-  alive = true;
-  ship = new Ship();
-  ship.x = canvas.width / 2;
-  ship.y = canvas.height / 2;
+  this.alive = true;
+  this.ship = new Ship();
+  this.ship.x = this.canvas.width / 2;
+  this.ship.y = this.canvas.height / 2;
 
   //log time untill values
-  timeToRock = ROCK_TIME;
-  nextRock = 0;
-  nextBullet = 0;
+  this.timeToRock = Game.ROCK_TIME;
+  this.nextRock = 0;
+  this.nextBullet = 0;
 
   //reset key presses
-  shootHeld = false;
-  lfHeld = false;
-  rtHeld = false;
-  fwdHeld = false;
+  this.shootHeld = false;
+  this.lfHeld = false;
+  this.rtHeld = false;
+  this.fwdHeld = false;
 
   //ensure stage is blank and add the ship
-  stage.clear();
-  stage.addChild(ship);
+  this.stage.clear();
+  this.stage.addChild(this.ship);
 
   //start game timer
-  Ticker.addListener(goog.global);
-}
+  Ticker.removeListener(this);
+  Ticker.addListener(this);
+};
 
-goog.global['tick'] = function tick(){
+Game.prototype.tick = function() {
   var index;
   var o;
-  
+
   //handle firing
-  if (nextBullet <= 0) {
-    if (alive && shootHeld) {
-      nextBullet = BULLET_TIME;
-      fireBullet();
+  if (this.nextBullet <= 0) {
+    if (this.alive && this.shootHeld) {
+      this.nextBullet = Game.BULLET_TIME;
+      this.fireBullet();
     }
   } else {
-    nextBullet--;
+    this.nextBullet--;
   }
 
   //handle turning
-  if (alive && lfHeld) {
-    ship.rotation -= TURN_FACTOR;
-  } else if (alive && rtHeld) {
-    ship.rotation += TURN_FACTOR;
+  if (this.alive && this.lfHeld) {
+    this.ship.rotation -= Game.TURN_FACTOR;
+  } else if (this.alive && this.rtHeld) {
+    this.ship.rotation += Game.TURN_FACTOR;
   }
 
   //handle thrust
-  if (alive && fwdHeld) {
-    ship.accelerate();
+  if (this.alive && this.fwdHeld) {
+    this.ship.accelerate();
   }
 
   //handle new spaceRocks
-  if (nextRock <= 0) {
-    if (alive) {
-      timeToRock -= DIFFICULTY; //reduce spaceRock spacing slowly to increase difficulty with time
-      index = getSpaceRock(SpaceRock.LRG_ROCK);
-      rockBelt[index].floatOnScreen(canvas.width, canvas.height);
-      nextRock = timeToRock + timeToRock * Math.random();
+  if (this.nextRock <= 0) {
+    if (this.alive) {
+      this.timeToRock -= Game.DIFFICULTY; //reduce spaceRock spacing slowly to increase difficulty with time
+      index = this.getSpaceRock(SpaceRock.LRG_ROCK);
+      this.rockBelt[index].floatOnScreen(this.canvas.width, this.canvas.height);
+      this.nextRock = this.timeToRock * (Math.random() + 1);
     }
   } else {
-    nextRock--;
+    this.nextRock--;
   }
 
   //handle ship looping
-  if (alive && outOfBounds(ship, ship.bounds)) {
-    placeInBounds(ship, ship.bounds);
+  if (this.alive && this.outOfBounds(this.ship, this.ship.bounds)) {
+    this.placeInBounds(this.ship, this.ship.bounds);
   }
 
   //handle bullet movement and looping
-  for (var bullet in bulletStream) {
-    o = bulletStream[bullet];
+  for (var bullet in this.bulletStream) {
+    o = this.bulletStream[bullet];
     if (!o || !o.active) {
       continue;
     }
-    if (outOfBounds(o, ship.bounds)) {
-      placeInBounds(o, ship.bounds);
+    if (this.outOfBounds(o, this.ship.bounds)) {
+      this.placeInBounds(o, this.ship.bounds);
     }
-    o.x += Math.sin(o.rotation * (Math.PI / -180)) * BULLET_SPEED;
-    o.y += Math.cos(o.rotation * (Math.PI / -180)) * BULLET_SPEED;
+    o.x += Math.sin(o.rotation * (Math.PI / -180)) * Game.BULLET_SPEED;
+    o.y += Math.cos(o.rotation * (Math.PI / -180)) * Game.BULLET_SPEED;
 
     if (--o.entropy <= 0) {
-      stage.removeChild(o);
+      this.stage.removeChild(o);
       o.active = false;
     }
   }
 
   //handle spaceRocks (nested in one loop to prevent excess loops)
-  for (var spaceRock in rockBelt) {
-    o = rockBelt[spaceRock];
+  for (var spaceRock in this.rockBelt) {
+    o = this.rockBelt[spaceRock];
     if (!o || !o.active) {
       continue;
     }
 
     //handle spaceRock movement and looping
-    if (outOfBounds(o, o.bounds)) {
-      placeInBounds(o, o.bounds);
+    if (this.outOfBounds(o, o.bounds)) {
+      this.placeInBounds(o, o.bounds);
     }
     o.tick();
 
     //handle spaceRock ship collisions
-    if (alive && o.hitRadius(ship.x, ship.y, ship.hit)) {
-      alive = false;
+    if (this.alive && o.hitRadius(this.ship.x, this.ship.y, this.ship.hit)) {
+      this.alive = false;
 
-      stage.removeChild(ship);
-      messageField.text = "You're dead:  Click to play again";
-      stage.addChild(messageField);
-      watchRestart();
+      this.stage.removeChild(this.ship);
+      this.messageField.text = "You're dead:  Click to play again";
+      this.stage.addChild(this.messageField);
+      this.watchRestart();
 
       continue;
     }
 
     //handle spaceRock bullet collisions
-    for (bullet in bulletStream) {
-      var p = bulletStream[bullet];
+    for (bullet in this.bulletStream) {
+      var p = this.bulletStream[bullet];
       if (!p || !p.active) {
         continue;
       }
@@ -220,8 +198,8 @@ goog.global['tick'] = function tick(){
         }
 
         //score
-        if (alive) {
-          addScore(o.score);
+        if (this.alive) {
+          this.addScore(o.score);
         }
 
         //create more
@@ -229,82 +207,74 @@ goog.global['tick'] = function tick(){
           var i;
           var offSet;
 
-          for (i = 0; i < SUB_ROCK_COUNT; i++) {
-            index = getSpaceRock(newSize);
+          for (i = 0; i < Game.SUB_ROCK_COUNT; i++) {
+            index = this.getSpaceRock(newSize);
             offSet = (Math.random() * o.size * 2) - o.size;
-            rockBelt[index].x = o.x + offSet;
-            rockBelt[index].y = o.y + offSet;
+            this.rockBelt[index].x = o.x + offSet;
+            this.rockBelt[index].y = o.y + offSet;
           }
         }
 
         //remove
-        stage.removeChild(o);
-        rockBelt[spaceRock].active = false;
+        this.stage.removeChild(o);
+        this.rockBelt[spaceRock].active = false;
 
-        stage.removeChild(p);
-        bulletStream[bullet].active = false;
+        this.stage.removeChild(p);
+        this.bulletStream[bullet].active = false;
       }
     }
   }
 
   //call sub ticks
-  ship.tick();
-  stage.update();
+  this.ship.tick();
+  this.stage.update();
 };
 
-
-
-function outOfBounds(o, bounds) {
+Game.prototype.outOfBounds = function(o, bounds) {
   //is it visibly off screen
-  return o.x < bounds * -2 || o.y < bounds * -2 || o.x > canvas.width + bounds * 2 || o.y > canvas.height + bounds * 2;
-}
+  return o.x < bounds * -2 || o.y < bounds * -2 || o.x > this.canvas.width + bounds * 2 || o.y > this.canvas.height + bounds * 2;
+};
 
-
-
-function placeInBounds(o, bounds) {
+Game.prototype.placeInBounds = function(o, bounds) {
   //if its visual bounds are entirely off screen place it off screen on the other side
-  if (o.x > canvas.width + bounds * 2) {
+  if (o.x > this.canvas.width + bounds * 2) {
     o.x = bounds * -2;
   } else if (o.x < bounds * -2) {
-    o.x = canvas.width + bounds * 2;
+    o.x = this.canvas.width + bounds * 2;
   }
 
   //if its visual bounds are entirely off screen place it off screen on the other side
-  if (o.y > canvas.height + bounds * 2) {
+  if (o.y > this.canvas.height + bounds * 2) {
     o.y = bounds * -2;
   } else if (o.y < bounds * -2) {
-    o.y = canvas.height + bounds * 2;
+    o.y = this.canvas.height + bounds * 2;
   }
-}
+};
 
-
-
-function fireBullet() {
+Game.prototype.fireBullet = function() {
   //create the bullet
-  var o = bulletStream[getBullet()];
-  o.x = ship.x;
-  o.y = ship.y;
-  o.rotation = ship.rotation;
-  o.entropy = BULLET_ENTROPY;
+  var o = this.bulletStream[this.getBullet()];
+  o.x = this.ship.x;
+  o.y = this.ship.y;
+  o.rotation = this.ship.rotation;
+  o.entropy = Game.BULLET_ENTROPY;
   o.active = true;
 
   //draw the bullet
   o.graphics.beginStroke("#FFFFFF").moveTo(-1, 0).lineTo(1, 0);
-}
+};
 
-
-
-function getSpaceRock(size) {
+Game.prototype.getSpaceRock = function(size) {
   var i = 0;
-  var len = rockBelt.length;
+  var len = this.rockBelt.length;
 
   //pooling approach
   while (i <= len) {
-    if (!rockBelt[i]) {
-      rockBelt[i] = new SpaceRock(size);
+    if (!this.rockBelt[i]) {
+      this.rockBelt[i] = new SpaceRock(size);
       break;
-    } else if (!rockBelt[i].active) {
-      rockBelt[i].activate(size);
+    } else if (!this.rockBelt[i].active) {
+      this.rockBelt[i].activate(size);
       break;
     } else {
       i++;
@@ -312,26 +282,24 @@ function getSpaceRock(size) {
   }
 
   if (len === 0) {
-    rockBelt[0] = new SpaceRock(size);
+    this.rockBelt[0] = new SpaceRock(size);
   }
 
-  stage.addChild(rockBelt[i]);
+  this.stage.addChild(this.rockBelt[i]);
   return i;
-}
+};
 
-
-
-function getBullet() {
+Game.prototype.getBullet = function() {
   var i = 0;
-  var len = bulletStream.length;
+  var len = this.bulletStream.length;
 
   //pooling approach
   while (i <= len) {
-    if (!bulletStream[i]) {
-      bulletStream[i] = new Shape();
+    if (!this.bulletStream[i]) {
+      this.bulletStream[i] = new Shape();
       break;
-    } else if (!bulletStream[i].active) {
-      bulletStream[i].active = true;
+    } else if (!this.bulletStream[i].active) {
+      this.bulletStream[i].active = true;
       break;
     } else {
       i++;
@@ -339,67 +307,66 @@ function getBullet() {
   }
 
   if (len === 0) {
-    bulletStream[0] = new Shape();
+    this.bulletStream[0] = new Shape();
   }
 
-  stage.addChild(bulletStream[i]);
+  this.stage.addChild(this.bulletStream[i]);
   return i;
-}
+};
 
 //allow for WASD and arrow control scheme
-function handleKeyDown(e) {
+Game.prototype.handleKeyDown = function(e) {
   //cross browser issues exist
   if (!e) {
     e = window.event;
   }
   switch (e.keyCode) {
-  case KEYCODE_SPACE:
-    shootHeld = true;
+  case Game.KEYCODE_SPACE:
+    this.shootHeld = true;
     break;
-  case KEYCODE_A:
-  case KEYCODE_LEFT:
-    lfHeld = true;
+  case Game.KEYCODE_A:
+  case Game.KEYCODE_LEFT:
+    this.lfHeld = true;
     break;
-  case KEYCODE_D:
-  case KEYCODE_RIGHT:
-    rtHeld = true;
+  case Game.KEYCODE_D:
+  case Game.KEYCODE_RIGHT:
+    this.rtHeld = true;
     break;
-  case KEYCODE_W:
-  case KEYCODE_UP:
-    fwdHeld = true;
+  case Game.KEYCODE_W:
+  case Game.KEYCODE_UP:
+    this.fwdHeld = true;
     break;
   }
-}
+};
 
-
-
-function handleKeyUp(e) {
+Game.prototype.handleKeyUp = function(e) {
   //cross browser issues exist
   if (!e) {
     e = window.event;
   }
   switch (e.keyCode) {
-  case KEYCODE_SPACE:
-    shootHeld = false;
+  case Game.KEYCODE_SPACE:
+    this.shootHeld = false;
     break;
-  case KEYCODE_A:
-  case KEYCODE_LEFT:
-    lfHeld = false;
+  case Game.KEYCODE_A:
+  case Game.KEYCODE_LEFT:
+    this.lfHeld = false;
     break;
-  case KEYCODE_D:
-  case KEYCODE_RIGHT:
-    rtHeld = false;
+  case Game.KEYCODE_D:
+  case Game.KEYCODE_RIGHT:
+    this.rtHeld = false;
     break;
-  case KEYCODE_W:
-  case KEYCODE_UP:
-    fwdHeld = false;
+  case Game.KEYCODE_W:
+  case Game.KEYCODE_UP:
+    this.fwdHeld = false;
     break;
   }
-}
+};
 
-
-
-function addScore(value) {
+Game.prototype.addScore = function(value) {
   //trust the field will have a number and add the score
-  scoreField.text = (Number(scoreField.text) + Number(value)).toString();
-}
+  this.scoreField.text = (Number(this.scoreField.text) + Number(value)).toString();
+};
+
+goog.exportSymbol('Game', Game);
+goog.exportProperty(Game.prototype, 'tick', Game.prototype.tick);

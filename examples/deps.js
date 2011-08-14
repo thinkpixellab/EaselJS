@@ -23,6 +23,6 @@ goog.addDependency("box.js", ['goog.math.Box'], ['goog.math.Coordinate']);
 goog.addDependency("coordinate.js", ['goog.math.Coordinate'], []);
 goog.addDependency("rect.js", ['goog.math.Rect'], ['goog.math.Box', 'goog.math.Size']);
 goog.addDependency("size.js", ['goog.math.Size'], []);
-goog.addDependency("../examples/game/game.js", [], ['DisplayText', 'Ticker', 'Ship', 'SpaceRock', 'Stage']);
+goog.addDependency("../examples/game/game.js", ['Game'], ['DisplayText', 'Ticker', 'Ship', 'SpaceRock', 'Stage']);
 goog.addDependency("../examples/game/Ship.js", ['Ship'], ['Container', 'Shape']);
 goog.addDependency("../examples/game/SpaceRock.js", ['SpaceRock'], ['Container', 'Shape']);
