@@ -31,7 +31,6 @@
  * The Easel Javascript library provides a retained graphics mode for canvas
  * including a full, hierarchical display list, a core interaction model, and
  * helper classes to make working with Canvas much easier.
- 
  **/
 
 goog.provide('Container');
@@ -51,19 +50,16 @@ goog.require('DisplayObject');
  **/
 Container = function() {
   DisplayObject.call(this);
+
+  /**
+   * The array of children in the display list. You should usually use the child management methods,
+   * rather than accessing this directly, but it is included for advanced users.
+   * @property children
+   * @type Array.<DisplayObject>
+   **/
   this.children = [];
 };
 goog.inherits(Container, DisplayObject);
-
-// public properties:
-/**
- * The array of children in the display list. You should usually use the child management methods,
- * rather than accessing this directly, but it is included for advanced users.
- * @property children
- * @type Array.<DisplayObject>
- * @default null
- **/
-Container.prototype.children = null;
 
 // public methods:
 /**
@@ -132,7 +128,7 @@ Container.prototype.draw = function(ctx, ignoreCache, _mtx) {
  * Adds a child to the top of the display list. You can also add multiple children, such as "addChild(child1, child2, ...);".
  * Returns the child that was added, or the last child if multiple children were added.
  
- * @param {DisplayObject} child The display object to add.
+ * @param {...DisplayObject} child The display object to add.
  * @return {DisplayObject} The child that was added, or the last child if multiple children were added.
  **/
 Container.prototype.addChild = function(child) {
